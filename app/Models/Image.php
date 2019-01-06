@@ -25,41 +25,40 @@ use App\Models\BaseModel;
  * 
  * @property \Illuminate\Database\Eloquent\Collection $galleries
  *
- * @package App\Models
  */
 class Image extends BaseModel
 {
-	const NAME 			= 'name';
-	const PATH 			= 'path';
-	const CAPTION 		= 'caption';
-	const DESCRIPTION 	= 'desciprtion';
-	const HREF 			= 'href';
-	const WIDTH 		= 'width';
-	const HEIGHT 		= 'height';
+    const NAME 			= 'name';
+    const PATH 			= 'path';
+    const CAPTION 		= 'caption';
+    const DESCRIPTION 	= 'desciprtion';
+    const HREF 			= 'href';
+    const WIDTH 		= 'width';
+    const HEIGHT 		= 'height';
 
-	protected $table = 'image';
+    protected $table = 'image';
 
-	protected $casts = [
-		self::WIDTH 	=> 'float',
-		self::WIDTH 	=> 'float'
-	];
+    protected $casts = [
+        self::WIDTH 	=> 'float',
+        self::WIDTH 	=> 'float'
+    ];
 
-	protected $fillable = [
-		self::NAME,
-		self::PATH,
-		self::CAPTION,
-		self::DESCRIPTION,
-		self::WIDTH,
-		self::WIDTH,
-		self::HREF
-	];
-	protected $appends = [
-		'locale_value'
-	];
-	public function galleries()
-	{
-		return $this->belongsToMany(\App\Models\Gallery::class)
-					->withPivot('id', 'sequence')
-					->withTimestamps();
-	}
+    protected $fillable = [
+        self::NAME,
+        self::PATH,
+        self::CAPTION,
+        self::DESCRIPTION,
+        self::WIDTH,
+        self::WIDTH,
+        self::HREF
+    ];
+    protected $appends = [
+        'locale_value'
+    ];
+    public function galleries()
+    {
+        return $this->belongsToMany(\App\Models\Gallery::class)
+                    ->withPivot('id', 'sequence')
+                    ->withTimestamps();
+    }
 }

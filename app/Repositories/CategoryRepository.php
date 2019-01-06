@@ -7,36 +7,39 @@ use App\Models\Categorie;
 use DB;
 use Exception;
 
-
-class CategoryRepository extends BaseRepository{
-
+class CategoryRepository extends BaseRepository
+{
     protected $category;
 
-    public function __construct(Categorie $category){
+    public function __construct(Categorie $category)
+    {
         $this->category = $category;
     }
 
-    public function index(){
+    public function index()
+    {
         return $this->category->All();
     }
 
-    public function findBy($params){
+    public function findBy($params)
+    {
         $query = $this->category->select('*');
-        foreach($params as $key => $value){
+        foreach ($params as $key => $value) {
             $query->where($key, '=', $value);
         }
         return $query;
     }
 
-    public function store($params){
-        try{
+    public function store($params)
+    {
+        try {
             DB::beginTransaction();
 
             /**
              * name
              */
             $name       = $this->category->textName()->first();
-            if(!$name){
+            if (!$name) {
                 $name   = $this->category->textName()->create();
             }
             $name->save();
@@ -47,19 +50,19 @@ class CategoryRepository extends BaseRepository{
             ];
 
             $translation 						= $name->translations()->where('locale_id', '=', $nparams['locale_id'])->first();
-            if(!$translation){
+            if (!$translation) {
                 $translation 					= $name->translations()->create($nparams);
-            }else{
+            } else {
                 $translation->fill($nparams);
             }
             $translation->save();
-        
+
 
             /**
              * description
              */
             $description       = $this->category->textDescription()->first();
-            if(!$description){
+            if (!$description) {
                 $description   = $this->category->textDescription()->create();
             }
             $description->save();
@@ -70,9 +73,9 @@ class CategoryRepository extends BaseRepository{
             ];
 
             $translation 						= $description->translations()->where('locale_id', '=', $dparams['locale_id'])->first();
-            if(!$translation){
+            if (!$translation) {
                 $translation 					= $description->translations()->create($dparams);
-            }else{
+            } else {
                 $translation->fill($dparams);
             }
             $translation->save();
@@ -92,14 +95,15 @@ class CategoryRepository extends BaseRepository{
             $cat->save();
             DB::commit();
             return $cat;
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             DB::rollback();
             return $e->getMessage();
         }
     }
 
-    public function update($id, $params){
-        try{
+    public function update($id, $params)
+    {
+        try {
             DB::beginTransaction();
 
             $cat =  $this->category->find($id);
@@ -108,7 +112,7 @@ class CategoryRepository extends BaseRepository{
              * name
              */
             $name       = $cat->textName()->first();
-            if(!$name){
+            if (!$name) {
                 $name   = $cat->textName()->create();
             }
             $name->save();
@@ -119,19 +123,19 @@ class CategoryRepository extends BaseRepository{
             ];
 
             $translation 						= $name->translations()->where('locale_id', '=', $nparams['locale_id'])->first();
-            if(!$translation){
+            if (!$translation) {
                 $translation 					= $name->translations()->create($nparams);
-            }else{
+            } else {
                 $translation->fill($nparams);
             }
             $translation->save();
-        
+
 
             /**
              * description
              */
             $description       = $cat->textDescription()->first();
-            if(!$description){
+            if (!$description) {
                 $description   = $cat->textDescription()->create();
             }
             $description->save();
@@ -142,9 +146,9 @@ class CategoryRepository extends BaseRepository{
             ];
 
             $translation 						= $description->translations()->where('locale_id', '=', $dparams['locale_id'])->first();
-            if(!$translation){
+            if (!$translation) {
                 $translation 					= $description->translations()->create($dparams);
-            }else{
+            } else {
                 $translation->fill($dparams);
             }
             $translation->save();
@@ -164,7 +168,7 @@ class CategoryRepository extends BaseRepository{
             $cat->save();
             DB::commit();
             return $cat;
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             DB::rollback();
             return $e->getMessage();
         }

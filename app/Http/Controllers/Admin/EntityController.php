@@ -14,12 +14,14 @@ class EntityController extends Controller
     protected $entityservice;
     protected $localeservice;
 
-    public function __construct(EntityService $entityservice, LocaleService $localeservice){
+    public function __construct(EntityService $entityservice, LocaleService $localeservice)
+    {
         $this->entityservice = $entityservice;
         $this->localeservice = $localeservice;
     }
 
-    public function index(){
+    public function index()
+    {
         $entities =  $this->entityservice->index();
 
         $locales    = $this->localeservice->index();
@@ -33,8 +35,9 @@ class EntityController extends Controller
         return view('admin.entities.index', $data);
     }
 
-    public function new(Request $request){
-        try{
+    public function new(Request $request)
+    {
+        try {
             $locales    = $this->localeservice->index();
             $locale     = Session::get('locale');
 
@@ -49,12 +52,13 @@ class EntityController extends Controller
                 ];
 
             return view('admin.entities.forms.new', $data);
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return view('admin.entities.forms.new', $data);
         }
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $entity    = $this->entityservice->show($id);
 
         $locale     = Session::get('locale');

@@ -25,7 +25,6 @@ use App\Models\BaseModel;
  * 
  * @property \Illuminate\Database\Eloquent\Collection $roles
  *
- * @package App\Models
  */
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -40,38 +39,38 @@ class User extends BaseModel implements
     AuthorizableContract,
     CanResetPasswordContract
 {
-	use Authenticatable, Authorizable, CanResetPassword;
+    use Authenticatable, Authorizable, CanResetPassword;
 
-	const FIRSTNAME 	= 'firstname';
-	const LASTNAME 		= 'lastname';
-	const PASS 			= 'password';
-	const SALT 			= 'password_salt';
-	const EMAIL 		= 'email';
-	const RMTOKEN 		= 'remember_token';
-	const CREATED_AT 	= 'created_at';
-	const UPDATED_AT 	= 'updated_at';
+    const FIRSTNAME 	= 'firstname';
+    const LASTNAME 		= 'lastname';
+    const PASS 			= 'password';
+    const SALT 			= 'password_salt';
+    const EMAIL 		= 'email';
+    const RMTOKEN 		= 'remember_token';
+    const CREATED_AT 	= 'created_at';
+    const UPDATED_AT 	= 'updated_at';
 
-	protected $table 	= 'user';
+    protected $table 	= 'user';
 
-	protected $hidden = [
-		self::PASS,
-		self::RMTOKEN
-	];
+    protected $hidden = [
+        self::PASS,
+        self::RMTOKEN
+    ];
 
-	protected $fillable = [
-		self::FIRSTNAME,
-		self::LASTNAME,
-		self::PASS,
-		self::SALT,
-		self::EMAIL,
-		self::RMTOKEN
-	];
-	protected $appends = [
-		'locale_value'
-	];
-	public function roles()
-	{
-		return $this->belongsToMany(\App\Models\Role::class, 'user_role')
-					->withTimestamps();
-	}
+    protected $fillable = [
+        self::FIRSTNAME,
+        self::LASTNAME,
+        self::PASS,
+        self::SALT,
+        self::EMAIL,
+        self::RMTOKEN
+    ];
+    protected $appends = [
+        'locale_value'
+    ];
+    public function roles()
+    {
+        return $this->belongsToMany(\App\Models\Role::class, 'user_role')
+                    ->withTimestamps();
+    }
 }

@@ -14,15 +14,17 @@ use App\Services\AdminService;
 use App\Models\Section;
 use App\Models\Categorie;
 
-class AdminController extends Controller{
-
+class AdminController extends Controller
+{
     protected $adminservice;
 
-    public function __construct(AdminService $adminservice){
+    public function __construct(AdminService $adminservice)
+    {
         $this->adminservice = $adminservice;
     }
 
-    public function index(){
+    public function index()
+    {
         $categories = $this->adminservice->index();
         // dd($categories->toArray());
         $data = [
@@ -30,5 +32,4 @@ class AdminController extends Controller{
         ];
         return view('admin.main', $data);
     }
-    
 }

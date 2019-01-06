@@ -22,37 +22,36 @@ use App\Models\BaseModel;
  * @property \App\Models\Gallery $gallery
  * @property \App\Models\Section $section
  *
- * @package App\Models
  */
 class GallerySection extends BaseModel
 {
-	const GALLERY 	= 'gallery_id';
-	const SECTION 	= 'section_id';
-	const SEQUENCE 	= 'sequence';
+    const GALLERY 	= 'gallery_id';
+    const SECTION 	= 'section_id';
+    const SEQUENCE 	= 'sequence';
 
-	protected $table = 'gallery_section';
+    protected $table = 'gallery_section';
 
-	protected $casts = [
-		self::GALLERY 	=> 'int',
-		self::SECTION 	=> 'int',
-		self::SEQUENCE 	=> 'int'
-	];
+    protected $casts = [
+        self::GALLERY 	=> 'int',
+        self::SECTION 	=> 'int',
+        self::SEQUENCE 	=> 'int'
+    ];
 
-	protected $fillable = [
-		self::GALLERY,
-		self::SECTION,
-		self::SEQUENCE
-	];
-	protected $appends = [
-		'locale_value'
-	];
-	public function gallery()
-	{
-		return $this->belongsTo(\App\Models\Gallery::class);
-	}
+    protected $fillable = [
+        self::GALLERY,
+        self::SECTION,
+        self::SEQUENCE
+    ];
+    protected $appends = [
+        'locale_value'
+    ];
+    public function gallery()
+    {
+        return $this->belongsTo(\App\Models\Gallery::class);
+    }
 
-	public function section()
-	{
-		return $this->belongsTo(\App\Models\Section::class);
-	}
+    public function section()
+    {
+        return $this->belongsTo(\App\Models\Section::class);
+    }
 }

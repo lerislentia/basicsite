@@ -2,6 +2,6 @@
 
 namespace App\Repositories;
 
-class BaseRepository{
-    
+class BaseRepository
+{
 }

@@ -20,30 +20,29 @@ use App\Models\BaseModel;
  * @property \App\Models\Role $role
  * @property \App\Models\User $user
  *
- * @package App\Models
  */
 class UserRole extends BaseModel
 {
-	const USER 	= 'user_id';
-	const ROLE 	= 'role_id';
+    const USER 	= 'user_id';
+    const ROLE 	= 'role_id';
 
-	protected $table = 'user_role';
-	public $incrementing = false;
+    protected $table = 'user_role';
+    public $incrementing = false;
 
-	protected $casts = [
-		self::USER => 'int',
-		self::ROLE => 'int'
-	];
-	protected $appends = [
-		'locale_value'
-	];
-	public function role()
-	{
-		return $this->belongsTo(\App\Models\Role::class);
-	}
+    protected $casts = [
+        self::USER => 'int',
+        self::ROLE => 'int'
+    ];
+    protected $appends = [
+        'locale_value'
+    ];
+    public function role()
+    {
+        return $this->belongsTo(\App\Models\Role::class);
+    }
 
-	public function user()
-	{
-		return $this->belongsTo(\App\Models\User::class);
-	}
+    public function user()
+    {
+        return $this->belongsTo(\App\Models\User::class);
+    }
 }

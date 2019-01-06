@@ -21,35 +21,34 @@ use App\Models\BaseModel;
  * 
  * @property \App\Models\Locale $locale
  *
- * @package App\Models
  */
 class Translation extends BaseModel
 {
-	const TEXTID 	= 'text_id';
-	const TEXT 		= 'text';
-	const LOCALE 	= 'locale_id';
+    const TEXTID 	= 'text_id';
+    const TEXT 		= 'text';
+    const LOCALE 	= 'locale_id';
 
-	protected $table = 'translation';
+    protected $table = 'translation';
 
-	protected $casts = [
-		self::TEXTID => 'int'
-	];
+    protected $casts = [
+        self::TEXTID => 'int'
+    ];
 
-	protected $fillable = [
-		self::TEXT,
-		self::LOCALE,
-		self::TEXTID
-	];
-	protected $appends = [
-		'locale_value'
-	];
-	public function locale()
-	{
-		return $this->belongsTo(\App\Models\Locale::class);
-	}
+    protected $fillable = [
+        self::TEXT,
+        self::LOCALE,
+        self::TEXTID
+    ];
+    protected $appends = [
+        'locale_value'
+    ];
+    public function locale()
+    {
+        return $this->belongsTo(\App\Models\Locale::class);
+    }
 
-	public function text()
-	{
-		return $this->belongsTo(\App\Models\Text::class);
-	}
+    public function text()
+    {
+        return $this->belongsTo(\App\Models\Text::class);
+    }
 }

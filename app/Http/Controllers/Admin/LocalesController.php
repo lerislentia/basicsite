@@ -11,11 +11,13 @@ class LocalesController extends Controller
 {
     protected $localeservice;
 
-    public function __construct(LocaleService $localeservice){
+    public function __construct(LocaleService $localeservice)
+    {
         $this->localeservice = $localeservice;
     }
 
-    public function index(){
+    public function index()
+    {
         $locales    = $this->localeservice->index();
         $locale     = Session::get('locale');
         $data = [
@@ -25,7 +27,8 @@ class LocalesController extends Controller
         return view('admin.locales.index', $data);
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $locale    = $this->localeservice->show($id);
         $data = [
             'locale'   => $locale->toArray(),

@@ -9,11 +9,11 @@ class TranslationsController extends Controller
 {
     protected $translationservice;
 
-    public function __construct(){
-
+    public function __construct()
+    {
     }
 
-    public function index(){
-
+    public function index()
+    {
     }
 }

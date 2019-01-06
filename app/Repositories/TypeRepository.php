@@ -7,31 +7,35 @@ use App\Repositories\BaseRepository;
 use App\Models\Type;
 use DB;
 
-class TypeRepository extends BaseRepository{
-
+class TypeRepository extends BaseRepository
+{
     protected $type;
 
-    public function __construct(Type $type){
+    public function __construct(Type $type)
+    {
         $this->type = $type;
     }
 
-    public function index(){
+    public function index()
+    {
         return $this->type->All();
     }
 
-    public function show($id){
+    public function show($id)
+    {
         return $this->type->find($id);
     }
 
-    public function store($params){
-        try{
+    public function store($params)
+    {
+        try {
             DB::beginTransaction();
 
             /**
              * name
              */
             $name       = $this->type->textName()->first();
-            if(!$name){
+            if (!$name) {
                 $name   = $this->type->textName()->create();
             }
 
@@ -43,9 +47,9 @@ class TypeRepository extends BaseRepository{
             ];
 
             $translation 						= $name->translations()->where('locale_id', '=', $nparams['locale_id'])->first();
-            if(!$translation){
+            if (!$translation) {
                 $translation 					= $name->translations()->create($nparams);
-            }else{
+            } else {
                 $translation->fill($nparams);
             }
             $translation->save();
@@ -55,18 +59,19 @@ class TypeRepository extends BaseRepository{
             ];
 
             $typ = $this->type->create($typparams);
-        
+
             $typ->save();
             DB::commit();
             return $typ;
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             DB::rollback();
             return $e->getMessage();
         }
     }
 
-    public function update($id, $params){
-        try{
+    public function update($id, $params)
+    {
+        try {
             DB::beginTransaction();
 
             $typ =  $this->type->find($id);
@@ -75,7 +80,7 @@ class TypeRepository extends BaseRepository{
              * name
              */
             $name       = $typ->textName()->first();
-            if(!$name){
+            if (!$name) {
                 $name   = $typ->textName()->create();
             }
             $name->save();
@@ -86,13 +91,13 @@ class TypeRepository extends BaseRepository{
             ];
 
             $translation 						= $name->translations()->where('locale_id', '=', $nparams['locale_id'])->first();
-            if(!$translation){
+            if (!$translation) {
                 $translation 					= $name->translations()->create($nparams);
-            }else{
+            } else {
                 $translation->fill($nparams);
             }
             $translation->save();
-        
+
 
             $typparams = [
                 'name'          => $name->id
@@ -102,7 +107,7 @@ class TypeRepository extends BaseRepository{
             $typ->save();
             DB::commit();
             return $typ;
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             DB::rollback();
             return $e->getMessage();
         }

@@ -19,22 +19,21 @@ use App\Models\BaseModel;
  * 
  * @property \Illuminate\Database\Eloquent\Collection $translations
  *
- * @package App\Models
  */
 class Locale extends BaseModel
 {
-	const DESCRIPTION = 'description';
+    const DESCRIPTION = 'description';
 
-	protected $table = 'locale';
-	public $incrementing = false;
+    protected $table = 'locale';
+    public $incrementing = false;
 
-	protected $fillable = [
-		parent::ID,
-		self::DESCRIPTION
-	];
+    protected $fillable = [
+        parent::ID,
+        self::DESCRIPTION
+    ];
 
-	public function translations()
-	{
-		return $this->hasMany(\App\Models\Translation::class);
-	}
+    public function translations()
+    {
+        return $this->hasMany(\App\Models\Translation::class);
+    }
 }

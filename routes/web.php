@@ -25,8 +25,6 @@ Route::get('locale', function () {
 
 Route::get('locale/{locale}', function ($locale) {
     session(['locale' => $locale]);
-
-    //
 });
 
 Route::prefix('admin')->group(function () {
@@ -105,14 +103,14 @@ Route::prefix('admin')->group(function () {
         'roles'         => ['admin', 'manager'],
         'as'            => 'admin.sections'
     ]);
-    
+
     Route::any('/sections/new', [
         'middleware'    => ['auth'],
         'uses'          => 'Admin\SectionsController@new',
         'roles'         => ['admin', 'manager'],
         'as'            => 'admin.sections.new'
     ]);
-    
+
     Route::any('/sections/edit/{section}', [
         'middleware'    => ['auth'],
         'uses'          => 'Admin\SectionsController@edit',
@@ -134,14 +132,14 @@ Route::prefix('admin')->group(function () {
         'roles'         => ['admin', 'manager'],
         'as'            => 'admin.types'
     ]);
-    
+
     Route::any('/types/new', [
         'middleware'    => ['auth'],
         'uses'          => 'Admin\TypeController@new',
         'roles'         => ['admin', 'manager'],
         'as'            => 'admin.types.new'
     ]);
-    
+
     Route::any('/types/edit/{type}', [
         'middleware'    => ['auth'],
         'uses'          => 'Admin\TypeController@edit',
@@ -156,8 +154,8 @@ Route::prefix('admin')->group(function () {
         'as'            => 'admin.properties'
     ]);
 
-    
-    
+
+
     Route::get('/locales', [
         'middleware'    => ['auth'],
         'uses'          => 'Admin\LocalesController@index',
@@ -220,5 +218,3 @@ Route::prefix('admin')->group(function () {
 // });
 
 // Auth::routes();
-
-

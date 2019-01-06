@@ -21,28 +21,27 @@ use App\Models\BaseModel;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
- * @package App\Models
  */
 class LtmTranslation extends BaseModel
 {
-	const STATUS 	= 'status';
-	const LOCALE 	= 'locale';
-	const GROUP 	= 'group';
-	const KEY 		= 'key';
-	const VALUE 	= 'value';
+    const STATUS 	= 'status';
+    const LOCALE 	= 'locale';
+    const GROUP 	= 'group';
+    const KEY 		= 'key';
+    const VALUE 	= 'value';
 
-	protected $casts = [
-		self::STATUS => 'int'
-	];
+    protected $casts = [
+        self::STATUS => 'int'
+    ];
 
-	protected $fillable = [
-		self::STATUS,
-		self::LOCALE,
-		self::GROUP,
-		self::KEY,
-		self::VALUE
-	];
-	protected $appends = [
-		'locale_value'
-	];
+    protected $fillable = [
+        self::STATUS,
+        self::LOCALE,
+        self::GROUP,
+        self::KEY,
+        self::VALUE
+    ];
+    protected $appends = [
+        'locale_value'
+    ];
 }

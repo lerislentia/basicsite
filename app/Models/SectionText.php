@@ -24,45 +24,44 @@ use App\Models\BaseModel;
  * @property \App\Models\Text $text
  * @property \App\Models\Type $type
  *
- * @package App\Models
  */
 class SectionText extends BaseModel
 {
-	const SECTION 	= 'section_id';
-	const TEXT  	= 'text_id';
-	const SEQUENCE  = 'sequence';
-	const TYPE 		= 'type_id';
+    const SECTION 	= 'section_id';
+    const TEXT  	= 'text_id';
+    const SEQUENCE  = 'sequence';
+    const TYPE 		= 'type_id';
 
-	protected $table = 'section_text';
+    protected $table = 'section_text';
 
-	protected $casts = [
-		self::SECTION 	=> 'int',
-		self::TEXT 		=> 'int',
-		self::SEQUENCE 	=> 'int',
-		self::TYPE 		=> 'int'
-	];
+    protected $casts = [
+        self::SECTION 	=> 'int',
+        self::TEXT 		=> 'int',
+        self::SEQUENCE 	=> 'int',
+        self::TYPE 		=> 'int'
+    ];
 
-	protected $fillable = [
-		self::SECTION,
-		self::TEXT,
-		self::SEQUENCE,
-		self::TYPE
-	];
-	protected $appends = [
-		'locale_value'
-	];
-	public function section()
-	{
-		return $this->belongsTo(\App\Models\Section::class);
-	}
+    protected $fillable = [
+        self::SECTION,
+        self::TEXT,
+        self::SEQUENCE,
+        self::TYPE
+    ];
+    protected $appends = [
+        'locale_value'
+    ];
+    public function section()
+    {
+        return $this->belongsTo(\App\Models\Section::class);
+    }
 
-	public function text()
-	{
-		return $this->belongsTo(\App\Models\Text::class);
-	}
+    public function text()
+    {
+        return $this->belongsTo(\App\Models\Text::class);
+    }
 
-	public function type()
-	{
-		return $this->belongsTo(\App\Models\Type::class);
-	}
+    public function type()
+    {
+        return $this->belongsTo(\App\Models\Type::class);
+    }
 }

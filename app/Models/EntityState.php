@@ -20,64 +20,63 @@ use App\Models\BaseModel;
  * @property \App\Models\Entity $entity
  * @property \App\Models\State $state
  *
- * @package App\Models
  */
 class EntityState extends BaseModel
 {
+    const ENTITY 	= 'entity_id';
+    const STATE 	= 'state_id';
 
-	const ENTITY 	= 'entity_id';
-	const STATE 	= 'state_id';
+    protected $table = 'entity_state';
 
-	protected $table = 'entity_state';
+    protected $casts = [
+        self::ENTITY => 'int',
+        self::STATE => 'int'
+    ];
+    protected $fillable = [
+        self::ENTITY,
+        self::STATE
+    ];
 
-	protected $casts = [
-		self::ENTITY => 'int',
-		self::STATE => 'int'
-	];
-	protected $fillable = [
-		self::ENTITY,
-		self::STATE
-	];
-
-	protected $appends = [
-		'locale_value', 'state', 'entity'
-	];
-	public function entity()
-	{
-		return $this->belongsTo(\App\Models\Entity::class);
-	}
-
-	public function state()
-	{
-		return $this->belongsTo(\App\Models\State::class);
-	}
-
-	public function textState()
-	{
-		return $this->belongsTo(\App\Models\Text::class, 'state_id');
-	}
-
-	/**
-	 * ACCESSORS
-	 */
-	public function getStateAttribute()
+    protected $appends = [
+        'locale_value', 'state', 'entity'
+    ];
+    public function entity()
     {
-		if(!isset($this->attributes['state_id'])){
-			return null;
-		}
-		$text 								= $this->textState()->first();
+        return $this->belongsTo(\App\Models\Entity::class);
+    }
 
-		$translations 						= $text->translations()->get();
-		foreach($translations as $translation){
-			$trans[$translation->locale_id] = $translation->toArray();
-		}
-		return ['lang' => $trans];
-	}
+    public function state()
+    {
+        return $this->belongsTo(\App\Models\State::class);
+    }
 
-	public function getEntityAttribute(){
-		if(!isset($this->attributes['entity_id'])){
-			return null;
-		}
-		return $this->Entity()->first()->name;
-	}
+    public function textState()
+    {
+        return $this->belongsTo(\App\Models\Text::class, 'state_id');
+    }
+
+    /**
+     * ACCESSORS
+     */
+    public function getStateAttribute()
+    {
+        if (!isset($this->attributes['state_id'])) {
+            return null;
+        }
+        $text 								= $this->textState()->first();
+
+        $translations 						= $text->translations()->get();
+        foreach ($translations as $translation) {
+            $trans[$translation->locale_id] = $translation->toArray();
+        }
+        return ['lang' => $trans];
+    }
+
+    public function getEntityAttribute()
+    {
+        if (!isset($this->attributes['entity_id'])) {
+            return null;
+        }
+        return $this->Entity()->first()->name;
+    }
 }

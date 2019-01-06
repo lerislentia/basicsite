@@ -21,35 +21,34 @@ use App\Models\BaseModel;
  * @property \App\Models\Product $product
  * @property \App\Models\Propertie $propertie
  *
- * @package App\Models
  */
 class PropertieProduct extends BaseModel
 {
-	const PROPERTIE = 'propertie_id';
-	const PRODUCT 	= 'product_id';
-	const VALUE 	= 'value';
+    const PROPERTIE = 'propertie_id';
+    const PRODUCT 	= 'product_id';
+    const VALUE 	= 'value';
 
-	protected $table = 'propertie_product';
-	public $incrementing = false;
+    protected $table = 'propertie_product';
+    public $incrementing = false;
 
-	protected $casts = [
-		self::PROPERTIE => 'int',
-		self::PRODUCT 	=> 'int'
-	];
+    protected $casts = [
+        self::PROPERTIE => 'int',
+        self::PRODUCT 	=> 'int'
+    ];
 
-	protected $fillable = [
-		self::VALUE
-	];
-	protected $appends = [
-		'locale_value'
-	];
-	public function product()
-	{
-		return $this->belongsTo(\App\Models\Product::class);
-	}
+    protected $fillable = [
+        self::VALUE
+    ];
+    protected $appends = [
+        'locale_value'
+    ];
+    public function product()
+    {
+        return $this->belongsTo(\App\Models\Product::class);
+    }
 
-	public function propertie()
-	{
-		return $this->belongsTo(\App\Models\Propertie::class);
-	}
+    public function propertie()
+    {
+        return $this->belongsTo(\App\Models\Propertie::class);
+    }
 }

@@ -19,23 +19,21 @@ use App\Models\BaseModel;
  * 
  * @property \Illuminate\Database\Eloquent\Collection $users
  *
- * @package App\Models
  */
 class Role extends BaseModel
 {
+    const NAME 			= 'name';
+    protected $table 	= 'role';
 
-	const NAME 			= 'name';
-	protected $table 	= 'role';
-
-	protected $fillable = [
-		self::NAME
-	];
-	protected $appends = [
-		'locale_value'
-	];
-	public function users()
-	{
-		return $this->belongsToMany(\App\Models\User::class, 'user_role')
-					->withTimestamps();
-	}
+    protected $fillable = [
+        self::NAME
+    ];
+    protected $appends = [
+        'locale_value'
+    ];
+    public function users()
+    {
+        return $this->belongsToMany(\App\Models\User::class, 'user_role')
+                    ->withTimestamps();
+    }
 }

@@ -9,11 +9,11 @@ class EventsController extends Controller
 {
     protected $eventsservice;
 
-    public function __construct(){
-        
+    public function __construct()
+    {
     }
 
-    public function index(){
-
+    public function index()
+    {
     }
 }

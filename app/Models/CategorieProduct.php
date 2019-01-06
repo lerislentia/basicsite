@@ -21,32 +21,31 @@ use App\Models\BaseModel;
  * @property \App\Models\Categorie $categorie
  * @property \App\Models\Product $product
  *
- * @package App\Models
  */
 class CategorieProduct extends BaseModel
 {
-	const CATEGORIE = 'categorie_id';
-	const PRODUCT 	= 'product_id';
+    const CATEGORIE = 'categorie_id';
+    const PRODUCT 	= 'product_id';
 
-	protected $table = 'categorie_product';
+    protected $table = 'categorie_product';
 
-	protected $casts = [
-		self::CATEGORIE => 'int',
-		self::PRODUCT 	=> 'int'
-	];
+    protected $casts = [
+        self::CATEGORIE => 'int',
+        self::PRODUCT 	=> 'int'
+    ];
 
-	protected $fillable = [
-		self::CATEGORIE,
-		self::PRODUCT
-	];
+    protected $fillable = [
+        self::CATEGORIE,
+        self::PRODUCT
+    ];
 
-	public function categorie()
-	{
-		return $this->belongsTo(\App\Models\Categorie::class);
-	}
+    public function categorie()
+    {
+        return $this->belongsTo(\App\Models\Categorie::class);
+    }
 
-	public function product()
-	{
-		return $this->belongsTo(\App\Models\Product::class);
-	}
+    public function product()
+    {
+        return $this->belongsTo(\App\Models\Product::class);
+    }
 }

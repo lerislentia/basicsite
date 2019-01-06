@@ -21,28 +21,26 @@ use App\Models\BaseModel;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
- * @package App\Models
  */
 class Contact extends BaseModel
 {
-	const FIRSTNAME = 'firstname';
-	const LASTNAME 	= 'lastname';
-	const PHONE 	= 'phone';
-	const EMAIL 	= 'email';
-	const MESSAGE 	= 'message';
+    const FIRSTNAME = 'firstname';
+    const LASTNAME 	= 'lastname';
+    const PHONE 	= 'phone';
+    const EMAIL 	= 'email';
+    const MESSAGE 	= 'message';
 
 
-	protected $table = 'contact';
+    protected $table = 'contact';
 
-	protected $fillable = [
-		self::FIRSTNAME,
-		self::LASTNAME,
-		self::PHONE,
-		self::EMAIL,
-		self::MESSAGE
-	];
-	protected $appends = [
-		'locale_value'
-	];
-	
+    protected $fillable = [
+        self::FIRSTNAME,
+        self::LASTNAME,
+        self::PHONE,
+        self::EMAIL,
+        self::MESSAGE
+    ];
+    protected $appends = [
+        'locale_value'
+    ];
 }

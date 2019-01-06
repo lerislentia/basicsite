@@ -28,66 +28,65 @@ use App\Models\BaseModel;
  * @property \Illuminate\Database\Eloquent\Collection $products
  * @property \Illuminate\Database\Eloquent\Collection $sections
  *
- * @package App\Models
  */
 class Gallery extends BaseModel
 {
-	const NAME 			= 'name';
-	const DESCRIPTION 	= 'descirption';
-	const WIDTH 		= 'width';
-	const HEIGHT 		= 'height';
-	const TYPE 			= 'type_id';
-	const STATE 		= 'state_id';
+    const NAME 			= 'name';
+    const DESCRIPTION 	= 'descirption';
+    const WIDTH 		= 'width';
+    const HEIGHT 		= 'height';
+    const TYPE 			= 'type_id';
+    const STATE 		= 'state_id';
 
 
-	protected $table = 'gallery';
+    protected $table = 'gallery';
 
-	protected $casts = [
-		self::WIDTH 	=> 'float',
-		self::HEIGHT 	=> 'float',
-		self::TYPE 		=> 'int',
-		self::STATE 	=> 'int'
-	];
+    protected $casts = [
+        self::WIDTH 	=> 'float',
+        self::HEIGHT 	=> 'float',
+        self::TYPE 		=> 'int',
+        self::STATE 	=> 'int'
+    ];
 
-	protected $fillable = [
-		self::NAME,
-		self::DESCRIPTION,
-		self::WIDTH,
-		self::HEIGHT,
-		self::TYPE,
-		self::STATE
-	];
-	protected $appends = [
-		'locale_value'
-	];
-	public function state()
-	{
-		return $this->belongsTo(\App\Models\State::class);
-	}
+    protected $fillable = [
+        self::NAME,
+        self::DESCRIPTION,
+        self::WIDTH,
+        self::HEIGHT,
+        self::TYPE,
+        self::STATE
+    ];
+    protected $appends = [
+        'locale_value'
+    ];
+    public function state()
+    {
+        return $this->belongsTo(\App\Models\State::class);
+    }
 
-	public function type()
-	{
-		return $this->belongsTo(\App\Models\Type::class);
-	}
+    public function type()
+    {
+        return $this->belongsTo(\App\Models\Type::class);
+    }
 
-	public function images()
-	{
-		return $this->belongsToMany(\App\Models\Image::class)
-					->withPivot('id', 'sequence')
-					->withTimestamps();
-	}
+    public function images()
+    {
+        return $this->belongsToMany(\App\Models\Image::class)
+                    ->withPivot('id', 'sequence')
+                    ->withTimestamps();
+    }
 
-	public function products()
-	{
-		return $this->belongsToMany(\App\Models\Product::class)
-					->withPivot('id')
-					->withTimestamps();
-	}
+    public function products()
+    {
+        return $this->belongsToMany(\App\Models\Product::class)
+                    ->withPivot('id')
+                    ->withTimestamps();
+    }
 
-	public function sections()
-	{
-		return $this->belongsToMany(\App\Models\Section::class)
-					->withPivot('id', 'secuence')
-					->withTimestamps();
-	}
+    public function sections()
+    {
+        return $this->belongsToMany(\App\Models\Section::class)
+                    ->withPivot('id', 'secuence')
+                    ->withTimestamps();
+    }
 }

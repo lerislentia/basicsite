@@ -12,17 +12,17 @@ use Redirect;
 
 class TypeController extends Controller
 {
-
     protected $typeservice;
     protected $localeservice;
 
-    public function __construct(TypeService $typeservice, LocaleService $localeservice){
+    public function __construct(TypeService $typeservice, LocaleService $localeservice)
+    {
         $this->localeservice    = $localeservice;
         $this->typeservice      = $typeservice;
     }
 
-    public function index(){
-
+    public function index()
+    {
         $types      = $this->typeservice->index();
         $locales    = $this->localeservice->index();
         $locale     = Session::get('locale');
@@ -35,8 +35,9 @@ class TypeController extends Controller
         return view('admin.types.index', $data);
     }
 
-    public function new(Request $request){
-        try{
+    public function new(Request $request)
+    {
+        try {
             $locales    = $this->localeservice->index();
             $locale     = Session::get('locale');
 
@@ -51,13 +52,14 @@ class TypeController extends Controller
                 ];
 
             return view('admin.types.forms.new', $data);
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return view('admin.types.forms.new', $data);
         }
     }
 
-    public function edit(Request $request, $id){
-        try{
+    public function edit(Request $request, $id)
+    {
+        try {
             $type           = $this->typeservice->show($id);
             $types          = $this->typeservice->index();
             $locales        = $this->localeservice->index();
@@ -75,9 +77,8 @@ class TypeController extends Controller
                 ];
 
             return view('admin.types.forms.edit', $data);
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return view('admin.types.forms.edit', $data);
         }
     }
-
 }

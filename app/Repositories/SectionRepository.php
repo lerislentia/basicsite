@@ -5,33 +5,36 @@ namespace App\Repositories;
 use App\Models\Section;
 use DB;
 
-class SectionRepository{
- 
-    
+class SectionRepository
+{
     protected $section;
 
-    public function __construct(Section $section){
+    public function __construct(Section $section)
+    {
         $this->section = $section;
     }
 
-    public function index(){
+    public function index()
+    {
         return $this->section->All();
     }
 
 
-    public function show($id){
+    public function show($id)
+    {
         return $this->section->find($id);
     }
 
-    public function store($params){
-        try{
+    public function store($params)
+    {
+        try {
             DB::beginTransaction();
 
             /**
              * name
              */
             $name       = $this->section->textName()->first();
-            if(!$name){
+            if (!$name) {
                 $name   = $this->section->textName()->create();
             }
             $name->save();
@@ -42,19 +45,19 @@ class SectionRepository{
             ];
 
             $translation 						= $name->translations()->where('locale_id', '=', $nparams['locale_id'])->first();
-            if(!$translation){
+            if (!$translation) {
                 $translation 					= $name->translations()->create($nparams);
-            }else{
+            } else {
                 $translation->fill($nparams);
             }
             $translation->save();
-        
+
 
             /**
              * description
              */
             $description       = $this->section->textDescription()->first();
-            if(!$description){
+            if (!$description) {
                 $description   = $this->section->textDescription()->create();
             }
             $description->save();
@@ -65,9 +68,9 @@ class SectionRepository{
             ];
 
             $translation 						= $description->translations()->where('locale_id', '=', $dparams['locale_id'])->first();
-            if(!$translation){
+            if (!$translation) {
                 $translation 					= $description->translations()->create($dparams);
-            }else{
+            } else {
                 $translation->fill($dparams);
             }
             $translation->save();
@@ -86,14 +89,15 @@ class SectionRepository{
             $sect->save();
             DB::commit();
             return $sect;
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             DB::rollback();
             return $e->getMessage();
         }
     }
 
-    public function update($id, $params){
-        try{
+    public function update($id, $params)
+    {
+        try {
             DB::beginTransaction();
 
             $sec =  $this->section->find($id);
@@ -102,7 +106,7 @@ class SectionRepository{
              * name
              */
             $name       = $sec->textName()->first();
-            if(!$name){
+            if (!$name) {
                 $name   = $sec->textName()->create();
             }
             $name->save();
@@ -113,19 +117,19 @@ class SectionRepository{
             ];
 
             $translation 						= $name->translations()->where('locale_id', '=', $nparams['locale_id'])->first();
-            if(!$translation){
+            if (!$translation) {
                 $translation 					= $name->translations()->create($nparams);
-            }else{
+            } else {
                 $translation->fill($nparams);
             }
             $translation->save();
-        
+
 
             /**
              * description
              */
             $description       = $sec->textDescription()->first();
-            if(!$description){
+            if (!$description) {
                 $description   = $sec->textDescription()->create();
             }
             $description->save();
@@ -136,9 +140,9 @@ class SectionRepository{
             ];
 
             $translation 						= $description->translations()->where('locale_id', '=', $dparams['locale_id'])->first();
-            if(!$translation){
+            if (!$translation) {
                 $translation 					= $description->translations()->create($dparams);
-            }else{
+            } else {
                 $translation->fill($dparams);
             }
             $translation->save();
@@ -158,10 +162,9 @@ class SectionRepository{
             $sec->save();
             DB::commit();
             return $sec;
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             DB::rollback();
             return $e->getMessage();
         }
     }
-
 }

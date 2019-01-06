@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Log;
 use Auth;
 
-
 class ExampleTest extends TestCase
 {
     protected $baseservicemock;
@@ -55,7 +54,6 @@ class ExampleTest extends TestCase
     /**
      * A basic test example.
      *
-     * @return void
      */
     public function testBasicTest()
     {

@@ -16,25 +16,24 @@ use App\Models\BaseModel;
  * @property string $token
  * @property \Carbon\Carbon $created_at
  *
- * @package App\Models
  */
 class PasswordReset extends BaseModel
 {
-	const TOKEN = 'token';
-	const EMAIL = 'email';
+    const TOKEN = 'token';
+    const EMAIL = 'email';
 
-	public $incrementing = false;
-	public $timestamps = false;
+    public $incrementing = false;
+    public $timestamps = false;
 
-	protected $hidden = [
-		self::TOKEN
-	];
+    protected $hidden = [
+        self::TOKEN
+    ];
 
-	protected $fillable = [
-		self::EMAIL,
-		self::TOKEN
-	];
-	protected $appends = [
-		'locale_value'
-	];
+    protected $fillable = [
+        self::EMAIL,
+        self::TOKEN
+    ];
+    protected $appends = [
+        'locale_value'
+    ];
 }

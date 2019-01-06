@@ -29,129 +29,127 @@ use Session;
  * @property \Illuminate\Database\Eloquent\Collection $galleries
  * @property \Illuminate\Database\Eloquent\Collection $texts
  *
- * @package App\Models
  */
 class Section extends BaseModel
 {
-	const NAME 			= 'name';
-	const DESCRIPTION 	= 'description';
-	const STATE			= 'state_id';
-	const TYPE			= 'type_id';
-	const URL			= 'url';
-	const TAGS 			= 'tags';
-	
-
-	protected $table = 'section';
-
-	protected $casts = [
-		self::NAME 			=> 'int',
-		self::DESCRIPTION 	=> 'int',
-		self::TYPE 			=> 'int',
-		self::STATE 		=> 'int'
-	];
-
-	protected $fillable = [
-		self::NAME,
-		self::DESCRIPTION,
-		self::URL,
-		self::TAGS,
-		self::STATE,
-		self::TYPE
-	];
-
-	protected $appends = [
-		'name_value', 'description_value', 'locale_value'
-	];
+    const NAME 			= 'name';
+    const DESCRIPTION 	= 'description';
+    const STATE			= 'state_id';
+    const TYPE			= 'type_id';
+    const URL			= 'url';
+    const TAGS 			= 'tags';
 
 
-	public function state()
-	{
-		return $this->belongsTo(\App\Models\State::class);
-	}
+    protected $table = 'section';
 
-	public function textDescription()
-	{
-		return $this->belongsTo(\App\Models\Text::class, 'description');
-	}
+    protected $casts = [
+        self::NAME 			=> 'int',
+        self::DESCRIPTION 	=> 'int',
+        self::TYPE 			=> 'int',
+        self::STATE 		=> 'int'
+    ];
 
-	public function textName()
-	{
-		return $this->belongsTo(\App\Models\Text::class, 'name');
-	}
+    protected $fillable = [
+        self::NAME,
+        self::DESCRIPTION,
+        self::URL,
+        self::TAGS,
+        self::STATE,
+        self::TYPE
+    ];
 
-	public function galleries()
-	{
-		return $this->belongsToMany(\App\Models\Gallery::class)
-					->withPivot('id', 'secuence')
-					->withTimestamps();
-	}
-
-	public function texts()
-	{
-		return $this->belongsToMany(\App\Models\Text::class)
-					->withPivot('id', 'sequence', 'type_id')
-					->withTimestamps();
-	}
-
-	public function categories()
-	{
-		return $this->belongsToMany(\App\Models\Categorie::class, 'categorie_section')
-					->withPivot('value')
-					->withTimestamps();
-	}
-	
+    protected $appends = [
+        'name_value', 'description_value', 'locale_value'
+    ];
 
 
-	
-	/**
-	 * ACCESSORS
-	 */
-
-	/**
-	 * ACCESSORS
-	 */
-
-	public function getNameValueAttribute()
+    public function state()
     {
-		if(!isset($this->attributes['name'])){
-			return null;
-		}
-		$text 								= $this->textName()->first();
+        return $this->belongsTo(\App\Models\State::class);
+    }
 
-		$translations 						= $text->translations()->get();
-
-		foreach($translations as $translation){
-			$trans[$translation->locale_id] = $translation->toArray();
-		}
-		return ['lang' => $trans];
-
-	}
-
-	public function getDescriptionValueAttribute()
+    public function textDescription()
     {
-		if(!isset($this->attributes['description'])){
-			return null;
-		}
-		$text 								= $this->textDescription()->first();
+        return $this->belongsTo(\App\Models\Text::class, 'description');
+    }
 
-		$translations 						= $text->translations()->get();
-		foreach($translations as $translation){
-			$trans[$translation->locale_id] = $translation->toArray();
-		}
-		return ['lang' => $trans];
-	}
-
-	public function getStateAttribute()
+    public function textName()
     {
-		if(!isset($this->attributes['state_id'])){
-			return null;
-		}
-		$text 								= $this->textState()->first();
+        return $this->belongsTo(\App\Models\Text::class, 'name');
+    }
 
-		$translations 						= $text->translations()->get();
-		foreach($translations as $translation){
-			$trans[$translation->locale_id] = $translation->toArray();
-		}
-		return ['lang' => $trans];
-	}
+    public function galleries()
+    {
+        return $this->belongsToMany(\App\Models\Gallery::class)
+                    ->withPivot('id', 'secuence')
+                    ->withTimestamps();
+    }
+
+    public function texts()
+    {
+        return $this->belongsToMany(\App\Models\Text::class)
+                    ->withPivot('id', 'sequence', 'type_id')
+                    ->withTimestamps();
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(\App\Models\Categorie::class, 'categorie_section')
+                    ->withPivot('value')
+                    ->withTimestamps();
+    }
+
+
+
+
+    /**
+     * ACCESSORS
+     */
+
+    /**
+     * ACCESSORS
+     */
+
+    public function getNameValueAttribute()
+    {
+        if (!isset($this->attributes['name'])) {
+            return null;
+        }
+        $text 								= $this->textName()->first();
+
+        $translations 						= $text->translations()->get();
+
+        foreach ($translations as $translation) {
+            $trans[$translation->locale_id] = $translation->toArray();
+        }
+        return ['lang' => $trans];
+    }
+
+    public function getDescriptionValueAttribute()
+    {
+        if (!isset($this->attributes['description'])) {
+            return null;
+        }
+        $text 								= $this->textDescription()->first();
+
+        $translations 						= $text->translations()->get();
+        foreach ($translations as $translation) {
+            $trans[$translation->locale_id] = $translation->toArray();
+        }
+        return ['lang' => $trans];
+    }
+
+    public function getStateAttribute()
+    {
+        if (!isset($this->attributes['state_id'])) {
+            return null;
+        }
+        $text 								= $this->textState()->first();
+
+        $translations 						= $text->translations()->get();
+        foreach ($translations as $translation) {
+            $trans[$translation->locale_id] = $translation->toArray();
+        }
+        return ['lang' => $trans];
+    }
 }

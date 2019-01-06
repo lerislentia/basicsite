@@ -11,23 +11,24 @@ use App\Services\LocaleService;
 use Session;
 use Redirect;
 
-class EntityStateController extends Controller{
-
+class EntityStateController extends Controller
+{
     protected $entitystateservice;
 
     public function __construct(
-            EntityStateService $entitystateservice, 
-            EntityService $entityservice, 
-            StateService $stateservice, 
+            EntityStateService $entitystateservice,
+            EntityService $entityservice,
+            StateService $stateservice,
             LocaleService $localeservice
-            ){
+            ) {
         $this->entitystateservice   = $entitystateservice;
         $this->localeservice        = $localeservice;
         $this->entityservice        = $entityservice;
         $this->stateservice          = $stateservice;
     }
 
-    public function index(){
+    public function index()
+    {
         $entitystates   = $this->entitystateservice->index();
         $locale         = Session::get('locale');
         $data = [
@@ -37,8 +38,9 @@ class EntityStateController extends Controller{
         return view('admin.entitystates.index', $data);
     }
 
-    public function new(Request $request){
-        try{
+    public function new(Request $request)
+    {
+        try {
             $locales    = $this->localeservice->index();
             $entities   = $this->entityservice->index();
             $states     = $this->stateservice->index();
@@ -57,10 +59,8 @@ class EntityStateController extends Controller{
                 ];
 
             return view('admin.entitystates.forms.new', $data);
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return view('admin.entitystates.forms.new', $data);
         }
     }
-
-
 }

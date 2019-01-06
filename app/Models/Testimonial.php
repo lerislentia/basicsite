@@ -19,26 +19,25 @@ use App\Models\BaseModel;
  * 
  * @property \App\Models\Text $text
  *
- * @package App\Models
  */
 class Testimonial extends BaseModel
 {
-	const COMMENT = 'comment';
+    const COMMENT = 'comment';
 
-	protected $table = 'testimonial';
+    protected $table = 'testimonial';
 
-	protected $casts = [
-		self::COMMENT => 'int'
-	];
+    protected $casts = [
+        self::COMMENT => 'int'
+    ];
 
-	protected $fillable = [
-		self::COMMENT
-	];
-	protected $appends = [
-		'locale_value'
-	];
-	public function text()
-	{
-		return $this->belongsTo(\App\Models\Text::class, 'comment');
-	}
+    protected $fillable = [
+        self::COMMENT
+    ];
+    protected $appends = [
+        'locale_value'
+    ];
+    public function text()
+    {
+        return $this->belongsTo(\App\Models\Text::class, 'comment');
+    }
 }

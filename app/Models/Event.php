@@ -20,29 +20,28 @@ use App\Models\BaseModel;
  * 
  * @property \App\Models\Text $text
  *
- * @package App\Models
  */
 class Event extends BaseModel
 {
-	const NAME 			= 'name';
-	const DESCRIPTION 	= 'description';
+    const NAME 			= 'name';
+    const DESCRIPTION 	= 'description';
 
-	protected $table = 'event';
+    protected $table = 'event';
 
-	protected $casts = [
-		self::NAME 			=> 'int',
-		self::DESCRIPTION 	=> 'int'
-	];
+    protected $casts = [
+        self::NAME 			=> 'int',
+        self::DESCRIPTION 	=> 'int'
+    ];
 
-	protected $fillable = [
-		self::NAME,
-		self::DESCRIPTION
-	];
-	protected $appends = [
-		'locale_value'
-	];
-	public function text()
-	{
-		return $this->belongsTo(\App\Models\Text::class, 'description');
-	}
+    protected $fillable = [
+        self::NAME,
+        self::DESCRIPTION
+    ];
+    protected $appends = [
+        'locale_value'
+    ];
+    public function text()
+    {
+        return $this->belongsTo(\App\Models\Text::class, 'description');
+    }
 }

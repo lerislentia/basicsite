@@ -21,34 +21,33 @@ use App\Models\BaseModel;
  * @property \App\Models\Gallery $gallery
  * @property \App\Models\Product $product
  *
- * @package App\Models
  */
 class GalleryProduct extends BaseModel
 {
-	const GALLERY = 'gallery_id';
-	const PRODUCT = 'product_id';
+    const GALLERY = 'gallery_id';
+    const PRODUCT = 'product_id';
 
-	protected $table = 'gallery_product';
+    protected $table = 'gallery_product';
 
-	protected $casts = [
-		self::GALLERY => 'int',
-		self::PRODUCT => 'int'
-	];
+    protected $casts = [
+        self::GALLERY => 'int',
+        self::PRODUCT => 'int'
+    ];
 
-	protected $fillable = [
-		self::GALLERY,
-		self::PRODUCT
-	];
-	protected $appends = [
-		'locale_value'
-	];
-	public function gallery()
-	{
-		return $this->belongsTo(\App\Models\Gallery::class);
-	}
+    protected $fillable = [
+        self::GALLERY,
+        self::PRODUCT
+    ];
+    protected $appends = [
+        'locale_value'
+    ];
+    public function gallery()
+    {
+        return $this->belongsTo(\App\Models\Gallery::class);
+    }
 
-	public function product()
-	{
-		return $this->belongsTo(\App\Models\Product::class);
-	}
+    public function product()
+    {
+        return $this->belongsTo(\App\Models\Product::class);
+    }
 }

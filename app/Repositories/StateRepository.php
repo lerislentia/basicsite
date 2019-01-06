@@ -7,21 +7,24 @@ use App\Repositories\BaseRepository;
 
 use App\Models\State;
 
-class StateRepository extends BaseRepository{
-
+class StateRepository extends BaseRepository
+{
     protected $state;
 
-    public function __construct(State $state){
+    public function __construct(State $state)
+    {
         $this->state = $state;
     }
 
-    public function index(){
+    public function index()
+    {
         return $this->state->All();
     }
-    
 
-    public function update($id, $params){
-        try{
+
+    public function update($id, $params)
+    {
+        try {
             DB::beginTransaction();
 
             $stat =  $this->state->find($id);
@@ -30,7 +33,7 @@ class StateRepository extends BaseRepository{
              * name
              */
             $name       = $stat->textName()->first();
-            if(!$name){
+            if (!$name) {
                 $name   = $stat->textName()->create();
             }
             $name->save();
@@ -41,9 +44,9 @@ class StateRepository extends BaseRepository{
             ];
 
             $translation 						= $name->translations()->where('locale_id', '=', $nparams['locale_id'])->first();
-            if(!$translation){
+            if (!$translation) {
                 $translation 					= $name->translations()->create($nparams);
-            }else{
+            } else {
                 $translation->fill($nparams);
             }
             $translation->save();
@@ -56,17 +59,19 @@ class StateRepository extends BaseRepository{
             $stat->save();
             DB::commit();
             return $stat;
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             DB::rollback();
             return $e->getMessage();
         }
     }
 
-    public function show($id){
+    public function show($id)
+    {
         return $this->state->find($id);
     }
 
-    public function store($params){
+    public function store($params)
+    {
         return $this->state->create($params);
     }
 }

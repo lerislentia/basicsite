@@ -24,52 +24,51 @@ use App\Models\BaseModel;
  * @property \Illuminate\Database\Eloquent\Collection $galleries
  * @property \Illuminate\Database\Eloquent\Collection $properties
  *
- * @package App\Models
  */
 class Product extends BaseModel
 {
-	const NAME 			= 'name';
-	const DESCRIPTION 	= 'descipriton';
-	const URL 			= 'url';
+    const NAME 			= 'name';
+    const DESCRIPTION 	= 'descipriton';
+    const URL 			= 'url';
 
-	protected $table = 'product';
+    protected $table = 'product';
 
-	protected $casts = [
-		self::NAME 			=> 'int',
-		self::DESCRIPTION 	=> 'int'
-	];
+    protected $casts = [
+        self::NAME 			=> 'int',
+        self::DESCRIPTION 	=> 'int'
+    ];
 
-	protected $fillable = [
-		self::NAME,
-		self::DESCRIPTION,
-		self::URL
-	];
-	protected $appends = [
-		'locale_value'
-	];
-	public function text()
-	{
-		return $this->belongsTo(\App\Models\Text::class, 'description');
-	}
+    protected $fillable = [
+        self::NAME,
+        self::DESCRIPTION,
+        self::URL
+    ];
+    protected $appends = [
+        'locale_value'
+    ];
+    public function text()
+    {
+        return $this->belongsTo(\App\Models\Text::class, 'description');
+    }
 
-	public function categories()
-	{
-		return $this->belongsToMany(\App\Models\Categorie::class)
-					->withPivot('id')
-					->withTimestamps();
-	}
+    public function categories()
+    {
+        return $this->belongsToMany(\App\Models\Categorie::class)
+                    ->withPivot('id')
+                    ->withTimestamps();
+    }
 
-	public function galleries()
-	{
-		return $this->belongsToMany(\App\Models\Gallery::class)
-					->withPivot('id')
-					->withTimestamps();
-	}
+    public function galleries()
+    {
+        return $this->belongsToMany(\App\Models\Gallery::class)
+                    ->withPivot('id')
+                    ->withTimestamps();
+    }
 
-	public function properties()
-	{
-		return $this->belongsToMany(\App\Models\Propertie::class, 'propertie_product')
-					->withPivot('value')
-					->withTimestamps();
-	}
+    public function properties()
+    {
+        return $this->belongsToMany(\App\Models\Propertie::class, 'propertie_product')
+                    ->withPivot('value')
+                    ->withTimestamps();
+    }
 }

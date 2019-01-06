@@ -20,12 +20,14 @@ class IndexController extends Controller
     protected $localeservice;
     protected $categoryservice;
 
-    public function __construct(StateService $stateservice, SectionService $sectionservice, CategoryService $categoryservice){
+    public function __construct(StateService $stateservice, SectionService $sectionservice, CategoryService $categoryservice)
+    {
         $this->stateservice     = $stateservice;
         $this->sectionservice   = $sectionservice;
         $this->categoryservice  = $categoryservice;
     }
-    public function index(){
+    public function index()
+    {
         // $states = $this->stateservice->index();
         $state = $this->stateservice->show(2);
         // $state->name = 'activo';
@@ -37,7 +39,7 @@ class IndexController extends Controller
         // dd($sections->toArray());
 
         // $section = $sections->first();
-        
+
         // ;
 
         // $params = [
@@ -49,9 +51,9 @@ class IndexController extends Controller
         // ];
         // $section->fill($params);
         // $section->save();
-        
+
         // $sections = $this->sectionservice->store($params);
-        
+
         // $params = [
         //     'name'  => 'inactive'
         // ];
@@ -65,7 +67,7 @@ class IndexController extends Controller
 
         // $locale = $this->localeservice->store($params);
 
-   
+
         // $params = [
         //     Categorie::NAME 		=> 'about',
         //     Categorie::DESCRIPTION 	=> 'about description',

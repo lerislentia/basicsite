@@ -19,23 +19,22 @@ use App\Models\BaseModel;
  * 
  * @property \Illuminate\Database\Eloquent\Collection $states
  *
- * @package App\Models
  */
 class Entity extends BaseModel
 {
-	const NAME = 'name';
+    const NAME = 'name';
 
-	protected $table = 'entity';
+    protected $table = 'entity';
 
-	protected $fillable = [
-		self::NAME
-	];
-	protected $appends = [
-		'locale_value'
-	];
-	public function states()
-	{
-		return $this->belongsToMany(\App\Models\State::class)
-					->withTimestamps();
-	}
+    protected $fillable = [
+        self::NAME
+    ];
+    protected $appends = [
+        'locale_value'
+    ];
+    public function states()
+    {
+        return $this->belongsToMany(\App\Models\State::class)
+                    ->withTimestamps();
+    }
 }

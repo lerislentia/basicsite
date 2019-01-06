@@ -11,16 +11,17 @@ use Session;
 
 class StatesController extends Controller
 {
-
     protected $stateservice;
     protected $localeservice;
 
-    public function __construct(StateService $stateservice, LocaleService $localeservice){
+    public function __construct(StateService $stateservice, LocaleService $localeservice)
+    {
         $this->localeservice = $localeservice;
         $this->stateservice = $stateservice;
     }
 
-    public function index(){
+    public function index()
+    {
         $states = $this->stateservice->index();
         $locales = $this->localeservice->index();
         $locale             = Session::get('locale');
@@ -33,12 +34,13 @@ class StatesController extends Controller
         return view('admin.states.index', $data);
     }
 
-    public function new(){
-        
+    public function new()
+    {
     }
 
-    public function edit(Request $request, $id){
-        try{
+    public function edit(Request $request, $id)
+    {
+        try {
             $state          = $this->stateservice->show($id);
             $states = $this->stateservice->index();
             $locales = $this->localeservice->index();
@@ -56,9 +58,8 @@ class StatesController extends Controller
                 ];
 
             return view('admin.states.forms.edit', $data);
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return view('admin.states.forms.edit', $data);
         }
-        
     }
 }

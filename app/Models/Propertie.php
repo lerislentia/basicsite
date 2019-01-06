@@ -20,33 +20,32 @@ use App\Models\BaseModel;
  * @property \App\Models\Text $text
  * @property \Illuminate\Database\Eloquent\Collection $products
  *
- * @package App\Models
  */
 class Propertie extends BaseModel
 {
-	const NAME = 'name';
+    const NAME = 'name';
 
-	protected $table = 'propertie';
+    protected $table = 'propertie';
 
-	protected $casts = [
-		self::NAME => 'int'
-	];
+    protected $casts = [
+        self::NAME => 'int'
+    ];
 
-	protected $fillable = [
-		self::NAME
-	];
-	protected $appends = [
-		'locale_value'
-	];
-	public function text()
-	{
-		return $this->belongsTo(\App\Models\Text::class, 'name');
-	}
+    protected $fillable = [
+        self::NAME
+    ];
+    protected $appends = [
+        'locale_value'
+    ];
+    public function text()
+    {
+        return $this->belongsTo(\App\Models\Text::class, 'name');
+    }
 
-	public function products()
-	{
-		return $this->belongsToMany(\App\Models\Product::class, 'propertie_product')
-					->withPivot('value')
-					->withTimestamps();
-	}
+    public function products()
+    {
+        return $this->belongsToMany(\App\Models\Product::class, 'propertie_product')
+                    ->withPivot('value')
+                    ->withTimestamps();
+    }
 }
