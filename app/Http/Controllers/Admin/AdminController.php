@@ -26,7 +26,7 @@ class AdminController extends Controller
     public function index()
     {
         $categories = $this->adminservice->index();
-        // dd($categories->toArray());
+
         $data = [
             'categories' => $categories->toArray()
         ];
