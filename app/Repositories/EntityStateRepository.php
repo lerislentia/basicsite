@@ -16,6 +16,10 @@ class EntityStateRepository
     public function index($entity = null)
     {
         $query = $this->entitystate
+            ->select([
+                'entity_state.*',
+                'en.name'
+            ])
             ->join('entity as en', 'entity_id', '=', 'en.id');
         if ($entity) {
             $query->where('en.name', '=', $entity);

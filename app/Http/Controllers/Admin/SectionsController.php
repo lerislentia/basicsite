@@ -83,13 +83,13 @@ class SectionsController extends Controller
     {
         try {
             $section            = $this->sectionservice->show($id);
-            $types          = $this->typeservice->index();
+            $types              = $this->typeservice->index();
             $states             = $this->entitystate->index(self::ENTITY);
             $locale             = Session::get('locale');
 
             if ($request->isMethod('post')) {
                 $params         = $request->All();
-                $section      = $this->sectionservice->update($id, $params);
+                $section        = $this->sectionservice->update($id, $params);
             }
 
             $data = [

@@ -16,7 +16,7 @@ class SectionRepository
 
     public function index()
     {
-        return $this->section->All();
+        return $this->section->select('*')->orderBy(Section::ORDER);
     }
 
 
@@ -82,6 +82,7 @@ class SectionRepository
                 'url'           => $params['url'],
                 'tags'          => $params['tags'],
                 'state_id'      => $params['state_id'],
+                'type_id'       => $params['type_id'],
 
             ];
             $sect = $this->section->create($secparams);

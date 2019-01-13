@@ -15,7 +15,7 @@ class SectionService
 
     public function index()
     {
-        return $this->sectionrepository->index();
+        return $this->sectionrepository->index()->get();
     }
 
     public function show($id)

@@ -28,6 +28,8 @@ class IndexController extends Controller
     }
     public function index()
     {
+        $sections = $this->sectionservice->index();
+        // dd($sections->toArray());
         // $states = $this->stateservice->index();
         $state = $this->stateservice->show(2);
         // $state->name = 'activo';

@@ -38,6 +38,7 @@ class Section extends BaseModel
     const TYPE			= 'type_id';
     const URL			= 'url';
     const TAGS 			= 'tags';
+    const ORDER 		= 'order';
 
 
     protected $table = 'section';
@@ -46,7 +47,8 @@ class Section extends BaseModel
         self::NAME 			=> 'int',
         self::DESCRIPTION 	=> 'int',
         self::TYPE 			=> 'int',
-        self::STATE 		=> 'int'
+        self::STATE 		=> 'int',
+        self::ORDER 		=> 'int',
     ];
 
     protected $fillable = [
@@ -55,7 +57,8 @@ class Section extends BaseModel
         self::URL,
         self::TAGS,
         self::STATE,
-        self::TYPE
+        self::TYPE,
+        self::ORDER
     ];
 
     protected $appends = [

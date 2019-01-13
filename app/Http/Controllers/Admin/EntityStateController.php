@@ -63,4 +63,8 @@ class EntityStateController extends Controller
             return view('admin.entitystates.forms.new', $data);
         }
     }
+
+    public function edit(Request $request, $code){
+        $dd = $code;
+    }
 }

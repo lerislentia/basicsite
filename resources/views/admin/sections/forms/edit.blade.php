@@ -36,7 +36,7 @@
         <select name="state_id">
         <option value="" {{($section['state_id'] == null ? 'selected="selected"': '')}}> - </option>
                 @foreach($states as $state)
-                    <option value="{{$state['state_id']}}" {{($state['id'] == $section['state_id']) ? 'selected="selected"': ''}}>
+                    <option value="{{$state['state_id']}}" {{($state['state_id'] == $section['state_id']) ? 'selected="selected"': ''}}>
                         {{$state['state']['lang'][$locale]['text']}}
                     </option>
                 @endforeach
@@ -55,7 +55,12 @@
                 @endforeach
             </select>
     </div>
-
+    <div class="form-group">
+        <label for="order">
+            order
+                </label>
+        <input type="text" name="url" value="{{ isset($section['order']) ? $section['order'] : old('order') }}">
+    </div>
 
 
     <input type="hidden" name="locale" value="{{$locale}}">

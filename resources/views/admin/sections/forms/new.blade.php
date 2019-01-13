@@ -34,16 +34,33 @@
             state
         </label>
         <select name="state_id">
-        <option value="" {{($secti['state'] == null ? 'selected="selected"': '')}}> - </option>
+        <option value="" {{($secti['state_id'] == null ? 'selected="selected"': '')}}> - </option>
                 @foreach($states as $state)
-                    <option value="{{$state['id']}}" {{($secti['state'] == $state['id']) ? 'selected="selected"': ''}}>
+                    <option value="{{$state['state_id']}}" {{($secti['state_id'] == $state['state_id']) ? 'selected="selected"': ''}}>
                         {{$state['state']['lang'][$locale]['text'] or ''}}
                     </option>
                 @endforeach
             </select>
     </div>
-
-
+    <div class="form-group">
+        <label for="type">
+            type
+        </label>
+        <select name="type_id">
+        <option value="" {{($secti['type_id'] == null ? 'selected="selected"': '')}}> - </option>
+                @foreach($types as $type)
+                    <option value="{{$type['id']}}" {{($type['id'] == $secti['type_id']) ? 'selected="selected"': ''}}>
+                        {{$type['name_value']['lang'][$locale]['text']}}
+                    </option>
+                @endforeach
+            </select>
+    </div>
+    <div class="form-group">
+        <label for="order">
+            order
+                </label>
+        <input type="text" name="url" value="{{ isset($section['order']) ? $section['order'] : old('order') }}">
+    </div>
 
     <input type="hidden" name="locale" value="{{$locale}}">
     {{ csrf_field() }}
