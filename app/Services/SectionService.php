@@ -37,4 +37,9 @@ class SectionService
     {
         return $this->sectionrepository->store($params);
     }
+
+    public function delete($id)
+    {
+        return $this->sectionrepository->delete($id);
+    }
 }

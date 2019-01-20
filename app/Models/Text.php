@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 02 Dec 2018 14:30:09 +0000.
+ * Date: Sun, 13 Jan 2019 18:38:15 +0000.
  */
 
 namespace App\Models;
@@ -17,6 +17,7 @@ use App\Models\BaseModel;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \Illuminate\Database\Eloquent\Collection $categories
+ * @property \Illuminate\Database\Eloquent\Collection $elements
  * @property \Illuminate\Database\Eloquent\Collection $events
  * @property \Illuminate\Database\Eloquent\Collection $products
  * @property \Illuminate\Database\Eloquent\Collection $properties
@@ -24,20 +25,21 @@ use App\Models\BaseModel;
  * @property \Illuminate\Database\Eloquent\Collection $states
  * @property \Illuminate\Database\Eloquent\Collection $testimonials
  * @property \Illuminate\Database\Eloquent\Collection $translations
+ * @property \Illuminate\Database\Eloquent\Collection $types
  *
  */
 class Text extends BaseModel
 {
-    const TEXT = 'text';
-
-
     protected $table = 'text';
-    protected $appends = [
-        'locale_value'
-    ];
+
     public function categories()
     {
         return $this->hasMany(\App\Models\Categorie::class, 'description');
+    }
+
+    public function elements()
+    {
+        return $this->hasMany(\App\Models\Element::class, 'name');
     }
 
     public function events()
@@ -75,5 +77,10 @@ class Text extends BaseModel
     public function translations()
     {
         return $this->hasMany(\App\Models\Translation::class);
+    }
+
+    public function types()
+    {
+        return $this->hasMany(\App\Models\Type::class, 'name');
     }
 }

@@ -11,6 +11,7 @@
         <ul>
             @foreach($sections as $section)
             <li>
+                ({{$section['order']}}) - 
                     @isset($section['name_value']['lang'][$locale])
                     <a href="{!! route('admin.sections.edit', ['id' => $section['id']]) !!}">{{$section['name_value']['lang'][$locale]['text'] or ''}}</a>
                     @else

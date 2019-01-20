@@ -1,24 +1,34 @@
 <?php
 
+/**
+ * Created by Reliese Model.
+ * Date: Sun, 13 Jan 2019 18:38:13 +0000.
+ */
+
 namespace App\Models;
 
 use App\Models\BaseModel;
 
+/**
+ * Class CategorieSection
+ * 
+ * @property int $categorie_id
+ * @property int $section_id
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * 
+ * @property \App\Models\Categorie $categorie
+ * @property \App\Models\Section $section
+ *
+ */
 class CategorieSection extends BaseModel
 {
-    const CATEGORIE = 'categorie_id';
-    const SECTION 	= 'product_id';
-
     protected $table = 'categorie_section';
+    public $incrementing = false;
 
     protected $casts = [
-        self::CATEGORIE => 'int',
-        self::SECTION 	=> 'int'
-    ];
-
-    protected $fillable = [
-        self::CATEGORIE,
-        self::SECTION
+        'categorie_id' => 'int',
+        'section_id' => 'int'
     ];
 
     public function categorie()

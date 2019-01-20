@@ -22,7 +22,11 @@ class SectionRepository
 
     public function show($id)
     {
-        return $this->section->find($id);
+        return $this->section->where('id', '=', $id)->with(['elements' => function ($query) {
+            $query->select('id');
+        }])
+        ->orderBy('order')
+        ->first();
     }
 
     public function store($params)
@@ -161,6 +165,50 @@ class SectionRepository
 
             $sec->fill($secparams);
             $sec->save();
+            DB::commit();
+            return $sec;
+        } catch (\Exception $e) {
+            DB::rollback();
+            return $e->getMessage();
+        }
+    }
+
+    public function delete($id)
+    {
+        try {
+            DB::beginTransaction();
+
+            $sec            =  $this->section->find($id);
+
+            /**
+             * name
+             */
+            $name           = $sec->textName()->first();
+
+            $translations   = $name->translations()->get();
+            foreach ($translations as $translation) {
+                $translation->delete();
+            }
+
+
+
+            /**
+             * description
+             */
+            $description    = $sec->textDescription()->first();
+
+            $translations   = $description->translations()->get();
+            foreach ($translations as $translation) {
+                $translation->delete();
+            }
+
+
+
+
+            $sec->delete();
+            $name->delete();
+            $description->delete();
+
             DB::commit();
             return $sec;
         } catch (\Exception $e) {

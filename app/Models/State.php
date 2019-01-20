@@ -57,6 +57,7 @@ class State extends BaseModel
     public function entities()
     {
         return $this->belongsToMany(\App\Models\Entity::class)
+                    ->withPivot('id')
                     ->withTimestamps();
     }
 

@@ -102,12 +102,16 @@ class Section extends BaseModel
                     ->withTimestamps();
     }
 
+    public function type()
+    {
+        return $this->belongsTo(\App\Models\Type::class);
+    }
 
+    public function elements()
+    {
+        return $this->hasMany(\App\Models\Element::class);
+    }
 
-
-    /**
-     * ACCESSORS
-     */
 
     /**
      * ACCESSORS

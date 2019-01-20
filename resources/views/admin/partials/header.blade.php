@@ -1,10 +1,11 @@
-<!-- Nav -->
-<div>
-{{ Config::get('app.locale') }}
-</div>
-<nav id="nav">
-    <ul>
-        <li>
+
+
+
+
+
+
+<ul class="nav navbar-nav">
+      <li>
             <a href="{!!route('admin.categories')!!}">categories</a>
         </li>
         <li>
@@ -40,5 +41,15 @@
         <li>
             <a href="{!!route('admin.entitystates')!!}">entitiestates</a>
         </li>
-    </ul>
-</nav>
+        <li>
+            <a href="{!!route('admin.entitytypes')!!}">entitietypes</a>
+        </li>
+        <li>
+            <a href="{!!route('admin.elements')!!}">elements</a>
+        </li>
+      </ul><br>
+
+
+
+
+        

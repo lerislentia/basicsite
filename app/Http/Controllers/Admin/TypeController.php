@@ -67,7 +67,7 @@ class TypeController extends Controller
 
             if ($request->isMethod('post')) {
                 $params     = $request->All();
-                $state      = $this->typeservice->update($id, $params);
+                $type       = $this->typeservice->update($id, $params);
             }
             $data = [
                 'type'     => $type->toArray(),

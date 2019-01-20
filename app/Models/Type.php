@@ -23,12 +23,14 @@ use App\Models\BaseModel;
  */
 class Type extends BaseModel
 {
-    const NAME = 'name';
+    const NAME       = 'name';
+    const DEFINITION = 'definition';
 
     protected $table = 'type';
 
     protected $fillable = [
-        self::NAME
+        self::NAME,
+        self::DEFINITION
     ];
 
     protected $casts = [
@@ -55,6 +57,24 @@ class Type extends BaseModel
         return $this->hasMany(\App\Models\SectionText::class);
     }
 
+    public function elements()
+    {
+        return $this->hasMany(\App\Models\Element::class);
+    }
+
+    public function entities()
+    {
+        return $this->belongsToMany(\App\Models\Entity::class)
+                    ->withPivot('id')
+                    ->withTimestamps();
+    }
+
+    public function sections()
+    {
+        return $this->hasMany(\App\Models\Section::class);
+    }
+
+
     /**
      * ACCESSORS
      */
@@ -64,9 +84,9 @@ class Type extends BaseModel
         if (!isset($this->attributes['name'])) {
             return null;
         }
-        $text 								= $this->textName()->first();
+        $name 								= $this->textName()->first();
 
-        $translations 						= $text->translations()->get();
+        $translations 						= $name->translations()->get();
 
         foreach ($translations as $translation) {
             $trans[$translation->locale_id] = $translation->toArray();

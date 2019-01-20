@@ -35,9 +35,9 @@
         </label>
         <select name="state_id">
         <option value="" {{($secti['state_id'] == null ? 'selected="selected"': '')}}> - </option>
-                @foreach($states as $state)
-                    <option value="{{$state['state_id']}}" {{($secti['state_id'] == $state['state_id']) ? 'selected="selected"': ''}}>
-                        {{$state['state']['lang'][$locale]['text'] or ''}}
+                @foreach($entitystates as $entitystate)
+                    <option value="{{$entitystate['state_id']}}" {{($secti['state_id'] == $entitystate['state_id']) ? 'selected="selected"': ''}}>
+                        {{$entitystate['state']['lang'][$locale]['text'] or ''}}
                     </option>
                 @endforeach
             </select>
@@ -59,7 +59,7 @@
         <label for="order">
             order
                 </label>
-        <input type="text" name="url" value="{{ isset($section['order']) ? $section['order'] : old('order') }}">
+        <input type="text" name="order" value="{{ isset($section['order']) ? $section['order'] : old('order') }}">
     </div>
 
     <input type="hidden" name="locale" value="{{$locale}}">

@@ -118,6 +118,13 @@ Route::prefix('admin')->group(function () {
         'as'            => 'admin.sections.edit'
     ]);
 
+    Route::any('/sections/delete/{section}', [
+        'middleware'    => ['auth'],
+        'uses'          => 'Admin\SectionsController@delete',
+        'roles'         => ['admin', 'manager'],
+        'as'            => 'admin.sections.delete'
+    ]);
+
     Route::get('/translations', [
         'middleware'    => ['auth'],
         'uses'          => 'Admin\TranslationsController@index',
@@ -210,6 +217,69 @@ Route::prefix('admin')->group(function () {
         'uses'          => 'Admin\StatesController@edit',
         'roles'         => ['admin', 'manager'],
         'as'            => 'admin.states.edit'
+    ]);
+
+    Route::get('/entitytypes', [
+        'middleware'    => ['auth'],
+        'uses'          => 'Admin\EntityTypeController@index',
+        'roles'         => ['admin', 'manager'],
+        'as'            => 'admin.entitytypes'
+    ]);
+
+    Route::any('/entitytypes/new', [
+        'middleware'    => ['auth'],
+        'uses'          => 'Admin\EntityTypeController@new',
+        'roles'         => ['admin', 'manager'],
+        'as'            => 'admin.entitytypes.new'
+    ]);
+
+    Route::any('/entitytypes/edit/{entitytype}', [
+        'middleware'    => ['auth'],
+        'uses'          => 'Admin\EntityTypeController@edit',
+        'roles'         => ['admin', 'manager'],
+        'as'            => 'admin.entitytypes.edit'
+    ]);
+
+    Route::any('/elements', [
+        'middleware'    => ['auth'],
+        'uses'          => 'Admin\ElementsController@index',
+        'roles'         => ['admin', 'manager'],
+        'as'            => 'admin.elements'
+    ]);
+
+    Route::any('/elements/new', [
+        'middleware'    => ['auth'],
+        'uses'          => 'Admin\ElementsController@new',
+        'roles'         => ['admin', 'manager'],
+        'as'            => 'admin.elements.new'
+    ]);
+
+    Route::any('/elements/edit/{element}', [
+        'middleware'    => ['auth'],
+        'uses'          => 'Admin\ElementsController@edit',
+        'roles'         => ['admin', 'manager'],
+        'as'            => 'admin.elements.edit'
+    ]);
+
+    Route::any('/sections/elements/edit/{section}/', [
+        'middleware'    => ['auth'],
+        'uses'          => 'Admin\SectionsController@edit',
+        'roles'         => ['admin', 'manager'],
+        'as'            => 'admin.sections.elements.edit'
+    ]);
+
+    Route::post('/types/type/ajax', [
+        'middleware'    => ['auth'],
+        'uses'          => 'Admin\StructureController@show',
+        'roles'         => ['admin', 'manager'],
+        'as'            => 'admin.type.ajax'
+    ]);
+
+    Route::any('/types/preview/ajax', [
+        'middleware'    => ['auth'],
+        'uses'          => 'Admin\StructureController@preview',
+        'roles'         => ['admin', 'manager'],
+        'as'            => 'admin.type.preview.ajax'
     ]);
 });
 

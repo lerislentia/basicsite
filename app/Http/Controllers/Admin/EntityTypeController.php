@@ -4,38 +4,38 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Services\EntityStateService;
+use App\Services\EntityTypeService;
 use App\Services\EntityService;
-use App\Services\StateService;
+use App\Services\TypeService;
 use App\Services\LocaleService;
 use Session;
 use Redirect;
 
-class EntityStateController extends Controller
+class EntityTypeController extends Controller
 {
-    protected $entitystateservice;
+    protected $entitytypeservice;
 
     public function __construct(
-            EntityStateService $entitystateservice,
+            EntityTypeService $entitytypeservice,
             EntityService $entityservice,
-            StateService $stateservice,
+            TypeService $typeservice,
             LocaleService $localeservice
             ) {
-        $this->entitystateservice   = $entitystateservice;
+        $this->entitytypeservice    = $entitytypeservice;
         $this->localeservice        = $localeservice;
         $this->entityservice        = $entityservice;
-        $this->stateservice          = $stateservice;
+        $this->typeservice          = $typeservice;
     }
 
     public function index()
     {
-        $entitystates   = $this->entitystateservice->index();
+        $entitytypes   = $this->entitytypeservice->index();
         $locale         = Session::get('locale');
         $data = [
-            'entitystates'  => $entitystates->toArray(),
+            'entitytypes'  => $entitytypes->toArray(),
             'locale'        => $locale,
             ];
-        return view('admin.entitystates.index', $data);
+        return view('admin.entitytypes.index', $data);
     }
 
     public function new(Request $request)
@@ -43,24 +43,24 @@ class EntityStateController extends Controller
         try {
             $locales    = $this->localeservice->index();
             $entities   = $this->entityservice->index();
-            $states     = $this->stateservice->index();
+            $types     = $this->typeservice->index();
             $locale     = Session::get('locale');
 
             if ($request->isMethod('post')) {
-                $params     = $request->Only('entity_id', 'state_id');
-                $newent    = $this->entitystateservice->store($params);
-                return Redirect::route('admin.entitystates');
+                $params     = $request->Only('entity_id', 'type_id');
+                $newent    = $this->entitytypeservice->store($params);
+                return Redirect::route('admin.entitytypes');
             }
             $data = [
                 'entities'  => $entities->toArray(),
-                'states'    => $states->toArray(),
+                'types'     => $types->toArray(),
                 'locales'   => $locales->toArray(),
                 'locale'    => $locale
                 ];
 
-            return view('admin.entitystates.forms.new', $data);
+            return view('admin.entitytypes.forms.new', $data);
         } catch (\Exception $e) {
-            return view('admin.entitystates.forms.new', $data);
+            return view('admin.entitytypes.forms.new', $data);
         }
     }
 

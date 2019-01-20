@@ -59,13 +59,18 @@
         <label for="order">
             order
                 </label>
-        <input type="text" name="url" value="{{ isset($section['order']) ? $section['order'] : old('order') }}">
+        <input type="text" name="order" value="{{ isset($section['order']) ? $section['order'] : old('order') }}">
     </div>
 
 
     <input type="hidden" name="locale" value="{{$locale}}">
     {{ csrf_field() }}
     <input type="submit" value="save">
+</form>
+
+<form action="{{route('admin.sections.delete', ['id' => $section['id']])}}" method="POST">
+{{ csrf_field() }}
+<input type="submit" value="delete">
 </form>
 
 @endsection

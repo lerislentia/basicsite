@@ -9,6 +9,7 @@ use App\Services\SectionService;
 use App\Services\TypeService;
 use App\Services\LocaleService;
 use App\Services\EntityStateService;
+use App\Services\ElementsService;
 use App\Models\Section;
 use Session;
 use Redirect;
@@ -26,12 +27,14 @@ class SectionsController extends Controller
             SectionService $sectionservice,
             EntityStateService $entitystate,
             TypeService $typeservice,
-            LocaleService $localeservice
+            LocaleService $localeservice,
+            ElementsService $elementservice
             ) {
         $this->sectionservice   = $sectionservice;
         $this->entitystate      = $entitystate;
         $this->typeservice      = $typeservice;
         $this->localeservice    = $localeservice;
+        $this->elementservice   = $elementservice;
     }
 
     public function index()
@@ -52,9 +55,8 @@ class SectionsController extends Controller
     public function new(Request $request)
     {
         try {
-            $sections   = $this->sectionservice->index();
-            $types          = $this->typeservice->index();
-            $states             = $this->entitystate->index(self::ENTITY);
+            $types              = $this->typeservice->index();
+            $entitystates       = $this->entitystate->index(self::ENTITY);
             $locale             = Session::get('locale');
 
             if ($request->isMethod('post')) {
@@ -67,9 +69,9 @@ class SectionsController extends Controller
 
             $data = [
                 'secti'         => null,
-                'sections'      => $sections->toArray(),
+
                 'types'         => $types->toArray(),
-                'states'        => $states->toArray(),
+                'entitystates'  => $entitystates->toArray(),
                 'locale'        => Session::get('locale')
             ];
 
@@ -83,6 +85,7 @@ class SectionsController extends Controller
     {
         try {
             $section            = $this->sectionservice->show($id);
+            $elements           = $this->elementservice->index();
             $types              = $this->typeservice->index();
             $states             = $this->entitystate->index(self::ENTITY);
             $locale             = Session::get('locale');
@@ -103,5 +106,11 @@ class SectionsController extends Controller
         } catch (\Throwable $e) {
             return view('admin.sections.forms.edit', $data);
         }
+    }
+
+    public function delete(Request $request, $id)
+    {
+        $this->sectionservice->delete($id);
+        return Redirect::route('admin.sections');
     }
 }

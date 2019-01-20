@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 02 Dec 2018 14:30:09 +0000.
+ * Date: Sun, 13 Jan 2019 18:38:13 +0000.
  */
 
 namespace App\Models;
@@ -10,57 +10,57 @@ namespace App\Models;
 use App\Models\BaseModel;
 
 /**
- * Class EntityState
+ * Class EntityType
  * 
+ * @property int $id
  * @property int $entity_id
- * @property int $state_id
+ * @property int $type_id
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Models\Entity $entity
- * @property \App\Models\State $state
+ * @property \App\Models\Type $type
  *
  */
-class EntityState extends BaseModel
+class EntityType extends BaseModel
 {
-    const ENTITY 	= 'entity_id';
-    const STATE 	= 'state_id';
-
-    protected $table = 'entity_state';
+    protected $table = 'entity_type';
 
     protected $casts = [
-        self::ENTITY => 'int',
-        self::STATE => 'int'
-    ];
-    protected $fillable = [
-        self::ENTITY,
-        self::STATE
+        'entity_id' => 'int',
+        'type_id' => 'int'
     ];
 
     protected $appends = [
-        'locale_value', 'state', 'entity'
+        'locale_value', 'type', 'entity'
     ];
+
+    protected $fillable = [
+        'entity_id',
+        'type_id'
+    ];
+
     public function entity()
     {
         return $this->belongsTo(\App\Models\Entity::class);
     }
 
-    public function state()
+    public function type()
     {
-        return $this->belongsTo(\App\Models\State::class);
+        return $this->belongsTo(\App\Models\Type::class);
     }
 
 
     /**
      * ACCESSORS
      */
-    public function getStateAttribute()
+    public function getTypeAttribute()
     {
-        if (!isset($this->attributes['state_id'])) {
+        if (!isset($this->attributes['type_id'])) {
             return null;
         }
-        $state                              = $this->state()->first();
-        $text 								= $state->textName()->first();
+        $type 								= $this->Type()->first();
+        $text 								= $type->textName()->first();
 
         $translations 						= $text->translations()->get();
         foreach ($translations as $translation) {

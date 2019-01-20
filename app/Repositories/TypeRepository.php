@@ -100,7 +100,8 @@ class TypeRepository extends BaseRepository
 
 
             $typparams = [
-                'name'          => $name->id
+                'name'          => $name->id,
+                'definition'    => isset($params['definition']) ? $params['definition'] : null
             ];
 
             $typ->fill($typparams);

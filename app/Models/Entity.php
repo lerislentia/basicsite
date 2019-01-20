@@ -35,6 +35,14 @@ class Entity extends BaseModel
     public function states()
     {
         return $this->belongsToMany(\App\Models\State::class)
+                    ->withPivot('id')
+                    ->withTimestamps();
+    }
+
+    public function types()
+    {
+        return $this->belongsToMany(\App\Models\Type::class)
+                    ->withPivot('id')
                     ->withTimestamps();
     }
 }
