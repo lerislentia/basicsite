@@ -81,37 +81,37 @@ function LoadTypeContent(type){
     $( "#preview" ).html("");
     $( "#preview" ).load( "{{route('admin.type.preview.ajax')}}", { "type": type , "_token": $('meta[name="csrf-token"]').attr('content')} );
 
-        // $.ajax({
-        //         url: "{{ route('admin.type.ajax') }}",
-        //         type: "POST",
-        //         data: {
-        //             "_token": $('meta[name="csrf-token"]').attr('content'), 
-        //             "type":type
-        //             },
-        //             dataType: "json",
+        $.ajax({
+                url: "{{ route('admin.type.ajax') }}",
+                type: "POST",
+                data: {
+                    "_token": $('meta[name="csrf-token"]').attr('content'), 
+                    "type":type
+                    },
+                    dataType: "json",
 
-        //         success: function (data) {
-        //             $.each(data, function (index, value) {
-        //                 alert(index);
-        //                 var $formgroup  = $("<div />").attr( "class", "form-group var" );
-        //                 var $label       = $("<label />").attr( "for", index ).text( index );;
+                success: function (data) {
+                    $.each(data, function (index, value) {
 
-        //                 var $input = $("<input/>")
-        //                                 .attr( "type", "text" )
-        //                                 .attr( "id", "id"+index )
-        //                                 .attr( "name", index );
-        //                 $formgroup.append($label);
-        //                 $formgroup.append($input);
-        //                 $($formgroup).insertBefore("#MyForm");
+                        var $formgroup  = $("<div />").attr( "class", "form-group var" );
+                        var $label       = $("<label />").attr( "for", index ).text( index );;
 
-        //             })
+                        var $input = $("<input/>")
+                                        .attr( "type", "text" )
+                                        .attr( "id", "id"+index )
+                                        .attr( "name", index );
+                        $formgroup.append($label);
+                        $formgroup.append($input);
+                        $($formgroup).insertBefore("#MyForm");
 
-        //         },
-        //         error: function () {
-        //             console.log("[ERROR] Method: LoadTypeContent()");
+                    })
 
-        //         }
-        //    });
+                },
+                error: function () {
+                    console.log("[ERROR] Method: LoadTypeContent()");
+
+                }
+           });
         
     }
 

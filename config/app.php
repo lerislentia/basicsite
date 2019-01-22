@@ -170,6 +170,11 @@ return [
          */
 
         /*
+        * Ckeditor
+        */
+        Unisharp\Ckeditor\ServiceProvider::class,
+
+        /*
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,

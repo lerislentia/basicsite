@@ -11,11 +11,16 @@
     },
     "devDependencies": {
         "axios": "^0.16.2",
-        "bootstrap-sass": "^3.3.7",
+        "bootstrap-sass": "^3.4.0",
         "cross-env": "^5.0.1",
         "jquery": "^3.1.1",
         "laravel-mix": "^1.0",
         "lodash": "^4.17.4",
-        "vue": "^2.1.10"
+        "vue": "^2.5.22"
+    },
+    "dependencies": {
+        "ajv": "^6.7.0",
+        "aos": "^2.3.4",
+        "wow.js": "^1.2.2"
     }
 }

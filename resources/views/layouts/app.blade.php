@@ -14,17 +14,15 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-
-        
         @yield('content')
-
-
     <!-- Scripts -->
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/jquery.dropotron.min.js') }}"></script>
     <script src="{{ asset('js/browser.min.js') }}"></script>
     <script src="{{ asset('js/breakpoints.min.js') }}"></script>
+    <script src="{{ asset('js/wow.min.js') }}"></script>
     <script src="{{ asset('js/util.js') }}"></script>
     <script src="{{ mix('js/app.js') }}"></script>
+        @yield('scripts')
 </body>
 </html>
