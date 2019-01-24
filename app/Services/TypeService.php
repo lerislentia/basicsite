@@ -13,9 +13,9 @@ class TypeService
         $this->typerepository = $typerepository;
     }
 
-    public function index()
+    public function index($entity = null)
     {
-        return $this->typerepository->index();
+        return $this->typerepository->index($entity)->get();
     }
 
     public function update($id, $params)

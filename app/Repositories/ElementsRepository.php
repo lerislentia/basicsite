@@ -24,6 +24,14 @@ class ElementsRepository
         return $query;
     }
 
+    public function show(int $id)
+    {
+        return $this->element->where('id', '=', $id)->with(['type' => function ($query) {
+            $query->select('id', 'definition', 'name');
+        }])
+        ->first();
+    }
+
     public function store($params)
     {
         try {

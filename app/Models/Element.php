@@ -42,10 +42,11 @@ class Element extends BaseModel
         'section_id',
         'state_id',
         'order',
+        'data',
     ];
 
     protected $appends = [
-        'name_value', 'state', 'section', 'type','locale_value'
+        'name_value', 'state', 'section', 'type','locale_value', 'array_data'
     ];
 
     public function section()
@@ -63,15 +64,33 @@ class Element extends BaseModel
         return $this->belongsTo(\App\Models\Type::class);
     }
 
+    public function state()
+    {
+        return $this->belongsTo(\App\Models\State::class);
+    }
+
+    public function images()
+	{
+		return $this->belongsToMany(\App\Models\Image::class)
+					->withPivot('id');
+	}
+
+	public function texts()
+	{
+		return $this->belongsToMany(\App\Models\Text::class)
+					->withPivot('id');
+	}
+
+    /**
+     * custom relations
+     */
+
+
     public function textName()
     {
         return $this->belongsTo(\App\Models\Text::class, 'name');
     }
 
-    public function state()
-    {
-        return $this->belongsTo(\App\Models\State::class);
-    }
 
     /**
      * ACCESSORS
@@ -132,5 +151,10 @@ class Element extends BaseModel
             $trans[$translation->locale_id] = $translation->toArray();
         }
         return ['lang' => $trans];
+    }
+
+    public function getArrayDataAttribute()
+    {
+        return json_decode($this->data, true);
     }
 }

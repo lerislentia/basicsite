@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.back')
 
 @section('content')
 
@@ -41,6 +41,19 @@
                     </option>
                 @endforeach
             </select>
+    </div>
+    <div class="form-group">
+        <label for="parent_id">
+                    parent_id
+                </label>
+        <select name="parent_id">
+        <option value="" {{($secti['parent_id'] == null ? 'selected="selected"': '')}}> - </option>
+            @foreach($sections as $section)
+                <option value="{{$section['id']}}" {{($section['id'] == $secti['parent_id']) ? 'selected="selected"': ''}}>
+                    {{$section['name_value']['lang'][$locale]['text']}}
+                </option>
+            @endforeach
+        </select>
     </div>
     <div class="form-group">
         <label for="type">

@@ -22,6 +22,7 @@ class EntityService
     {
         return $this->entityrepository->show($id);
     }
+
     public function store($params)
     {
         return $this->entityrepository->store($params);

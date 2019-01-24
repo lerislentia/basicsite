@@ -41,12 +41,6 @@ class Type extends BaseModel
         'locale_value', 'name_value'
     ];
 
-
-    public function textName()
-    {
-        return $this->belongsTo(\App\Models\Text::class, 'name');
-    }
-
     public function galleries()
     {
         return $this->hasMany(\App\Models\Gallery::class);
@@ -74,6 +68,17 @@ class Type extends BaseModel
         return $this->hasMany(\App\Models\Section::class);
     }
 
+
+    /**
+     * custom relations
+     *
+     * @return void
+     */
+
+    public function textName()
+    {
+        return $this->belongsTo(\App\Models\Text::class, 'name');
+    }
 
     /**
      * ACCESSORS

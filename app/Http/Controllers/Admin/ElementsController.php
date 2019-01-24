@@ -18,17 +18,26 @@ class ElementsController extends Controller
 {
     const ENTITY = 'element';
 
+    protected $elementsservice;
+    protected $sectionsservice;
+    protected $entitystate;
+    protected $entitytype;
+    protected $typeservice;
+    protected $localeservice;
+
     public function __construct(
         ElementsService $elementsservice,
         SectionService $sectionsservice,
         EntityStateService $entitystate,
         EntityTypeService $entitytype,
+        TypeService $typeservice,
         LocaleService $localeservice
         ) {
         $this->elementsservice  = $elementsservice;
         $this->sectionsservice  = $sectionsservice;
         $this->entitystate      = $entitystate;
         $this->entitytype       = $entitytype;
+        $this->typeservice       = $typeservice;
         $this->localeservice    = $localeservice;
     }
 
@@ -53,7 +62,7 @@ class ElementsController extends Controller
         try {
             $sections           = $this->sectionsservice->index();
             $entitystates       = $this->entitystate->index(self::ENTITY);
-            $entitytypes        = $this->entitytype->index(self::ENTITY);
+            $types        = $this->typeservice->index(self::ENTITY);
             $locale             = Session::get('locale');
 
 
@@ -69,7 +78,7 @@ class ElementsController extends Controller
             $data = [
                 'secti'         => null,
                 'sections'      => $sections->toArray(),
-                'entitytypes'   => $entitytypes->toArray(),
+                'types'         => $types->toArray(),
                 'entitystates'  => $entitystates->toArray(),
                 'locale'        => Session::get('locale')
             ];
@@ -78,5 +87,61 @@ class ElementsController extends Controller
         } catch (\Throwable $e) {
             return view('admin.elements.forms.new', $data);
         }
+    }
+
+    public function edit(){
+
+    }
+
+    public function editProperties(Request $request, int $id){
+        try{
+
+        $locale             = Session::get('locale');
+        
+        $element    = $this->elementsservice->show($id);
+
+        if(!$element){
+            throw new \Exception("no se encontro el elemento en la base de datos");
+        }
+
+        if ($request->isMethod('post')) {
+            try{
+                DB::beginTransaction();
+                $params = $request->all();
+                unset($params['_token']);
+                $obj    = json_encode($params);
+                $element->data = json_encode($params);
+                $element->save();
+                DB::commit();
+                return Redirect::route('admin.elements');
+            }catch(\Exception $e){
+                DB::rollback();               
+                throw new Exception($e->getMessage());
+            }
+            
+        }
+
+        $type = $element->type()->first();
+
+        $definition = isset($type->definition) ? $type->definition : null;
+
+        if(!$definition){
+            throw new \Exception("error en type : {$id}, el campo 'definition' no esta informado");
+        }
+
+        $view = "definitions.{$definition}.forms.edit";
+
+        $data = [
+            'element'       => $element->toArray(),
+            'locale'        => Session::get('locale')
+        ];
+
+        return view($view, $data);
+
+        }catch(\Exception $e){
+            $request->session()->flash('message', $e->getMessage());
+            return Redirect::route('admin.elements');
+        }
+
     }
 }

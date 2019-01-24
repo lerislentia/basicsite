@@ -55,10 +55,10 @@ class Image extends BaseModel
     protected $appends = [
         'locale_value'
     ];
-    public function galleries()
-    {
-        return $this->belongsToMany(\App\Models\Gallery::class)
-                    ->withPivot('id', 'sequence')
-                    ->withTimestamps();
-    }
+    
+    public function elements()
+	{
+		return $this->belongsToMany(\App\Models\Element::class)
+					->withPivot('id');
+	}
 }

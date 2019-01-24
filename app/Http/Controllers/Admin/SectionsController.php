@@ -55,7 +55,8 @@ class SectionsController extends Controller
     public function new(Request $request)
     {
         try {
-            $types              = $this->typeservice->index();
+            $sections           = $this->sectionservice->getParents();
+            $types              = $this->typeservice->index(self::ENTITY);
             $entitystates       = $this->entitystate->index(self::ENTITY);
             $locale             = Session::get('locale');
 
@@ -69,7 +70,7 @@ class SectionsController extends Controller
 
             $data = [
                 'secti'         => null,
-
+                'sections'      => $sections->toArray(),
                 'types'         => $types->toArray(),
                 'entitystates'  => $entitystates->toArray(),
                 'locale'        => Session::get('locale')
@@ -84,10 +85,12 @@ class SectionsController extends Controller
     public function edit(Request $request, $id)
     {
         try {
+            $sections           = $this->sectionservice->getParents();
             $section            = $this->sectionservice->show($id);
             $elements           = $this->elementservice->index();
-            $types              = $this->typeservice->index();
-            $states             = $this->entitystate->index(self::ENTITY);
+            $types              = $this->typeservice->index(self::ENTITY);
+            // $entitytypes        = $this->entitytype->index(self::ENTITY);
+            $entitystates             = $this->entitystate->index(self::ENTITY);
             $locale             = Session::get('locale');
 
             if ($request->isMethod('post')) {
@@ -96,9 +99,10 @@ class SectionsController extends Controller
             }
 
             $data = [
-            'section'       => $section->toArray(),
+            'currentsection'       => $section->toArray(),
+            'sections'      => $sections->toArray(),
             'types'         => $types->toArray(),
-            'states'        => $states->toArray(),
+            'states'        => $entitystates->toArray(),
             'locale'        => Session::get('locale')
         ];
 

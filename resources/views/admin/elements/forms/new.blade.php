@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.back')
 
 @section('content')
 
@@ -13,18 +13,18 @@
         </div>
 
         <div class="form-group">
-            <label for="type">
-                type
-            </label>
-            <select name="type_id" id="IdType">
-            <option value="" {{($secti['type_id'] == null ? 'selected="selected"': '')}}> - </option>
-                    @foreach($entitytypes as $entitytype)
-                        <option value="{{$entitytype['type_id']}}" {{($secti['type_id'] == $entitytype['type_id']) ? 'selected="selected"': ''}}>
-                            {{$entitytype['type']['lang'][$locale]['text'] or ''}}
-                        </option>
-                    @endforeach
-                </select>
-        </div>
+        <label for="type">
+            type
+        </label>
+        <select name="type_id" id="IdType">
+        <option value="" {{($secti['type_id'] == null ? 'selected="selected"': '')}}> - </option>
+                @foreach($types as $type)
+                    <option value="{{$type['id']}}" {{($type['id'] == $secti['type_id']) ? 'selected="selected"': ''}}>
+                        {{$type['name_value']['lang'][$locale]['text']}}
+                    </option>
+                @endforeach
+            </select>
+    </div>
 
         <div class="form-group">
             <label for="section">
@@ -81,37 +81,39 @@ function LoadTypeContent(type){
     $( "#preview" ).html("");
     $( "#preview" ).load( "{{route('admin.type.preview.ajax')}}", { "type": type , "_token": $('meta[name="csrf-token"]').attr('content')} );
 
-        $.ajax({
-                url: "{{ route('admin.type.ajax') }}",
-                type: "POST",
-                data: {
-                    "_token": $('meta[name="csrf-token"]').attr('content'), 
-                    "type":type
-                    },
-                    dataType: "json",
+        // $.ajax({
+        //         url: "{{ route('admin.type.ajax') }}",
+        //         type: "POST",
+        //         data: {
+        //             "_token": $('meta[name="csrf-token"]').attr('content'), 
+        //             "type":type
+        //             },
+        //             dataType: "json",
 
-                success: function (data) {
-                    $.each(data, function (index, value) {
+        //         success: function (data) {
 
-                        var $formgroup  = $("<div />").attr( "class", "form-group var" );
-                        var $label       = $("<label />").attr( "for", index ).text( index );;
+        //             $('.var').remove();
+        //             $.each(data, function (index, value) {
 
-                        var $input = $("<input/>")
-                                        .attr( "type", "text" )
-                                        .attr( "id", "id"+index )
-                                        .attr( "name", index );
-                        $formgroup.append($label);
-                        $formgroup.append($input);
-                        $($formgroup).insertBefore("#MyForm");
+        //                 var $formgroup  = $("<div />").attr( "class", "form-group var" );
+        //                 var $label       = $("<label />").attr( "for", index ).text( index );;
 
-                    })
+        //                 var $input = $("<input/>")
+        //                                 .attr( "type", "text" )
+        //                                 .attr( "id", "id"+index )
+        //                                 .attr( "name", index );
+        //                 $formgroup.append($label);
+        //                 $formgroup.append($input);
+        //                 $($formgroup).insertBefore("#MyForm");
 
-                },
-                error: function () {
-                    console.log("[ERROR] Method: LoadTypeContent()");
+        //             })
 
-                }
-           });
+        //         },
+        //         error: function () {
+        //             console.log("[ERROR] Method: LoadTypeContent()");
+
+        //         }
+        //    });
         
     }
 

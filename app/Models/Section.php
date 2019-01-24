@@ -39,6 +39,8 @@ class Section extends BaseModel
     const URL			= 'url';
     const TAGS 			= 'tags';
     const ORDER 		= 'order';
+    const FATHER 		= 'parent_id';
+    const DATA 		    = 'data';
 
 
     protected $table = 'section';
@@ -49,6 +51,7 @@ class Section extends BaseModel
         self::TYPE 			=> 'int',
         self::STATE 		=> 'int',
         self::ORDER 		=> 'int',
+        self::FATHER 		=> 'int',
     ];
 
     protected $fillable = [
@@ -58,11 +61,14 @@ class Section extends BaseModel
         self::TAGS,
         self::STATE,
         self::TYPE,
-        self::ORDER
+        self::ORDER,
+        self::FATHER,
+        self::DATA
+
     ];
 
     protected $appends = [
-        'name_value', 'description_value', 'locale_value'
+        'childs', 'name_value', 'description_value', 'locale_value'
     ];
 
 
@@ -112,6 +118,10 @@ class Section extends BaseModel
         return $this->hasMany(\App\Models\Element::class);
     }
 
+    public function sections()
+    {
+        return $this->hasMany(\App\Models\Section::class, 'parent_id');
+    }
 
     /**
      * ACCESSORS
@@ -158,5 +168,12 @@ class Section extends BaseModel
             $trans[$translation->locale_id] = $translation->toArray();
         }
         return ['lang' => $trans];
+    }
+
+    public function getChildsAttribute()
+    {
+        return 	$this->sections()->with(['sections' => function ($query) {
+            $query->select('id');
+        }])->get();
     }
 }

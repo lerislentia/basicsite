@@ -2,8 +2,7 @@
 <section id="main">
     <div class="container">
         <div class="row">
-    @include('includes.portfolio')
-    @include('includes.blog')
+            @include('includes.sections')
         </div>
     </div>
 </section>

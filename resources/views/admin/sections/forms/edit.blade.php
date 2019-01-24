@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.back')
 
 @section('content')
 
@@ -8,48 +8,62 @@
         <label for="name">
         name
     </label>
-        <input type="text" name="name" value="{{ isset($section['name_value']['lang'][$locale]['text']) ? $section['name_value']['lang'][$locale]['text'] : old('name') }}">
+        <input type="text" name="name" value="{{ isset($currentsection['name_value']['lang'][$locale]['text']) ? $currentsection['name_value']['lang'][$locale]['text'] : old('name') }}">
     </div>
     <div class="form-group">
         <label for="description">
                 description
                 </label>
-        <input type="text" name="description" value="{{ isset($section['description_value']['lang'][$locale]['text']) ? $section['description_value']['lang'][$locale]['text'] : old('description') }}">
+        <input type="text" name="description" value="{{ isset($currentsection['description_value']['lang'][$locale]['text']) ? $currentsection['description_value']['lang'][$locale]['text'] : old('description') }}">
     </div>
 
     <div class="form-group">
         <label for="url">
                 url
                 </label>
-        <input type="text" name="url" value="{{ isset($section['url']) ? $section['url'] : old('url') }}">
+        <input type="text" name="url" value="{{ isset($currentsection['url']) ? $currentsection['url'] : old('url') }}">
     </div>
     <div class="form-group">
         <label for="tags">
                     tags
                 </label>
-        <input type="text" name="tags" value="{{ isset($section['tags']) ? $section['tags'] : old('tags') }}">
+        <input type="text" name="tags" value="{{ isset($currentsection['tags']) ? $currentsection['tags'] : old('tags') }}">
     </div>
     <div class="form-group">
         <label for="state">
             state
         </label>
         <select name="state_id">
-        <option value="" {{($section['state_id'] == null ? 'selected="selected"': '')}}> - </option>
+        <option value="" {{($currentsection['state_id'] == null ? 'selected="selected"': '')}}> - </option>
                 @foreach($states as $state)
-                    <option value="{{$state['state_id']}}" {{($state['state_id'] == $section['state_id']) ? 'selected="selected"': ''}}>
+                    <option value="{{$state['state_id']}}" {{($state['state_id'] == $currentsection['state_id']) ? 'selected="selected"': ''}}>
                         {{$state['state']['lang'][$locale]['text']}}
                     </option>
                 @endforeach
             </select>
+    </div>
+
+    <div class="form-group">
+        <label for="parent_id">
+                    parent_id
+                </label>
+        <select name="parent_id">
+        <option value="" {{($currentsection['parent_id'] == null ? 'selected="selected"': '')}}> - </option>
+            @foreach($sections as $section)
+                <option value="{{$section['id']}}" {{($section['id'] == $currentsection['parent_id']) ? 'selected="selected"': ''}}>
+                    {{$section['name_value']['lang'][$locale]['text']}}
+                </option>
+            @endforeach
+        </select>
     </div>
     <div class="form-group">
         <label for="type">
             type
         </label>
         <select name="type_id">
-        <option value="" {{($section['type_id'] == null ? 'selected="selected"': '')}}> - </option>
+        <option value="" {{($currentsection['type_id'] == null ? 'selected="selected"': '')}}> - </option>
                 @foreach($types as $type)
-                    <option value="{{$type['id']}}" {{($type['id'] == $section['type_id']) ? 'selected="selected"': ''}}>
+                    <option value="{{$type['id']}}" {{($type['id'] == $currentsection['type_id']) ? 'selected="selected"': ''}}>
                         {{$type['name_value']['lang'][$locale]['text']}}
                     </option>
                 @endforeach
@@ -59,7 +73,7 @@
         <label for="order">
             order
                 </label>
-        <input type="text" name="order" value="{{ isset($section['order']) ? $section['order'] : old('order') }}">
+        <input type="text" name="order" value="{{ isset($currentsection['order']) ? $currentsection['order'] : old('order') }}">
     </div>
 
 
@@ -68,7 +82,7 @@
     <input type="submit" value="save">
 </form>
 
-<form action="{{route('admin.sections.delete', ['id' => $section['id']])}}" method="POST">
+<form action="{{route('admin.sections.delete', ['id' => $currentsection['id']])}}" method="POST">
 {{ csrf_field() }}
 <input type="submit" value="delete">
 </form>

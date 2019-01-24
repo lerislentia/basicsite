@@ -42,4 +42,9 @@ class SectionService
     {
         return $this->sectionrepository->delete($id);
     }
+
+    public function getParents()
+    {
+        return $this->sectionrepository->findBy(['parent_id' => null])->get();
+    }
 }

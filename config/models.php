@@ -25,7 +25,7 @@ return [
         |
         */
 
-        'path' => app_path('Models'),
+        'path' => app_path('Models/generated'),
 
         /*
         |--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return [
         |
         */
 
-        'parent' => Reliese\Database\Eloquent\Model::class,
+        'parent' => App\Models\BaseModel::class,
 
         /*
         |--------------------------------------------------------------------------
@@ -68,6 +68,7 @@ return [
         */
 
         'use' => [
+            App\Models\BaseModel::class,
             // Reliese\Database\Eloquent\BitBooleans::class,
             // Reliese\Database\Eloquent\BlamableBehavior::class,
         ],
@@ -170,7 +171,7 @@ return [
         |
         */
 
-        'base_files' => true,
+        'base_files' => false,
 
         /*
         |--------------------------------------------------------------------------

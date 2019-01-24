@@ -9,6 +9,7 @@ use App\Services\SectionService;
 use App\Services\StateService;
 use App\Services\LocaleService;
 use App\Services\CategoryService;
+use App\Services\StructureService;
 
 use App\Models\Section;
 use App\Models\Categorie;
@@ -19,12 +20,19 @@ class IndexController extends Controller
     protected $stateservice;
     protected $localeservice;
     protected $categoryservice;
+    protected $structureservice;
 
-    public function __construct(StateService $stateservice, SectionService $sectionservice, CategoryService $categoryservice)
+    public function __construct(
+        StateService $stateservice, 
+        SectionService $sectionservice, 
+        CategoryService $categoryservice,
+        StructureService $structureservice
+        )
     {
         $this->stateservice     = $stateservice;
         $this->sectionservice   = $sectionservice;
         $this->categoryservice  = $categoryservice;
+        $this->structureservice    = $structureservice;
     }
     public function index()
     {
@@ -36,7 +44,11 @@ class IndexController extends Controller
         // $state->save();
         // dd($state->toArray());
 
-        // $sections = $this->sectionservice->index();
+        $sections = $this->sectionservice->getParents();
+
+
+        $htmlsections = $this->structureservice->parseSections($sections);
+
         // $categories = $this->categoryservice->index();
         // dd($sections->toArray());
 
@@ -99,7 +111,10 @@ class IndexController extends Controller
         // $categories = $this->categoryservice->index();
         $categories = $this->categoryservice->getParents();
         // dd($categories->toArray());
-        $data = ['categories' => $categories->toArray()];
-        return view('welcome', $data);
+        $data = [
+            'categories'    => $categories->toArray(),
+            'sections'      => $htmlsections,
+        ];
+        return view('home', $data);
     }
 }

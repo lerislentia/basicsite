@@ -1,3 +1,4 @@
+
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
   <!-- Indicators -->
   <ol class="carousel-indicators">
@@ -9,15 +10,15 @@
   <!-- Wrapper for slides -->
   <div class="carousel-inner">
     <div class="item active">
-      <img src="la.jpg" alt="Los Angeles">
+      <img src="{{ asset('images/pic02.jpg') }}" alt="Los Angeles">
     </div>
 
     <div class="item">
-      <img src="chicago.jpg" alt="Chicago">
+      <img src="{{ asset('images/pic03.jpg') }}" alt="Chicago">
     </div>
 
     <div class="item">
-      <img src="ny.jpg" alt="New York">
+      <img src="{{ asset('images/pic04.jpg') }}" alt="New York">
     </div>
   </div>
 
@@ -31,3 +32,17 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+  $("#myCarousel").carousel();
+
+  // Enable Carousel Indicators
+  $(".myCarousel").click(function(){
+    $("#myCarousel").carousel(1);
+  });
+});
+</script>
+

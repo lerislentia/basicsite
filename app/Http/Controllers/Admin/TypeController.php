@@ -9,6 +9,7 @@ use App\Services\LocaleService;
 use App\Services\TypeService;
 use Session;
 use Redirect;
+use DB;
 
 class TypeController extends Controller
 {
@@ -60,6 +61,7 @@ class TypeController extends Controller
     public function edit(Request $request, $id)
     {
         try {
+            DB::beginTransaction();
             $type           = $this->typeservice->show($id);
             $types          = $this->typeservice->index();
             $locales        = $this->localeservice->index();
@@ -75,9 +77,10 @@ class TypeController extends Controller
                 'locales'   => $locales->toArray(),
                 'locale'    => $locale
                 ];
-
+            DB::commit();
             return view('admin.types.forms.edit', $data);
         } catch (\Exception $e) {
+            DB::rollback();
             return view('admin.types.forms.edit', $data);
         }
     }

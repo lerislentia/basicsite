@@ -36,7 +36,7 @@ class StructureController extends Controller
     {
         $params     = $request->All();
         $type       = $this->typeservice->show($params['type']);
-        $html     = $this->structureservice->getHtml($type['definition']);
+        $html       = $this->structureservice->getHtml($type['definition'], $params);
         return response($html);
     }
 }

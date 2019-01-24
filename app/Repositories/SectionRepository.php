@@ -19,6 +19,14 @@ class SectionRepository
         return $this->section->select('*')->orderBy(Section::ORDER);
     }
 
+    public function findBy($params)
+    {
+        $query = $this->section->select('*');
+        foreach ($params as $key => $value) {
+            $query->where($key, '=', $value);
+        }
+        return $query;
+    }
 
     public function show($id)
     {
@@ -87,6 +95,8 @@ class SectionRepository
                 'tags'          => $params['tags'],
                 'state_id'      => $params['state_id'],
                 'type_id'       => $params['type_id'],
+                'parent_id'     => isset($params['parent_id']) ? $params['parent_id'] : null,
+                'order'       => $params['order'],
 
             ];
             $sect = $this->section->create($secparams);
@@ -160,6 +170,7 @@ class SectionRepository
                 'tags'          => $params['tags'],
                 'state_id'      => $params['state_id'],
                 'type_id'       => $params['type_id'],
+                'parent_id'     => isset($params['parent_id']) ? $params['parent_id'] : null,
 
             ];
 
@@ -179,6 +190,16 @@ class SectionRepository
             DB::beginTransaction();
 
             $sec            =  $this->section->find($id);
+
+            $elements       = $sec->elements()->get();
+            foreach ($elements as $key => $element) {
+                $elementimages = $element->images()->get();
+
+                foreach ($elementimages as $key => $elementimage) {
+                    $elementimage->delete();
+                }
+                $element->delete();
+            }
 
             /**
              * name

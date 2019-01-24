@@ -18,6 +18,11 @@ class ElementsService
         return $this->elementrepository->index($type)->get();
     }
 
+    public function show($id)
+    {
+        return $this->elementrepository->show($id);
+    }
+
     public function create($params)
     {
         return $this->elementrepository->store($params);

@@ -125,6 +125,13 @@ Route::prefix('admin')->group(function () {
         'as'            => 'admin.sections.delete'
     ]);
 
+    Route::any('/sections/elements/edit/{section}/', [
+        'middleware'    => ['auth'],
+        'uses'          => 'Admin\SectionsController@edit',
+        'roles'         => ['admin', 'manager'],
+        'as'            => 'admin.sections.elements.edit'
+    ]);
+
     Route::get('/translations', [
         'middleware'    => ['auth'],
         'uses'          => 'Admin\TranslationsController@index',
@@ -261,11 +268,11 @@ Route::prefix('admin')->group(function () {
         'as'            => 'admin.elements.edit'
     ]);
 
-    Route::any('/sections/elements/edit/{section}/', [
+    Route::any('/elements/properties/edit/{element}/', [
         'middleware'    => ['auth'],
-        'uses'          => 'Admin\SectionsController@edit',
+        'uses'          => 'Admin\ElementsController@editProperties',
         'roles'         => ['admin', 'manager'],
-        'as'            => 'admin.sections.elements.edit'
+        'as'            => 'admin.elements.properties.edit'
     ]);
 
     Route::post('/types/type/ajax', [
@@ -284,7 +291,7 @@ Route::prefix('admin')->group(function () {
 });
 
 // Route::get('/', function () {
-//     return view('welcome');
+//     return view('home');
 // });
 
 // Auth::routes();
