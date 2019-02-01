@@ -16,7 +16,12 @@ class SectionRepository
 
     public function index()
     {
-        return $this->section->select('*')->orderBy(Section::ORDER);
+        return $this->section
+            ->select('*')
+            ->with(['childrens' => function ($query) {
+            $query->select('id', 'parent_id');
+        }])
+            ->orderBy(Section::ORDER);
     }
 
     public function findBy($params)
@@ -30,12 +35,24 @@ class SectionRepository
 
     public function show($id)
     {
-        return $this->section->where('id', '=', $id)->with(['elements' => function ($query) {
-            $query->select('id');
+        return $this->section->where('id', '=', $id)->with(['childrens' => function ($query) {
+            $query->select('id','parent_id', 'name', 'description', 'state_id', 'type_id', 'url', 'tags', 'order', 'data');
         }])
         ->orderBy('order')
         ->first();
     }
+
+    public function getParentsWithChildrensTree()
+    {
+        return $this->section
+            ->whereNull('parent_id')
+            ->with(['childrens' => function ($query) {
+                $query->select('id','parent_id', 'name', 'description', 'state_id', 'type_id', 'url', 'tags', 'order', 'data');
+            }])
+        ->orderBy('order');
+    }
+
+    
 
     public function store($params)
     {
@@ -191,13 +208,9 @@ class SectionRepository
 
             $sec            =  $this->section->find($id);
 
-            $elements       = $sec->elements()->get();
+            $elements       = $sec->childrens()->get();
             foreach ($elements as $key => $element) {
-                $elementimages = $element->images()->get();
-
-                foreach ($elementimages as $key => $elementimage) {
-                    $elementimage->delete();
-                }
+                    $this->delete($element);
                 $element->delete();
             }
 
@@ -236,5 +249,21 @@ class SectionRepository
             DB::rollback();
             return $e->getMessage();
         }
+    }
+
+    public function updateProperties($id, $params){
+        try{
+            DB::beginTransaction();
+            unset($params['entity_id']);
+        $sec        =  $this->section->find($id);
+        $sec->data  = json_encode($params);
+        $sec->save();
+            DB::commit();
+            return true;
+        } catch (\Exception $e) {
+            DB::rollback();
+            return $e->getMessage();
+        }
+
     }
 }

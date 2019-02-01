@@ -16,10 +16,20 @@ class StateRepository extends BaseRepository
         $this->state = $state;
     }
 
-    public function index()
+        public function index($entity = null)
     {
-        return $this->state->All();
+        $query = $this->state
+            ->select([
+                'state.*'
+            ])
+            ->join('entity_state as es', 'es.state_id', '=', 'state.id')
+            ->join('entity as en', 'en.id', '=', 'es.entity_id');
+        if ($entity) {
+            $query->where('en.name', '=', $entity);
+        }
+        return $query->get();
     }
+
 
 
     public function update($id, $params)

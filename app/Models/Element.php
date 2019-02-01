@@ -26,6 +26,13 @@ use App\Models\BaseModel;
  */
 class Element extends BaseModel
 {
+    const NAME      = 'name';
+    const TYPE      = 'type_id';
+    const SECTION   = 'section_id';
+    const STATE     = 'state_id';
+    const ORDER     = 'order';
+    const DATA      = 'data';
+
     protected $table = 'element';
 
     protected $casts = [

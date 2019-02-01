@@ -47,4 +47,13 @@ class SectionService
     {
         return $this->sectionrepository->findBy(['parent_id' => null])->get();
     }
+
+    public function getParentsWithChildrensTree()
+    {
+        return $this->sectionrepository->getParentsWithChildrensTree()->get();
+    }
+
+    public function updateProperties($id, $params){
+        return $this->sectionrepository->updateProperties($id, $params);
+    }
 }

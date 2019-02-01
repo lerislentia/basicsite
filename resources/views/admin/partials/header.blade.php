@@ -3,14 +3,23 @@
 
 
 
-
+{{{ isset(Auth::user()->name) ? Auth::user()->name : Auth::user()->email }}}
 <ul class="nav navbar-nav">
+    @if(Auth::user())
+        <li>
+            <a href="{!!route('logout')!!}">logout</a>
+        </li>
+    @endif
+        <li>
+            <a href="{!!route('admin.sections')!!}">elements</a>
+        </li>
+        <li>
+            <a href="{!!route('admin.layouts')!!}">layouts</a>
+        </li>
       <li>
             <a href="{!!route('admin.categories')!!}">categories</a>
         </li>
-        <li>
-            <a href="{!!route('admin.sections')!!}">sections</a>
-        </li>
+
         <li>
             <a href="{!!route('admin.translations')!!}">translations</a>
         </li>
@@ -44,9 +53,7 @@
         <li>
             <a href="{!!route('admin.entitytypes')!!}">entitietypes</a>
         </li>
-        <li>
-            <a href="{!!route('admin.elements')!!}">elements</a>
-        </li>
+        
       </ul><br>
 
 

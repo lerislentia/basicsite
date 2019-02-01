@@ -34,6 +34,28 @@ Route::prefix('admin')->group(function () {
         'roles'         => ['admin', 'manager'],
         'as'            => 'admin.index'
     ]);
+
+    Route::get('/layouts', [
+        'middleware'    => ['auth'],
+        'uses'          => 'Admin\LayoutsController@index',
+        'roles'         => ['admin', 'manager'],
+        'as'            => 'admin.layouts'
+    ]);
+
+    Route::any('/layouts/new', [
+        'middleware'    => ['auth'],
+        'uses'          => 'Admin\LayoutsController@new',
+        'roles'         => ['admin', 'manager'],
+        'as'            => 'admin.layouts.new'
+    ]);
+
+    Route::any('/layouts/edit/{layout}', [
+        'middleware'    => ['auth'],
+        'uses'          => 'Admin\LayoutsController@edit',
+        'roles'         => ['admin', 'manager'],
+        'as'            => 'admin.layouts.edit'
+    ]);
+
     Route::get('/categories', [
         'middleware'    => ['auth'],
         'uses'          => 'Admin\CategorieController@index',
@@ -130,6 +152,14 @@ Route::prefix('admin')->group(function () {
         'uses'          => 'Admin\SectionsController@edit',
         'roles'         => ['admin', 'manager'],
         'as'            => 'admin.sections.elements.edit'
+    ]);
+
+
+    Route::any('/sections/properties/edit/{section}/', [
+        'middleware'    => ['auth'],
+        'uses'          => 'Admin\SectionsController@editProperties',
+        'roles'         => ['admin', 'manager'],
+        'as'            => 'admin.sections.properties.edit'
     ]);
 
     Route::get('/translations', [
@@ -247,33 +277,40 @@ Route::prefix('admin')->group(function () {
         'as'            => 'admin.entitytypes.edit'
     ]);
 
-    Route::any('/elements', [
-        'middleware'    => ['auth'],
-        'uses'          => 'Admin\ElementsController@index',
-        'roles'         => ['admin', 'manager'],
-        'as'            => 'admin.elements'
-    ]);
+    // Route::any('/elements', [
+    //     'middleware'    => ['auth'],
+    //     'uses'          => 'Admin\ElementsController@index',
+    //     'roles'         => ['admin', 'manager'],
+    //     'as'            => 'admin.elements'
+    // ]);
 
-    Route::any('/elements/new', [
-        'middleware'    => ['auth'],
-        'uses'          => 'Admin\ElementsController@new',
-        'roles'         => ['admin', 'manager'],
-        'as'            => 'admin.elements.new'
-    ]);
+    // Route::any('/elements/new', [
+    //     'middleware'    => ['auth'],
+    //     'uses'          => 'Admin\ElementsController@new',
+    //     'roles'         => ['admin', 'manager'],
+    //     'as'            => 'admin.elements.new'
+    // ]);
 
-    Route::any('/elements/edit/{element}', [
-        'middleware'    => ['auth'],
-        'uses'          => 'Admin\ElementsController@edit',
-        'roles'         => ['admin', 'manager'],
-        'as'            => 'admin.elements.edit'
-    ]);
+    // Route::any('/elements/edit/{element}', [
+    //     'middleware'    => ['auth'],
+    //     'uses'          => 'Admin\ElementsController@edit',
+    //     'roles'         => ['admin', 'manager'],
+    //     'as'            => 'admin.elements.edit'
+    // ]);
 
-    Route::any('/elements/properties/edit/{element}/', [
-        'middleware'    => ['auth'],
-        'uses'          => 'Admin\ElementsController@editProperties',
-        'roles'         => ['admin', 'manager'],
-        'as'            => 'admin.elements.properties.edit'
-    ]);
+    // Route::any('/elements/delete/{element}', [
+    //     'middleware'    => ['auth'],
+    //     'uses'          => 'Admin\ElementsController@delete',
+    //     'roles'         => ['admin', 'manager'],
+    //     'as'            => 'admin.elements.delete'
+    // ]);
+
+    // Route::any('/elements/properties/edit/{element}/', [
+    //     'middleware'    => ['auth'],
+    //     'uses'          => 'Admin\ElementsController@editProperties',
+    //     'roles'         => ['admin', 'manager'],
+    //     'as'            => 'admin.elements.properties.edit'
+    // ]);
 
     Route::post('/types/type/ajax', [
         'middleware'    => ['auth'],
@@ -287,6 +324,20 @@ Route::prefix('admin')->group(function () {
         'uses'          => 'Admin\StructureController@preview',
         'roles'         => ['admin', 'manager'],
         'as'            => 'admin.type.preview.ajax'
+    ]);
+
+    Route::any('/types/properties/ajax', [
+        'middleware'    => ['auth'],
+        'uses'          => 'Admin\StructureController@getproperties',
+        'roles'         => ['admin', 'manager'],
+        'as'            => 'admin.type.properties.ajax'
+    ]);
+
+    Route::any('/types/properties/update/ajax', [
+        'middleware'    => ['auth'],
+        'uses'          => 'Admin\StructureController@updateproperties',
+        'roles'         => ['admin', 'manager'],
+        'as'            => 'admin.type.properties.update.ajax'
     ]);
 });
 

@@ -68,7 +68,7 @@ class Section extends BaseModel
     ];
 
     protected $appends = [
-        'childs', 'name_value', 'description_value', 'locale_value'
+        'childrens', 'name_value', 'type', 'state','description_value', 'locale_value', 'array_data'
     ];
 
 
@@ -118,10 +118,28 @@ class Section extends BaseModel
         return $this->hasMany(\App\Models\Element::class);
     }
 
-    public function sections()
+    public function childrens()
     {
-        return $this->hasMany(\App\Models\Section::class, 'parent_id');
+        return $this->hasMany(\App\Models\Section::class, 'parent_id', 'id');
     }
+
+    public function parent()
+    {
+        return $this->belongsTo(\App\Models\Section::class, 'parent_id');
+    }
+
+    /**
+     * custom relations
+     * 
+     */
+
+     /**
+      * relacion temporal hasta renombrar la tabla sections a elements
+      * luego en lugar de $this->section() se llamara $this->elements()
+      *
+      * @return void
+      */
+   
 
     /**
      * ACCESSORS
@@ -161,8 +179,8 @@ class Section extends BaseModel
         if (!isset($this->attributes['state_id'])) {
             return null;
         }
-        $text 								= $this->textState()->first();
-
+        $state 								= $this->state()->first();
+        $text 								= $state->textName()->first();
         $translations 						= $text->translations()->get();
         foreach ($translations as $translation) {
             $trans[$translation->locale_id] = $translation->toArray();
@@ -170,10 +188,37 @@ class Section extends BaseModel
         return ['lang' => $trans];
     }
 
-    public function getChildsAttribute()
+    public function getParentAttribute()
     {
-        return 	$this->sections()->with(['sections' => function ($query) {
+        return 	$this->parent()->with(['parent' => function ($query) {
             $query->select('id');
         }])->get();
     }
+
+    public function getChildrensAttribute()
+    {
+        return 	$this->Childrens()->with(['childrens' => function ($query) {
+            $query->select('id');
+        }])->get();
+    }
+
+    public function getTypeAttribute()
+    {
+        if (!isset($this->attributes['type_id'])) {
+            return null;
+        }
+        $type 								= $this->type()->first();
+        $text 								= $type->textName()->first();
+        $translations 						= $text->translations()->get();
+        foreach ($translations as $translation) {
+            $trans[$translation->locale_id] = $translation->toArray();
+        }
+        return ['lang' => $trans];
+    }
+
+    public function getArrayDataAttribute()
+    {
+        return json_decode($this->data, true);
+    }
+
 }

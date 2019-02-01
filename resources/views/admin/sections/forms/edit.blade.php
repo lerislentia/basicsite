@@ -60,7 +60,7 @@
         <label for="type">
             type
         </label>
-        <select name="type_id">
+        <select name="type_id" id="IdType">
         <option value="" {{($currentsection['type_id'] == null ? 'selected="selected"': '')}}> - </option>
                 @foreach($types as $type)
                     <option value="{{$type['id']}}" {{($type['id'] == $currentsection['type_id']) ? 'selected="selected"': ''}}>
@@ -76,8 +76,8 @@
         <input type="text" name="order" value="{{ isset($currentsection['order']) ? $currentsection['order'] : old('order') }}">
     </div>
 
-
     <input type="hidden" name="locale" value="{{$locale}}">
+    <input type="hidden" id="IdEntity" value="{{$currentsection['id']}}">
     {{ csrf_field() }}
     <input type="submit" value="save">
 </form>
@@ -87,4 +87,60 @@
 <input type="submit" value="delete">
 </form>
 
+<!-- <a href="{{route('admin.sections.properties.edit', ['id' => $currentsection['id']])}}">properties</a> -->
+
+@endsection
+
+@section('scripts')
+
+<script type="text/javascript">
+
+$(document).ready(function () {
+
+    LoadTypeProperties($("#IdType").val(), $("#IdEntity").val() );
+    LoadTypeContent($("#IdType").val());
+
+    $("#IdType").change(function() {
+        LoadTypeContent($("#IdType").val());
+        LoadTypeProperties($("#IdType").val(), $("#IdEntity").val() );
+    });
+});
+
+function LoadTypeContent(type){
+
+    $( "#preview" ).html("");
+    $( "#properties" ).html("");
+
+    if(type==''){
+        return false;
+    }
+
+    $( "#preview" ).load(
+                "{{route('admin.type.preview.ajax')}}", 
+                { 
+                "type"  : type , 
+                "_token": $('meta[name="csrf-token"]').attr('content')
+                } 
+            );
+    }
+
+    
+function LoadTypeProperties(type, entity){
+
+    if(type==null || entity==null){
+        return false;
+    }
+
+$( "#properties" ).html("");
+$( "#properties" ).load(
+            "{{route('admin.type.properties.ajax')}}", 
+            { 
+            "type"  : type , 
+            "_token": $('meta[name="csrf-token"]').attr('content'),
+            "entity_id": entity,
+            } 
+        );
+}
+
+</script>
 @endsection

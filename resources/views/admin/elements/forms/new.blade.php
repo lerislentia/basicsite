@@ -68,55 +68,55 @@
 @endsection
 
 @section('scripts')
+
 <script type="text/javascript">
 
 $(document).ready(function () {
 
+    LoadTypeProperties($("#IdType").val(), $("#IdElement").val() );
+    LoadTypeContent($("#IdType").val());
+
     $("#IdType").change(function() {
         LoadTypeContent($("#IdType").val());
+        LoadTypeProperties($("#IdType").val(), $("#IdElement").val() );
     });
 });
 
 function LoadTypeContent(type){
+
     $( "#preview" ).html("");
-    $( "#preview" ).load( "{{route('admin.type.preview.ajax')}}", { "type": type , "_token": $('meta[name="csrf-token"]').attr('content')} );
+    $( "#properties" ).html("");
 
-        // $.ajax({
-        //         url: "{{ route('admin.type.ajax') }}",
-        //         type: "POST",
-        //         data: {
-        //             "_token": $('meta[name="csrf-token"]').attr('content'), 
-        //             "type":type
-        //             },
-        //             dataType: "json",
-
-        //         success: function (data) {
-
-        //             $('.var').remove();
-        //             $.each(data, function (index, value) {
-
-        //                 var $formgroup  = $("<div />").attr( "class", "form-group var" );
-        //                 var $label       = $("<label />").attr( "for", index ).text( index );;
-
-        //                 var $input = $("<input/>")
-        //                                 .attr( "type", "text" )
-        //                                 .attr( "id", "id"+index )
-        //                                 .attr( "name", index );
-        //                 $formgroup.append($label);
-        //                 $formgroup.append($input);
-        //                 $($formgroup).insertBefore("#MyForm");
-
-        //             })
-
-        //         },
-        //         error: function () {
-        //             console.log("[ERROR] Method: LoadTypeContent()");
-
-        //         }
-        //    });
-        
+    if(type==''){
+        return false;
     }
 
+    $( "#preview" ).load(
+                "{{route('admin.type.preview.ajax')}}", 
+                { 
+                "type"  : type , 
+                "_token": $('meta[name="csrf-token"]').attr('content')
+                } 
+            );
+    }
+
+    
+function LoadTypeProperties(type, entity){
+    if(type==null || entity==null){
+        return false;
+    }
+
+$( "#properties" ).html("");
+$( "#properties" ).load(
+            "{{route('admin.type.properties.ajax')}}", 
+            { 
+            "type"  : type , 
+            "_token": $('meta[name="csrf-token"]').attr('content'),
+            "entity_id": entity,
+            } 
+        );
+}
 
 </script>
 @endsection
+

@@ -37,6 +37,8 @@
     
     <div class="col-sm-5 text-left">
         @yield('content')
+        <div id="properties">
+        </div>
     </div>
         
 
