@@ -42,9 +42,9 @@ class StatesController extends Controller
     {
         try {
             $state          = $this->stateservice->show($id);
-            $states = $this->stateservice->index();
-            $locales = $this->localeservice->index();
-            $locale             = Session::get('locale');
+            $states         = $this->stateservice->index();
+            $locales        = $this->localeservice->index();
+            $locale         = Session::get('locale');
 
             if ($request->isMethod('post')) {
                 $params     = $request->All();

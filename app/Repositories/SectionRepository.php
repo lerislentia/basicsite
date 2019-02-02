@@ -19,8 +19,8 @@ class SectionRepository
         return $this->section
             ->select('*')
             ->with(['childrens' => function ($query) {
-            $query->select('id', 'parent_id');
-        }])
+                $query->select('id', 'parent_id');
+            }])
             ->orderBy(Section::ORDER);
     }
 
@@ -36,7 +36,7 @@ class SectionRepository
     public function show($id)
     {
         return $this->section->where('id', '=', $id)->with(['childrens' => function ($query) {
-            $query->select('id','parent_id', 'name', 'description', 'state_id', 'type_id', 'url', 'tags', 'order', 'data');
+            $query->select('id', 'parent_id', 'name', 'description', 'state_id', 'type_id', 'url', 'tags', 'order', 'data');
         }])
         ->orderBy('order')
         ->first();
@@ -47,12 +47,12 @@ class SectionRepository
         return $this->section
             ->whereNull('parent_id')
             ->with(['childrens' => function ($query) {
-                $query->select('id','parent_id', 'name', 'description', 'state_id', 'type_id', 'url', 'tags', 'order', 'data');
+                $query->select('id', 'parent_id', 'name', 'description', 'state_id', 'type_id', 'url', 'tags', 'order', 'data');
             }])
         ->orderBy('order');
     }
 
-    
+
 
     public function store($params)
     {
@@ -210,7 +210,7 @@ class SectionRepository
 
             $elements       = $sec->childrens()->get();
             foreach ($elements as $key => $element) {
-                    $this->delete($element);
+                $this->delete($element);
                 $element->delete();
             }
 
@@ -251,19 +251,19 @@ class SectionRepository
         }
     }
 
-    public function updateProperties($id, $params){
-        try{
+    public function updateProperties($id, $params)
+    {
+        try {
             DB::beginTransaction();
             unset($params['entity_id']);
-        $sec        =  $this->section->find($id);
-        $sec->data  = json_encode($params);
-        $sec->save();
+            $sec        =  $this->section->find($id);
+            $sec->data  = json_encode($params);
+            $sec->save();
             DB::commit();
             return true;
         } catch (\Exception $e) {
             DB::rollback();
             return $e->getMessage();
         }
-
     }
 }

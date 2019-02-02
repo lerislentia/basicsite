@@ -19,31 +19,29 @@ use \App\Models\BaseModel;
  * @property \App\Models\Element $element
  * @property \App\Models\Image $image
  *
- * @package App\Models
  */
 class ElementImage extends BaseModel
 {
+    protected $table = 'element_image';
+    public $timestamps = false;
 
-	protected $table = 'element_image';
-	public $timestamps = false;
+    protected $casts = [
+        'element_id' => 'int',
+        'image_id' => 'int'
+    ];
 
-	protected $casts = [
-		'element_id' => 'int',
-		'image_id' => 'int'
-	];
+    protected $fillable = [
+        'element_id',
+        'image_id'
+    ];
 
-	protected $fillable = [
-		'element_id',
-		'image_id'
-	];
+    public function element()
+    {
+        return $this->belongsTo(\App\Models\Element::class);
+    }
 
-	public function element()
-	{
-		return $this->belongsTo(\App\Models\Element::class);
-	}
-
-	public function image()
-	{
-		return $this->belongsTo(\App\Models\Image::class);
-	}
+    public function image()
+    {
+        return $this->belongsTo(\App\Models\Image::class);
+    }
 }

@@ -10,9 +10,12 @@ use App\Services\StateService;
 use App\Services\LocaleService;
 use App\Services\CategoryService;
 use App\Services\StructureService;
+use App\Services\LayoutService;
 
 use App\Models\Section;
 use App\Models\Categorie;
+use Illuminate\Support\Facades\Cache;
+use Config;
 
 class IndexController extends Controller
 {
@@ -21,24 +24,27 @@ class IndexController extends Controller
     protected $localeservice;
     protected $categoryservice;
     protected $structureservice;
+    protected $layoutsservice;
 
     public function __construct(
-        StateService $stateservice, 
-        SectionService $sectionservice, 
+        StateService $stateservice,
+        SectionService $sectionservice,
         CategoryService $categoryservice,
-        StructureService $structureservice
-        )
-    {
+        StructureService $structureservice,
+        LayoutService $layoutsservice
+        ) {
         $this->stateservice     = $stateservice;
         $this->sectionservice   = $sectionservice;
         $this->categoryservice  = $categoryservice;
-        $this->structureservice    = $structureservice;
+        $this->structureservice = $structureservice;
+        $this->layoutsservice   = $layoutsservice;
     }
     public function index()
     {
-        // $sections = $this->sectionservice->index();
-
-        $state = $this->stateservice->show(2);
+        $content = Cache::get('home');
+        if ($content) {
+            return $content;
+        }
 
         $sections = $this->sectionservice->getParents();
 
@@ -52,6 +58,9 @@ class IndexController extends Controller
             'categories'    => $categories->toArray(),
             'sections'      => $htmlsections,
         ];
-        return view('home', $data);
+        $view =  view('home', $data);
+        $content = $view->render();
+        Cache::put('home', $content, 1);
+        return $content;
     }
 }

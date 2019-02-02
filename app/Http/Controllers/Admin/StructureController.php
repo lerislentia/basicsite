@@ -18,16 +18,21 @@ class StructureController extends Controller
     protected $elementsservice;
 
     public function __construct(
-        TypeService $typeservice, 
+        TypeService $typeservice,
         StructureService $structureservice,
         SectionService $elementsservice
-        )
-    {
+        ) {
         $this->structureservice = $structureservice;
         $this->typeservice      = $typeservice;
         $this->elementsservice      = $elementsservice;
     }
 
+    /**
+     * AJAX
+     *
+     * @param  Request $request
+     * @return void
+     */
     public function show(Request $request)
     {
         $params     = $request->All();
@@ -39,26 +44,43 @@ class StructureController extends Controller
             );
     }
 
+    /**
+     * AJAX
+     *
+     * @param  Request $request
+     * @return void
+     */
     public function preview(Request $request)
     {
-        $params     = $request->All();
+        $params = $request->All();
+        $data   = [];
+        if (isset($params['entity_id'])) {
+            $entity = $this->elementsservice->show($params['entity_id']);
+            $data = (array) json_decode($entity->data);
+        }
+
         $type       = $this->typeservice->show($params['type']);
-        $html       = $this->structureservice->getHtml($type['definition'], $params);
+        $html       = $this->structureservice->getHtml($type['definition'], $data);
         return response($html);
     }
 
+    /**
+     * AJAX
+     *
+     * @param  Request $request
+     * @return void
+     */
     public function getproperties(Request $request)
     {
-
         $params     = $request->All();
 
         $locale             = Session::get('locale');
 
-        
-        
+
+
         $entity            = $this->elementsservice->show($params['entity_id']);
 
-        if(!$entity){
+        if (!$entity) {
             throw new \Exception("no se encontro el elemento en la base de datos");
         }
 
@@ -66,7 +88,7 @@ class StructureController extends Controller
 
         $definition = isset($type->definition) ? $type->definition : null;
 
-        if(!$definition){
+        if (!$definition) {
             throw new \Exception("error en type : {$id}, el campo 'definition' no esta informado");
         }
 
@@ -81,16 +103,21 @@ class StructureController extends Controller
 
 
 
-    public function updateproperties(Request $request){
+    /**
+     * AJAX
+     *
+     * @param  Request $request
+     * @return void
+     */
+    public function updateproperties(Request $request)
+    {
         $params     = $request->All();
 
         $locale             = Session::get('locale');
 
-        
-        
         $entity            = $this->elementsservice->show($params['entity_id']);
 
-        if(!$entity){
+        if (!$entity) {
             throw new \Exception("no se encontro el elemento en la base de datos");
         }
 
@@ -98,9 +125,8 @@ class StructureController extends Controller
         unset($params['entity_id']);
 
         if ($request->isMethod('post')) {
-            
             $update     = $this->elementsservice->updateProperties($entity->id, $params);
-            if($update){
+            if ($update) {
                 return response("ok", 200);
             }
         }

@@ -16,15 +16,16 @@ class StateRepository extends BaseRepository
         $this->state = $state;
     }
 
-        public function index($entity = null)
+    public function index($entity = null)
     {
         $query = $this->state
             ->select([
                 'state.*'
-            ])
-            ->join('entity_state as es', 'es.state_id', '=', 'state.id')
-            ->join('entity as en', 'en.id', '=', 'es.entity_id');
+            ]);
+
         if ($entity) {
+            $query->join('entity_state as es', 'es.state_id', '=', 'state.id');
+            $query->join('entity as en', 'en.id', '=', 'es.entity_id');
             $query->where('en.name', '=', $entity);
         }
         return $query->get();
@@ -63,6 +64,7 @@ class StateRepository extends BaseRepository
 
             $statparams = [
                 'name'          => $name->id,
+                'value'          => $params['value']
             ];
 
             $stat->fill($statparams);

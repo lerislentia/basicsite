@@ -11,6 +11,15 @@
 |
 */
 
+/**
+ * cache control
+ */
+Route::get('clear-views', 'Admin\CacheController@clear_views')
+      ->name('clear-views');
+Route::get('clear-cache', 'Admin\CacheController@clear_cache')
+      ->name('clear-cache');
+
+
 Route::get('/', 'IndexController@index')->name('home');
 
 Route::any('/admin/login', 'Auth\AuthController@login')->name('login');
@@ -312,28 +321,28 @@ Route::prefix('admin')->group(function () {
     //     'as'            => 'admin.elements.properties.edit'
     // ]);
 
-    Route::post('/types/type/ajax', [
+    Route::post('/structure/show', [
         'middleware'    => ['auth'],
         'uses'          => 'Admin\StructureController@show',
         'roles'         => ['admin', 'manager'],
         'as'            => 'admin.type.ajax'
     ]);
 
-    Route::any('/types/preview/ajax', [
+    Route::any('/structure/preview', [
         'middleware'    => ['auth'],
         'uses'          => 'Admin\StructureController@preview',
         'roles'         => ['admin', 'manager'],
         'as'            => 'admin.type.preview.ajax'
     ]);
 
-    Route::any('/types/properties/ajax', [
+    Route::any('/structure/properties', [
         'middleware'    => ['auth'],
         'uses'          => 'Admin\StructureController@getproperties',
         'roles'         => ['admin', 'manager'],
         'as'            => 'admin.type.properties.ajax'
     ]);
 
-    Route::any('/types/properties/update/ajax', [
+    Route::any('/structure/properties/update', [
         'middleware'    => ['auth'],
         'uses'          => 'Admin\StructureController@updateproperties',
         'roles'         => ['admin', 'manager'],

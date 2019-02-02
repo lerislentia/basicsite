@@ -105,7 +105,7 @@ function LoadPreview(type){
         },
         function(data, status){
             if(status=='success'){
-                alert("propiedades guardadas exitosament");
+                alert("propiedades guardadas exitosamente");
             }else{
                 alert('no se pudo guardar');                    
             }

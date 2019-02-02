@@ -97,49 +97,60 @@
 
 $(document).ready(function () {
 
-    LoadTypeProperties($("#IdType").val(), $("#IdEntity").val() );
-    LoadTypeContent($("#IdType").val());
+    LoadAll();
 
     $("#IdType").change(function() {
-        LoadTypeContent($("#IdType").val());
-        LoadTypeProperties($("#IdType").val(), $("#IdEntity").val() );
+        LoadAll();
     });
 });
 
-function LoadTypeContent(type){
+function LoadAll(){
 
-    $( "#preview" ).html("");
-    $( "#properties" ).html("");
+    LoadProperties();
+    Loadpreview();
+    
+}
+
+function Loadpreview(){
+
+    var type    = $("#IdType").val();
+    var entity  = $("#IdEntity").val();
 
     if(type==''){
         return false;
     }
 
+    $( "#preview" ).html("");
+
     $( "#preview" ).load(
-                "{{route('admin.type.preview.ajax')}}", 
-                { 
-                "type"  : type , 
-                "_token": $('meta[name="csrf-token"]').attr('content')
-                } 
+                "{{route('admin.type.preview.ajax')}}",
+                {
+                "type"      : type ,
+                "entity_id" : entity ,
+                "_token"    : $('meta[name="csrf-token"]').attr('content')
+                }
             );
     }
 
-    
-function LoadTypeProperties(type, entity){
+function LoadProperties(){
+
+    var type    = $("#IdType").val();
+    var entity  = $("#IdEntity").val();
 
     if(type==null || entity==null){
         return false;
     }
 
-$( "#properties" ).html("");
-$( "#properties" ).load(
-            "{{route('admin.type.properties.ajax')}}", 
-            { 
-            "type"  : type , 
-            "_token": $('meta[name="csrf-token"]').attr('content'),
-            "entity_id": entity,
-            } 
-        );
+    $( "#properties" ).html("");
+
+    $( "#properties" ).load(
+        "{{route('admin.type.properties.ajax')}}",
+        {
+        "type"  : type ,
+        "_token": $('meta[name="csrf-token"]').attr('content'),
+        "entity_id": entity,
+        }
+    );
 }
 
 </script>

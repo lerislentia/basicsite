@@ -28,7 +28,8 @@ use Session;
  */
 class State extends BaseModel
 {
-    const NAME = 'name';
+    const NAME  = 'name';
+    const VALUE = 'value';
 
     protected $table = 'state';
 
@@ -37,7 +38,8 @@ class State extends BaseModel
     ];
 
     protected $fillable = [
-        self::NAME
+        self::NAME,
+        self::VALUE
     ];
 
     protected $appends = [

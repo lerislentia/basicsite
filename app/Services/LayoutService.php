@@ -32,4 +32,9 @@ class LayoutService
     {
         return $this->layoutrepository->update($id, $params);
     }
+
+    public function getByState($stateid)
+    {
+        return $this->layoutrepository->getByState($stateid)->first();
+    }
 }

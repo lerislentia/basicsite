@@ -36,6 +36,13 @@
 
     
     <div class="col-sm-5 text-left">
+
+    @if (session('status'))
+    <div class="alert alert-success">
+        {{ session('status') }}
+    </div>
+    @endif
+
         @yield('content')
         <div id="properties">
         </div>

@@ -116,55 +116,53 @@ class SectionsController extends Controller
         return Redirect::route('admin.sections');
     }
 
-    public function editProperties(Request $request, int $id){
-        try{
 
-        $locale             = Session::get('locale');
-        
-        $section    = $this->sectionservice->show($id);
+    public function editProperties(Request $request, int $id)
+    {
+        try {
+            $locale             = Session::get('locale');
 
-        if(!$section){
-            throw new \Exception("no se encontro el sectiono en la base de datos");
-        }
+            $section    = $this->sectionservice->show($id);
 
-        if ($request->isMethod('post')) {
-            try{
-                DB::beginTransaction();
-                $params = $request->all();
-                unset($params['_token']);
-                $obj    = json_encode($params);
-                $section->data = json_encode($params);
-                $section->save();
-                DB::commit();
-                return Redirect::route('admin.sections');
-            }catch(\Exception $e){
-                DB::rollback();               
-                throw new Exception($e->getMessage());
+            if (!$section) {
+                throw new \Exception("no se encontro el sectiono en la base de datos");
             }
-            
-        }
 
-        $type = $section->type()->first();
+            if ($request->isMethod('post')) {
+                try {
+                    DB::beginTransaction();
+                    $params = $request->all();
+                    unset($params['_token']);
+                    $obj    = json_encode($params);
+                    $section->data = json_encode($params);
+                    $section->save();
+                    DB::commit();
+                    return Redirect::route('admin.sections');
+                } catch (\Exception $e) {
+                    DB::rollback();
+                    throw new Exception($e->getMessage());
+                }
+            }
 
-        $definition = isset($type->definition) ? $type->definition : null;
+            $type = $section->type()->first();
 
-        if(!$definition){
-            throw new \Exception("error en type : {$id}, el campo 'definition' no esta informado");
-        }
+            $definition = isset($type->definition) ? $type->definition : null;
 
-        $view = "properties.{$definition}.forms.edit";
+            if (!$definition) {
+                throw new \Exception("error en type : {$id}, el campo 'definition' no esta informado");
+            }
 
-        $data = [
+            $view = "properties.{$definition}.forms.edit";
+
+            $data = [
             'section'       => $section->toArray(),
             'locale'        => Session::get('locale')
         ];
 
-        return view($view, $data);
-
-        }catch(\Exception $e){
+            return view($view, $data);
+        } catch (\Exception $e) {
             $request->session()->flash('message', $e->getMessage());
             return Redirect::route('admin.sections');
         }
-
     }
 }

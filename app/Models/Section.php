@@ -133,13 +133,13 @@ class Section extends BaseModel
      * 
      */
 
-     /**
-      * relacion temporal hasta renombrar la tabla sections a elements
-      * luego en lugar de $this->section() se llamara $this->elements()
-      *
-      * @return void
-      */
-   
+    /**
+     * relacion temporal hasta renombrar la tabla sections a elements
+     * luego en lugar de $this->section() se llamara $this->elements()
+     *
+     * @return void
+     */
+
 
     /**
      * ACCESSORS
@@ -220,5 +220,4 @@ class Section extends BaseModel
     {
         return json_decode($this->data, true);
     }
-
 }

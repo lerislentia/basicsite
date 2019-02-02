@@ -2,16 +2,37 @@
 
 namespace App\Services;
 
+use App\Services\StateService;
+use App\Services\LayoutService;
+
 use App\Definitions\Elements\Card;
 use App\Definitions\Elements\Box;
 use App\Definitions\Elements\carrousel;
 use View;
 use Session;
+use Config;
 
 class StructureService
 {
-    public function __construct()
+    const ENTITY = 'layout';
+
+    protected $layout;
+
+    public function __construct(StateService $stateservice, LayoutService $layoutsservice)
     {
+        $this->stateservice     = $stateservice;
+        $this->layoutsservice   = $layoutsservice;
+
+        $states = $this->stateservice->index(self::ENTITY);
+        $active = Config::get('app.default.DB_STATE_ACTIVE');
+        foreach ($states as $key => $state) {
+            if ($state->value == $active) {
+                $stateactiveid = $state->id;
+            }
+        }
+        $layout = $this->layoutsservice->getByState($stateactiveid);
+
+        $this->setLayout($layout);
     }
 
     public function getStructureByType($type)
@@ -31,68 +52,59 @@ class StructureService
         }
     }
 
-    public function getHtmlForm(){
-        $view = View::make("layouts.front.html.elements.{$definition}Form");
-        $contents = (string) $view;
-        // or
-        $contents = $view->render();
-        return $contents;        
-    }
-
-    // public function parseSections($sections, $data = []){
-    //     $html= [];
-        
-    //     foreach ($sections as $key => $section) {
-            
-    //         $html[$section->order] = $this->parseSection($section, $data);
-    //     }
-    //     $caca = 1;
-    //     return $html;
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    // public function getHtmlForm()
+    // {
+    //     $view = View::make("layouts.front.html.elements.{$definition}Form");
+    //     $contents = (string) $view;
+    //     // or
+    //     $contents = $view->render();
+    //     return $contents;
     // }
 
-    // public function parseSection($section, $data = []){
-    //     $html       = [];
-
-    //     $childssections = $section->sections()->get();
-    //         if(count($childssections)>0){
-    //             $data['sections'] = $this->parseSections($childssections, $data);
-    //         }
-        
-
-    //     $elements   = $section->elements()->get();
-    //         foreach ($elements as $key => $element) {
-    //             $elementdata = isset($element->data) ? json_decode($element->data, true) : [];
-    //             $data['elements'][$element->order] = $this->parseHtml($element, array_merge($elementdata, $data));
-    //         }
-    //     $sectiondata = isset($section->data) ? json_decode($section->data, true) : [];
-    //     $html = $this->parseHtml($section, array_merge($sectiondata, $data));
-
-    //     return $html;
-    // }
-
-
-
-    public function parseHtml($element, $data = []){
+    /**
+     * Undocumented function
+     *
+     * @param  Section $element
+     * @param  array   $data
+     * @return void
+     */
+    public function parseHtml($element, $data = [])
+    {
         $type = $element->type()->first();
-        if(isset($type->definition)){
+        if (isset($type->definition)) {
             return $this->getHtml($type->definition, $data);
-            
         }
-
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param  string $definition
+     * @param  array  $data
+     * @return void
+     */
     public function getHtml($definition, $data = [])
     {
-        $view = View::make("layouts.front.html.elements.{$definition}.template", $data);
+        $view = View::make("layouts.{$this->layout->name}.html.elements.{$definition}.template", $data);
         $contents = (string) $view;
         // or
         $contents = $view->render();
         return $contents;
     }
 
-    public function getHtmlProperties($definition, $data = []){
 
-        $view = View::make("layouts.front.html.elements.{$definition}.properties", $data);
+
+
+
+
+    public function getHtmlProperties($definition, $data = [])
+    {
+        $view = View::make("layouts.{$this->layout->name}.html.elements.{$definition}.properties", $data);
         // $contents = (string) $view;
         // or
         $contents = $view->render();
@@ -108,14 +120,15 @@ class StructureService
      */
 
 
-    
-    public function parseEntity($entity, $data = []){
+
+    public function parseEntity($entity, $data = [])
+    {
         $html       = [];
 
         $childs = $entity->childrens()->get();
-            if(count($childs)>0){
-                $data['childs'] = $this->parse($childs, $data);
-            }
+        if (count($childs)>0) {
+            $data['childs'] = $this->parse($childs, $data);
+        }
 
         $entitydata = isset($entity->data) ? json_decode($entity->data, true) : [];
 
@@ -124,14 +137,34 @@ class StructureService
         return $html;
     }
 
-    public function parse($entities, $data = []){
+    public function parse($entities, $data = [])
+    {
         $html= [];
 
         foreach ($entities as $key => $entity) {
-            
             $html[$entity->order] = $this->parseEntity($entity, $data);
         }
         $caca = 1;
         return $html;
+    }
+
+    /**
+     * Set the value of layout
+     *
+     * @return self
+     */
+    public function setLayout($layout)
+    {
+        $this->layout = $layout;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of layout
+     */
+    public function getLayout()
+    {
+        return $this->layout;
     }
 }

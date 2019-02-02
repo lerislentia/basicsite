@@ -5,7 +5,7 @@
     <header>
         properties
     </header>
-    <form class="form-horizontal" action="" method="POST" id="MyForm">
+    <div class="form-horizontal" id="MyForm">
         {{ csrf_field() }}
         <div class="form-group">
             <label>
@@ -36,6 +36,34 @@
         </div>
 
         <input type="hidden" name="locale" value="{{$locale}}">
-        <input type="submit" value="save">
-    </form>
+        <button id="IdSaveProperties" type="button" class="btn btn-default">save</button>
+    </div>
 </section>
+
+<script type="text/javascript">
+
+$("#IdSaveProperties").click(function(){
+
+    var entity = $("#IdEntity").val();
+
+    $.post("{{route('admin.type.properties.update.ajax')}}",
+    {
+        "entity_id" : entity , 
+        "_token"    : $('meta[name="csrf-token"]').attr('content'),
+        "header"    : $('#IdHeader').val(),
+        "paragraph" : $('#IdParagraph').val(),
+        "attrid"    : $('#IdAttrId').val(),
+        "attrclass" : $('#IdAttrClass').val(),
+    },
+    function(data, status){
+        if(status=='success'){
+            Loadpreview();
+            alert("propiedades guardadas exitosamente");
+        }else{
+            alert('no se pudo guardar');                    
+        }
+    });
+}); 
+
+
+</script>

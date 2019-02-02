@@ -24,6 +24,11 @@ class LayoutRepository
         return $this->layout->find($id);
     }
 
+    public function getByState($stateid)
+    {
+        return $this->layout->where($this->layout::STATE, '=', $stateid);
+    }
+
     public function store($params)
     {
         return $this->layout->create($params);

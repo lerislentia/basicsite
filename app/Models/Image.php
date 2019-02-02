@@ -55,10 +55,10 @@ class Image extends BaseModel
     protected $appends = [
         'locale_value'
     ];
-    
+
     public function elements()
-	{
-		return $this->belongsToMany(\App\Models\Element::class)
-					->withPivot('id');
-	}
+    {
+        return $this->belongsToMany(\App\Models\Element::class)
+                    ->withPivot('id');
+    }
 }

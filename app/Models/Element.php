@@ -77,16 +77,16 @@ class Element extends BaseModel
     }
 
     public function images()
-	{
-		return $this->belongsToMany(\App\Models\Image::class)
-					->withPivot('id');
-	}
+    {
+        return $this->belongsToMany(\App\Models\Image::class)
+                    ->withPivot('id');
+    }
 
-	public function texts()
-	{
-		return $this->belongsToMany(\App\Models\Text::class)
-					->withPivot('id');
-	}
+    public function texts()
+    {
+        return $this->belongsToMany(\App\Models\Text::class)
+                    ->withPivot('id');
+    }
 
     /**
      * custom relations

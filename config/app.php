@@ -234,4 +234,8 @@ return [
 
     ],
 
+    'default' => [
+        'DB_STATE_ACTIVE' => env('DB_STATE_ACTIVE', 'ACTIVE')
+    ]
+
 ];

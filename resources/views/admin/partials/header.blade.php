@@ -2,7 +2,6 @@
 
 
 
-
 {{{ isset(Auth::user()->name) ? Auth::user()->name : Auth::user()->email }}}
 <ul class="nav navbar-nav">
     @if(Auth::user())
@@ -10,6 +9,13 @@
             <a href="{!!route('logout')!!}">logout</a>
         </li>
     @endif
+        <li>
+            <a href="{{ route('clear-views') }}">Clear Views</a>
+        </li>
+        <li>
+            <a href="{{ route('clear-cache') }}">Clear Cache</a>
+        </li>
+
         <li>
             <a href="{!!route('admin.sections')!!}">elements</a>
         </li>

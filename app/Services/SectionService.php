@@ -53,7 +53,8 @@ class SectionService
         return $this->sectionrepository->getParentsWithChildrensTree()->get();
     }
 
-    public function updateProperties($id, $params){
+    public function updateProperties($id, $params)
+    {
         return $this->sectionrepository->updateProperties($id, $params);
     }
 }

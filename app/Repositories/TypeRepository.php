@@ -19,8 +19,8 @@ class TypeRepository extends BaseRepository
     public function index($entity = null)
     {
         $query = $this->type->select('type.*');
-        if($entity){
-            $query->join('entity_type as et', 'et.type_id','=', 'type.id');
+        if ($entity) {
+            $query->join('entity_type as et', 'et.type_id', '=', 'type.id');
             $query->join('entity as en', 'entity_id', '=', 'en.id');
             $query->where('en.name', '=', $entity);
         }
