@@ -60,7 +60,9 @@
 
 
     <script src="{{ asset('js/wow.min.js') }}"></script>
-    <script src="{{asset('/vendor/unisharp/laravel-ckeditor/ckeditor.js')}}"></script>
+
+
+   
 
         @yield('scripts')
 

@@ -36,59 +36,55 @@ if(isset($entity['data'])){
 @endphp
 $(document).ready(function () {
 
-    var type = "{{$entity['type_id']}}";
-    var data = "{{$data}}";
-
-    if(data==1){
-        LoadPreview(type);
-    }
-
     $("#IdHeader").change(function() {
         
-        LoadPreview(type);
+        LoadPreviewData();
     });
 
     $("#IdParagraph").change(function() {
-        LoadPreview(type);
+        LoadPreviewData();
     });
     
     $("#IdAttrId").change(function() {
-        LoadPreview(type);
+        LoadPreviewData();
     });
 
     $("#IdAttrClass").change(function() {
-        LoadPreview(type);
+        LoadPreviewData();
     });
 
     $("#IdAttrRow").change(function() {
-        LoadPreview(type);
+        LoadPreviewData();
     });
 
     $("#IdAttrHeader").change(function() {
-        LoadPreview(type);
+        LoadPreviewData();
     });
 
     $("#attrheadertitle").change(function() {
-        LoadPreview(type);
+        LoadPreviewData();
     });
 
 
 });
 
-function LoadPreview(type){
+    function LoadPreviewData(){
+
+    var type    = $("#IdType").val();
+
     $( "#preview" ).html("");
-    $( "#preview" ).load( 
+    $( "#preview" ).load(
         "{{route('admin.type.preview.ajax')}}", 
             { 
-                "type": type , 
-                "_token": $('meta[name="csrf-token"]').attr('content'),
-                "header": $('#IdHeader').val(),
-                "paragraph": $('#IdParagraph').val(),
-                "attrid": $('#IdAttrId').val(),
-                "attrclass": $('#IdAttrClass').val(),
-                "attrrow": $('#IdAttrRow').val(),
-                "attrheader": $('#IdAttrHeader').val(),
-                "attrheadertitle": $('#attrheadertitle').val(),
+                "type"              : type , 
+                "_token"            : $('meta[name="csrf-token"]').attr('content'),
+                "header"            : $('#IdHeader').val(),
+                "paragraph"         : $('#IdParagraph').val(),
+                "attrid"            : $('#IdAttrId').val(),
+                "attrclass"         : $('#IdAttrClass').val(),
+                "attrrow"           : $('#IdAttrRow').val(),
+                "attrheader"        : $('#IdAttrHeader').val(),
+                "attrheadertitle"   : $('#attrheadertitle').val(),
             } 
         );
     }
@@ -96,21 +92,24 @@ function LoadPreview(type){
 
     $("#IdSaveProperties").click(function(){
 
+        var entity = $("#IdEntity").val();
+
         $.post("{{route('admin.type.properties.update.ajax')}}",
         {
             "_token"    : $('meta[name="csrf-token"]').attr('content'),
-            "entity_id" : $('#IdEntityId').val(),
+            "entity_id" : entity,
             "header"    : $('#IdHeader').val(),
             "paragraph" : $('#IdParagraph').val(),
         },
         function(data, status){
             if(status=='success'){
+                Loadpreview();
                 alert("propiedades guardadas exitosamente");
             }else{
                 alert('no se pudo guardar');                    
             }
         });
-    }); 
+    });
 
 
 </script>

@@ -53,16 +53,18 @@ class StructureController extends Controller
     public function preview(Request $request)
     {
         $params = $request->All();
-        $data   = [];
+        $type       = $this->typeservice->show($params['type']);
+
         if (isset($params['entity_id'])) {
             $entity = $this->elementsservice->show($params['entity_id']);
-            $data = (array) json_decode($entity->data);
+            $params = (array) json_decode($entity->data);
         }
 
-        $type       = $this->typeservice->show($params['type']);
-        $html       = $this->structureservice->getHtml($type['definition'], $data);
+        
+        $html       = $this->structureservice->getHtml($type['definition'], $params);
         return response($html);
     }
+    
 
     /**
      * AJAX

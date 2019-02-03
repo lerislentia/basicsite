@@ -7,7 +7,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
-use App\Exceptions\LecException;
+
 use App\Exceptions\AuthException;
 use Mockery;
 use Symfony\Component\HttpFoundation\Response;

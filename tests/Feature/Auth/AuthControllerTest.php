@@ -3,8 +3,17 @@
 namespace Tests\Feature\Auth;
 
 use Tests\TestCase;
+
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+
+use App\Exceptions\AuthException;
+use Mockery;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Log;
+use Auth;
+
 
 class AuthControllerTest extends TestCase
 {

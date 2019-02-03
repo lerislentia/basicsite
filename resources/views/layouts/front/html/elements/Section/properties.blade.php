@@ -3,39 +3,47 @@
 
         <div class="form-group">
             <label for="order">
-            attrid
+            id (atribute)
             </label>
             <input id="Idattrid" type="text" name="attrid" value="{{ isset($entity['array_data']['attrid']) ? $entity['array_data']['attrid'] : old('attrid') }}">
         </div>
 
         <div class="form-group">
             <label for="order">
-            attrclass
+            class (atribute)
             </label>
             <input id="Idattrclass" type="text" name="attrclass" value="{{ isset($entity['array_data']['attrclass']) ? $entity['array_data']['attrclass'] : old('attrclass') }}">
         </div>
 
         <div class="form-group">
             <label for="order">
-            attrheader
+            with header
             </label>
-            <input id="Idattrheader" type="text" name="attrheader" value="{{ isset($entity['array_data']['attrheader']) ? $entity['array_data']['attrheader'] : old('attrheader') }}">
+            <input id="IdattrWithheader" type="checkbox" name="attrheader" value="{{ isset($entity['array_data']['attrheader']) ? $entity['array_data']['attrheader'] : old('attrheader') }}">
         </div>
 
         <div class="form-group">
             <label for="order">
-            attrheadertitle
+                header title
             </label>
             <input id="Idattrheadertitle" type="text" name="attrheadertitle" value="{{ isset($entity['array_data']['attrheadertitle']) ? $entity['array_data']['attrheadertitle'] : old('attrheadertitle') }}">
         </div>
 
         <div class="form-group">
             <label for="order">
-                attrrow
+                with row inside
             </label>
-            <input id="Idattrrow" type="text" name="attrrow" value="{{ isset($entity['array_data']['attrrow']) ? $entity['array_data']['attrrow'] : old('attrrow') }}">
+            <input id="Idattrrow" type="checkbox" name="attrrow" value="{{ isset($entity['array_data']['attrrow']) ? $entity['array_data']['attrrow'] : old('attrrow') }}">
         </div>
 
+        <div class="form-group">
+            <label for="order">
+            with footer
+            </label>
+            <input id="IdattrWithFooter" type="checkbox" name="attrfooter" value="{{ isset($entity['array_data']['attrfooter']) ? $entity['array_data']['attrfooter'] : old('attrfooter') }}">
+        </div>
+
+        
         <input type="hidden" name="locale" value="{{$locale}}">
         <input type="hidden" id="IdEntityId" name="entity_id" value="{{$entity['id']}}">
         <input id="IdSaveProperties" type="button" value="save">
@@ -67,12 +75,7 @@ $(document).ready(function () {
         LoadPreview(type);
     });
 
-    $("#Idattrclass").change(function() {
-        
-        LoadPreview(type);
-    });
-
-    $("#Idattrheader").change(function() {
+    $("#IdattrWithheader").change(function() {
         
         LoadPreview(type);
     });
@@ -82,6 +85,10 @@ $(document).ready(function () {
     });
     
     $("#Idattrrow").change(function() {
+        LoadPreview(type);
+    });
+
+    $("#IdattrWithFooter").change(function() {
         LoadPreview(type);
     });
 
@@ -97,9 +104,9 @@ function LoadPreview(type){
                 "_token": $('meta[name="csrf-token"]').attr('content'),
                 "attrid": $('#Idattrid').val(),
                 "attrclass": $('#Idattrclass').val(),
-                "attrheader": $('#Idattrheader').val(),
+                "attrheader": $('#IdattrWithheader').is(':checked'),
                 "attrheadertitle": $('#Idattrheadertitle').val(),
-                "attrrow": $('#Idattrrow').val(),
+                "attrrow": $('#Idattrrow').is(':checked'),
             } 
         );
     }
@@ -113,9 +120,9 @@ function LoadPreview(type){
             "entity_id" : $('#IdEntityId').val(),
             "attrid": $('#Idattrid').val(),
             "attrclass": $('#Idattrclass').val(),
-            "attrheader": $('#Idattrheader').val(),
+            "attrheader": $('#IdattrWithheader').is(':checked'),
             "attrheadertitle": $('#Idattrheadertitle').val(),
-            "attrrow": $('#Idattrrow').val(),
+            "attrrow": $('#Idattrrow').is(':checked'),
         },
         function(data, status){
             if(status=='success'){
