@@ -87,6 +87,8 @@
 <input type="submit" value="delete">
 </form>
 
+
+
 <!-- <a href="{{route('admin.sections.properties.edit', ['id' => $currentsection['id']])}}">properties</a> -->
 
 @endsection

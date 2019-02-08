@@ -5,6 +5,7 @@
                 image
             </label>
             <input id="IdImage" type="text" name="image" value="{{ isset($element['array_data']['image']) ? $element['array_data']['image'] : old('image') }}">
+            <div id="ckfinder-modal" class="btn btn-primary">Browse Server</div>
         </div>
 
         <div class="form-group">
@@ -37,7 +38,7 @@
 
         <input type="hidden" name="locale" value="{{$locale}}">
         <input type="hidden" id="IdEntityId" name="entity_id" value="{{$entity['id']}}">
-        <input id="IdSaveProperties" type="button" value="save">
+        <div id="IdSaveProperties" class="btn btn-primary" >save</div>
     </form>
 
     <script type="text/javascript">
@@ -119,5 +120,23 @@ function LoadPreview(type){
         });
     }); 
 
+    
+
+    var button = document.getElementById( 'ckfinder-modal' );
+
+	button.onclick = function() {
+		CKFinder.modal( {
+			chooseFiles: true,
+			width: 800,
+			height: 600,
+			onInit: function( finder ) {
+				finder.on( 'files:choose', function( evt ) {
+					var file        = evt.data.files.first();
+					var output      = document.getElementById( 'IdImage' );
+                    output.value    = file.getUrl();
+				} );
+			}
+		} );
+	};
 
 </script>

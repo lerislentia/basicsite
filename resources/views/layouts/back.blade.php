@@ -60,6 +60,9 @@
 
 
     <script src="{{ asset('js/wow.min.js') }}"></script>
+    <link  href="{{ asset('cropper/cropper.css') }}" rel="stylesheet">
+    <script src="{{ asset('ckfinder/ckfinder.js') }}"></script><!-- ckfinder.js is required -->
+    
 
 
    

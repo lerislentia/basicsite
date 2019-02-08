@@ -9,9 +9,6 @@
         <div class="row">
                 <div class="col-4 col-12-medium col-12">
                 <section class="box">
-                    <a href="#" class="image featured">
-                        <img src="images/pic02.jpg" alt="" />
-                    </a>
                     <header>
                         <h3>Login</h3>
                     </header>
