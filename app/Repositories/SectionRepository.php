@@ -187,6 +187,7 @@ class SectionRepository
                 'tags'          => $params['tags'],
                 'state_id'      => $params['state_id'],
                 'type_id'       => $params['type_id'],
+                'order'         => $params['order'],
                 'parent_id'     => isset($params['parent_id']) ? $params['parent_id'] : null,
 
             ];

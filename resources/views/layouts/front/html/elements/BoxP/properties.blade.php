@@ -37,7 +37,7 @@
         </div>
 
         <input type="hidden" name="locale" value="{{$locale}}">
-        <input type="hidden" id="IdEntityId" name="entity_id" value="{{$entity['id']}}">
+        <input type="hidden" id="IdEntityId" name="entity_id" value="{{$element['id']}}">
         <div id="IdSaveProperties" class="btn btn-primary" >save</div>
     </form>
 
@@ -50,11 +50,11 @@ if(isset($entity['data'])){
 @endphp
 $(document).ready(function () {
 
-    var type = "{{$entity['type_id']}}";
+    var type = "{{$element['type_id']}}";
     var data = "{{$data}}";
 
     if(data==1){
-        LoadPreview(type);
+        LoadPreview(type, entityid);
     }
 
     $("#IdImage").change(function() {
@@ -82,12 +82,13 @@ $(document).ready(function () {
 
 });
 
-function LoadPreview(type){
+function LoadPreview(type, entityid = null){
     $( "#preview" ).html("");
     $( "#preview" ).load( 
         "{{route('admin.type.preview.ajax')}}", 
             { 
                 "type"      : type , 
+                "entity_id" : entityid , 
                 "_token"    : $('meta[name="csrf-token"]').attr('content'),
                 "image"     : $('#IdImage').val(),
                 "header"    : $('#IdHeader').val(),

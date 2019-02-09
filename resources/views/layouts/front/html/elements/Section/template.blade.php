@@ -23,7 +23,7 @@ if(isset($attrrow)){
 <section {!!$attr!!} {!!$attrc!!}>
     @if(isset($attrheader))
         <header class="major">
-            <h2>{{ isset($attrheadertitle) ? $attrheadertitle : 'My Portfolio'}}</h2>
+            <h2>{{ isset($attrheadertitle) ? $attrheadertitle : 'My Section'}}</h2>
         </header>
     @endif
     @isset($childs)

@@ -79,14 +79,15 @@ class StructureController extends Controller
         $locale             = Session::get('locale');
 
 
-
-        $entity            = $this->elementsservice->show($params['entity_id']);
-
-        if (!$entity) {
-            throw new \Exception("no se encontro el elemento en la base de datos");
+        if(isset($params['entity_id'])){
+            $entity            = $this->elementsservice->show($params['entity_id']);
+            if (!$entity) {
+                throw new \Exception("no se encontro el elemento en la base de datos");
+            }
+            $type = $entity->type()->first();
+        }else{
+            $type       = $this->typeservice->show($params['type']);
         }
-
-        $type = $entity->type()->first();
 
         $definition = isset($type->definition) ? $type->definition : null;
 
@@ -95,7 +96,7 @@ class StructureController extends Controller
         }
 
         $data = [
-            'entity'       => $entity->toArray(),
+            'element'       => $entity->toArray(),
             'locale'        => Session::get('locale')
         ];
 

@@ -148,9 +148,10 @@ function LoadProperties(){
     $( "#properties" ).load(
         "{{route('admin.type.properties.ajax')}}",
         {
-        "type"  : type ,
-        "_token": $('meta[name="csrf-token"]').attr('content'),
-        "entity_id": entity,
+        "type"      : type ,
+        "entity_id" : entity ,
+        "_token"    : $('meta[name="csrf-token"]').attr('content'),
+        "entity_id" : entity,
         }
     );
 }
