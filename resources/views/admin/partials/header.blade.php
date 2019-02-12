@@ -17,6 +17,13 @@
         </li>
 
         <li>
+            <a href="{!!route('admin.pages')!!}">pages</a>
+        </li>
+        <li>
+            <a href="{!!route('admin.sectionpages')!!}">sectionpages</a>
+        </li>
+
+        <li>
             <a href="{!!route('admin.sections')!!}">elements</a>
         </li>
         <li>

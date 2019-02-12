@@ -15,7 +15,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AuthException extends \Exception
 {
-
     /**
      * @var int
      */

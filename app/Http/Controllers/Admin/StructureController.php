@@ -60,11 +60,11 @@ class StructureController extends Controller
             $params = (array) json_decode($entity->data);
         }
 
-        
+
         $html       = $this->structureservice->getHtml($type['definition'], $params);
         return response($html);
     }
-    
+
 
     /**
      * AJAX
@@ -79,20 +79,20 @@ class StructureController extends Controller
         $locale             = Session::get('locale');
 
 
-        if(isset($params['entity_id'])){
+        if (isset($params['entity_id'])) {
             $entity            = $this->elementsservice->show($params['entity_id']);
             if (!$entity) {
                 throw new \Exception("no se encontro el elemento en la base de datos");
             }
             $type = $entity->type()->first();
-        }else{
+        } else {
             $type       = $this->typeservice->show($params['type']);
         }
 
         $definition = isset($type->definition) ? $type->definition : null;
 
         if (!$definition) {
-            throw new \Exception("error en type : {$id}, el campo 'definition' no esta informado");
+            throw new \Exception("error en getproperties, el campo 'definition' no esta informado");
         }
 
         $data = [

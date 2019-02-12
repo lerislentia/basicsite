@@ -127,6 +127,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         'as'            => 'admin.sections.new'
     ]);
 
+    Route::any('/sections/child/new', [
+        'uses'          => 'Admin\SectionsController@new',
+        'roles'         => ['admin'],
+        'as'            => 'admin.sections.child.new'
+    ]);
+
     Route::any('/sections/edit/{section}', [
         'uses'          => 'Admin\SectionsController@edit',
         'roles'         => ['admin'],
@@ -274,6 +280,37 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         'roles'         => ['admin'],
         'as'            => 'admin.type.properties.update.ajax'
     ]);
+
+    Route::get('/pages', [
+        'uses'          => 'Admin\PageController@index',
+        'roles'         => ['admin'],
+        'as'            => 'admin.pages'
+    ]);
+
+    Route::any('/pages/new', [
+        'uses'          => 'Admin\PageController@new',
+        'roles'         => ['admin'],
+        'as'            => 'admin.pages.new'
+    ]);
+
+    Route::any('/pages/delete/{page}', [
+        'uses'          => 'Admin\PageController@delete',
+        'roles'         => ['admin'],
+        'as'            => 'admin.pages.delete'
+    ]);
+
+    Route::any('/pages/edit/{page}', [
+        'uses'          => 'Admin\PageController@edit',
+        'roles'         => ['admin'],
+        'as'            => 'admin.pages.edit'
+    ]);
+
+    Route::any('/pagesections', [
+        'uses'          => 'Admin\PageSectionController@index',
+        'roles'         => ['admin'],
+        'as'            => 'admin.sectionpages'
+    ]);
+
 
 
     Route::get('resizeImage', 'Admin\ImageController@resizeImage');

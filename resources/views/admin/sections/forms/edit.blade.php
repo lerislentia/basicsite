@@ -87,6 +87,11 @@
 <input type="submit" value="delete">
 </form>
 
+<form action="{{route('admin.sections.child.new', ['id' => $currentsection['id']])}}" method="POST">
+{{ csrf_field() }}
+<input type="submit" value="new child">
+</form>
+
 
 
 <!-- <a href="{{route('admin.sections.properties.edit', ['id' => $currentsection['id']])}}">properties</a> -->

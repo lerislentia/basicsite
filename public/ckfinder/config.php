@@ -54,6 +54,7 @@ $config['images'] = array(
     'maxHeight' => 1200,
     'quality'   => 80,
     'sizes' => array(
+        'customsmall'  => array('width' => 250, 'height' => 250, 'quality' => 80),
         'small'  => array('width' => 480, 'height' => 320, 'quality' => 80),
         'medium' => array('width' => 600, 'height' => 480, 'quality' => 80),
         'large'  => array('width' => 800, 'height' => 600, 'quality' => 80)
@@ -66,25 +67,13 @@ $config['images'] = array(
 $config['backends'][] = array(
     'name'         => 'default',
     'adapter'      => 'local',
-    'baseUrl'      => $_SERVER['DOCUMENT_ROOT'].'/images/',
+    'baseUrl'      => (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http') . '://' .  $_SERVER['SERVER_NAME'] . '/',
     // 'baseUrl'      => $_SERVER["DOCUMENT_ROOT"],
 //  'root'         => '', // Can be used to explicitly set the CKFinder user files directory.
     'chmodFiles'   => 0777,
     'chmodFolders' => 0755,
     'filesystemEncoding' => 'UTF-8',
 );
-
-// $config['backends'][] = array(
-//     'name'         => 'awss3',
-//     'adapter'      => 's3',
-//     'bucket'       => 'dev-lec2-api-files',
-//     'region'       => 'us-east-1',
-//     'key'          => 'AKIAIYSLLVRGNRTU5CFQ',
-//     'secret'       => '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',
-//     'visibility'   => 'private',
-//     'baseUrl'      => 'https://dev-lec2.lectopolis.net/lec2files/',
-//     'root'         => 'lec2files'
-// );
 
 
 /*================================ Resource Types =====================================*/
@@ -153,7 +142,7 @@ $config['accessControl'][] = array(
 $config['overwriteOnUpload'] = false;
 $config['checkDoubleExtension'] = true;
 $config['disallowUnsafeCharacters'] = false;
-$config['secureImageUploads'] = true;
+$config['secureImageUploads'] = false;
 $config['checkSizeAfterScaling'] = true;
 $config['htmlExtensions'] = array('html', 'htm', 'xml', 'js');
 $config['hideFolders'] = array('.*', 'CVS', '__thumbs');
