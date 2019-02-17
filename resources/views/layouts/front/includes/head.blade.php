@@ -1,3 +1,4 @@
+<!-- Header -->
 <section id="header">
 
     <!-- Logo -->
@@ -5,3 +6,5 @@
     @include('layouts.front.includes.nav')
     @yield('headercontent')
 </section>
+
+<!-- end Header -->

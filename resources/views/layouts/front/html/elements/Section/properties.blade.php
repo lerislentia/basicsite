@@ -10,6 +10,13 @@
 
         <div class="form-group">
             <label for="order">
+            name (atribute)
+            </label>
+            <input id="Idattrname" type="text" name="attrname" value="{{ isset($element['array_data']['attrname']) ? $element['array_data']['attrname'] : old('attrname') }}">
+        </div>
+
+        <div class="form-group">
+            <label for="order">
             class (atribute)
             </label>
             <input id="Idattrclass" type="text" name="attrclass" value="{{ isset($element['array_data']['attrclass']) ? $element['array_data']['attrclass'] : old('attrclass') }}">
@@ -19,7 +26,7 @@
             <label for="order">
             with header
             </label>
-            <input id="IdattrWithheader" type="checkbox" name="attrheader" value="{{ isset($element['array_data']['attrheader']) ? $element['array_data']['attrheader'] : old('attrheader') }}">
+            <input id="IdattrWithheader" type="checkbox" name="attrheader" value="{{ $element['array_data']['attrheader']=='true' ? 'checked' : '' }}">
         </div>
 
         <div class="form-group">
@@ -70,6 +77,11 @@ $(document).ready(function () {
         LoadPreview(type);
     });
 
+    $("#Idattrname").change(function() {
+        
+        LoadPreview(type);
+    });
+
     $("#Idattrclass").change(function() {
         
         LoadPreview(type);
@@ -104,6 +116,7 @@ function LoadPreview(type, entityid = null){
                 "entity_id"         : entityid , 
                 "_token"            : $('meta[name="csrf-token"]').attr('content'),
                 "attrid"            : $('#Idattrid').val(),
+                "attrname"          : $('#Idattrname').val(),
                 "attrclass"         : $('#Idattrclass').val(),
                 "attrheader"        : $('#IdattrWithheader').is(':checked'),
                 "attrheadertitle"   : $('#Idattrheadertitle').val(),
@@ -120,6 +133,7 @@ function LoadPreview(type, entityid = null){
             "_token"            : $('meta[name="csrf-token"]').attr('content'),
             "entity_id"         : $('#IdEntityId').val(),
             "attrid"            : $('#Idattrid').val(),
+            "attrname"          : $('#Idattrname').val(),
             "attrclass"         : $('#Idattrclass').val(),
             "attrheader"        : $('#IdattrWithheader').is(':checked'),
             "attrheadertitle"   : $('#Idattrheadertitle').val(),

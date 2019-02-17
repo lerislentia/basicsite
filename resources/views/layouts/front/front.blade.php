@@ -9,12 +9,12 @@
     @yield('headscripts')
 </head>
 
-<body class="homepage is-preload">
-    <div id="page-wrapper">
+<body class="homepage">
+<div id="page-wrapper">
         @yield('content')
-    </div>
-        @yield('scripts')
 
+        @yield('scripts')
+</div>
     <!-- Scripts -->
 
     <script src="{{ asset('js/jquery.min.js') }}"></script>

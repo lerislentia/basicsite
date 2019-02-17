@@ -24,9 +24,9 @@
         </label>
         <select name="state_id">
         <option value="" {{($page['state_id'] == null ? 'selected="selected"': '')}}> - </option>
-                @foreach($entitystates as $entitystate)
-                    <option value="{{$entitystate['state_id']}}" {{($page['state_id'] == $entitystate['state_id']) ? 'selected="selected"': ''}}>
-                        {{$entitystate['state']['lang'][$locale]['text'] or ''}}
+                @foreach($states as $state)
+                    <option value="{{$state['id']}}" {{($page['state_id'] == $state['id']) ? 'selected="selected"': ''}}>
+                        {{$state['name_value']['lang'][$locale]['text'] or ''}}
                     </option>
                 @endforeach
             </select>

@@ -236,7 +236,8 @@ return [
     ],
 
     'default' => [
-        'DB_STATE_ACTIVE' => env('DB_STATE_ACTIVE', 'ACTIVE')
+        'DB_STATE_ACTIVE'   => env('DB_STATE_ACTIVE', 'ACTIVE'),
+        'CONTENT_CACHE'     => (int)env('CONTENT_CACHE', 0)
     ]
 
 ];

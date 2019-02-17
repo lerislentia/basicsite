@@ -20,7 +20,7 @@ Route::get('clear-cache', 'Admin\CacheController@clear_cache')
       ->name('clear-cache');
 
 
-Route::get('/', 'IndexController@index')->name('home');
+
 
 Route::any('/admin/login', 'Auth\AuthController@login')->name('login');
 
@@ -36,6 +36,9 @@ Route::get('locale/{locale}', function ($locale) {
     session(['locale' => $locale]);
 });
 
+/**
+ * admin
+ */
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/', [
         'uses'          => 'Admin\AdminController@index',
@@ -311,6 +314,24 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         'as'            => 'admin.sectionpages'
     ]);
 
+    Route::any('/pagesections/new', [
+        'uses'          => 'Admin\PageSectionController@new',
+        'roles'         => ['admin'],
+        'as'            => 'admin.sectionpages.new'
+    ]);
+
+    Route::any('/pagesections/edit/{pagesection}', [
+        'uses'          => 'Admin\PageSectionController@edit',
+        'roles'         => ['admin'],
+        'as'            => 'admin.sectionpages.edit'
+    ]);
+
+    Route::any('/pagesections/delete/{pagesection}', [
+        'uses'          => 'Admin\PageSectionController@delete',
+        'roles'         => ['admin'],
+        'as'            => 'admin.sectionpages.delete'
+    ]);
+
 
 
     Route::get('resizeImage', 'Admin\ImageController@resizeImage');
@@ -322,6 +343,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     );
 
 });
+/**
+ * end admin
+ */
+
+Route::get('/{pagename?}', 'IndexController@index')->name('home');
 
 // Route::group(['middleware' => 'auth'], function () {
 //     Route::get('/laravel-filemanager', '\UniSharp\LaravelFilemanager\Controllers\LfmController@show');

@@ -6,6 +6,12 @@ if(isset($attrid)){
     $attr = null;
 }
 
+if(isset($attrname)){
+    $attrname = "name='{$attrname}'";
+}else{
+    $attrname = null;
+}
+
 if(isset($attrclass)){
     $attrc = "class='{$attrclass}'";
 }else{
@@ -20,10 +26,10 @@ if(isset($attrrow)){
 
 
 @endphp
-<section {!!$attr!!} {!!$attrc!!}>
-    @if(isset($attrheader))
+<section {!!$attr!!} {!!$attrc!!} {!!$attrname!!}>
+    @if(isset($attrheader) && $attrheader=='true')
         <header class="major">
-            <h2>{{ isset($attrheadertitle) ? $attrheadertitle : 'My Section'}}</h2>
+            <h2>{{ isset($attrheadertitle) ? $attrheadertitle : ''}}</h2>
         </header>
     @endif
     @isset($childs)

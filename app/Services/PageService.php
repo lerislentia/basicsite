@@ -21,6 +21,10 @@ class PageService extends BaseService
         return $this->pagerepository->index();
     }
 
+    public function getByName($pagename, $locale){
+        return $this->pagerepository->getByName($pagename, $locale);
+    }
+    
     public function create($params)
     {
         return $this->pagerepository->store($params);

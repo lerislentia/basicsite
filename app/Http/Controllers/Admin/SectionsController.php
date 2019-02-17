@@ -24,10 +24,10 @@ class SectionsController extends Controller
     protected $entitystate;
 
     public function __construct(
-            SectionService $sectionservice,
-            EntityStateService $entitystate,
-            TypeService $typeservice,
-            LocaleService $localeservice
+        SectionService $sectionservice,
+        EntityStateService $entitystate,
+        TypeService $typeservice,
+        LocaleService $localeservice
             ) {
         $this->sectionservice   = $sectionservice;
         $this->entitystate      = $entitystate;

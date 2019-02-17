@@ -1,6 +1,8 @@
 /node_modules
 /public/hot
 /public/storage
+/public/.ckfinder/*
+/public/images/*
 /storage/*.key
 /vendor
 /.idea
@@ -12,3 +14,4 @@ yarn-error.log
 .env
 .svn
 test-reports
+

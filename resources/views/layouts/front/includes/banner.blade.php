@@ -5,3 +5,4 @@
         <p>A responsive template by HTML5 UP</p>
     </header>
 </section>
+<!-- Banner -->

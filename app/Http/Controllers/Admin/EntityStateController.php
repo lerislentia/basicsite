@@ -16,10 +16,10 @@ class EntityStateController extends Controller
     protected $entitystateservice;
 
     public function __construct(
-            EntityStateService $entitystateservice,
-            EntityService $entityservice,
-            StateService $stateservice,
-            LocaleService $localeservice
+        EntityStateService $entitystateservice,
+        EntityService $entityservice,
+        StateService $stateservice,
+        LocaleService $localeservice
             ) {
         $this->entitystateservice   = $entitystateservice;
         $this->localeservice        = $localeservice;

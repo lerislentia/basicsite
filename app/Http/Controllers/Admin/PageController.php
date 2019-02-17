@@ -8,6 +8,7 @@ use App\Services\LocaleService;
 use App\Services\StateService;
 use App\Services\PageService;
 use Session;
+use Redirect;
 
 class PageController extends Controller
 {
@@ -17,9 +18,9 @@ class PageController extends Controller
     protected $pageservice;
 
     public function __construct(
-            LocaleService $localeservice,
-            StateService $stateservice,
-            PageService $pageservice
+        LocaleService $localeservice,
+        StateService $stateservice,
+        PageService $pageservice
             ) {
         $this->localeservice    = $localeservice;
         $this->stateservice      = $stateservice;
@@ -28,7 +29,7 @@ class PageController extends Controller
 
     public function index()
     {
-        $pages      = $this->pageservice ->index();
+        $pages      = $this->pageservice->index();
 
         $locales    = $this->localeservice->index();
 
@@ -45,7 +46,7 @@ class PageController extends Controller
     public function new(Request $request)
     {
         try {
-            $stateservices       = $this->stateservice->index(self::ENTITY);
+            $states       = $this->stateservice->index(self::ENTITY);
             $locale             = Session::get('locale');
 
             if ($request->isMethod('post')) {
@@ -58,7 +59,7 @@ class PageController extends Controller
 
             $data = [
                 'page'          => null,
-                'stateservices'  => $stateservices->toArray(),
+                'states'        => $states->toArray(),
                 'locale'        => Session::get('locale')
             ];
 

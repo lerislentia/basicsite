@@ -28,7 +28,9 @@ class Page extends BaseModel
 
     public function sections()
     {
-        return $this->belongsToMany(\App\Models\Section::class);
+        return $this->belongsToMany(\App\Models\Section::class)
+                    ->withPivot('id')
+                    ->withTimestamps();
     }
 
     public function textName()

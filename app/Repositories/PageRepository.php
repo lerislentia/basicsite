@@ -25,9 +25,24 @@ class PageRepository extends BaseRepository
     public function show($id)
     {
         return $this->pagemodel->where('id', '=', $id)->with(['sections' => function ($query) {
-            $query->select('id');
+            $query->select('section.id');
         }])
         ->first();
+    }
+
+    public function getByName($pagename, $locale)
+    {
+        // SELECT * FROM basicsite.page
+        // inner join text as t on page.name = t.id
+        // inner join translation as tr on tr.text_id = t.id;
+        return $this->pagemodel
+            ->select('page.*')
+            ->join('text as t', 'page.name', '=', 't.id')
+            ->join('translation as tr', 'tr.text_id', '=', 't.id')
+            ->where('tr.text', '=', $pagename)
+            ->where('tr.locale_id', '=', $locale)
+            ->first();
+
     }
 
     public function store($params)

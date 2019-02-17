@@ -25,10 +25,10 @@ class CategorieController extends Controller
     protected $sectionservice;
 
     public function __construct(
-            CategoryService $categorie,
-            EntityStateService $entitystate,
-            LocaleService $localeservice,
-            SectionService $sectionservice
+        CategoryService $categorie,
+        EntityStateService $entitystate,
+        LocaleService $localeservice,
+        SectionService $sectionservice
             ) {
         $this->categorie        = $categorie;
         $this->entitystate      = $entitystate;
@@ -84,7 +84,7 @@ class CategorieController extends Controller
     public function edit(Request $request, $id)
     {
         try {
-            $categorie          = $this->categorie->findBy(['id' => $id]);
+            $currentcategorie          = $this->categorie->findBy(['id' => $id]);
 
             $categories         = $this->categorie->getParents();
             $sections           = $this->sectionservice->index();
@@ -92,17 +92,17 @@ class CategorieController extends Controller
             $locale             = Session::get('locale');
 
             if ($request->isMethod('post')) {
-                $params         = $request->All();
-                $categorie      = $this->categorie->update($id, $params);
+                $params                 = $request->All();
+                $currentcategorie       = $this->categorie->update($id, $params);
                 return Redirect::route('admin.categories');
             }
             // dd($sections->toArray());
             $data = [
-            'categorie'     => $categorie->toArray(),
-            'categories'    => $categories->toArray(),
-            'sections'      => $sections->toArray(),
-            'states'        => $states->toArray(),
-            'locale'        => Session::get('locale')
+            'currentcategorie'  => $currentcategorie->toArray(),
+            'categories'        => $categories->toArray(),
+            'sections'          => $sections->toArray(),
+            'states'            => $states->toArray(),
+            'locale'            => Session::get('locale')
         ];
 
             return view('admin.categories.forms.edit', $data);
