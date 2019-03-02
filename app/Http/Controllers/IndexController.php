@@ -34,6 +34,7 @@ class IndexController extends Controller
         StateService $stateservice,
         SectionService $sectionservice,
         PageService $pageservice,
+        LocaleService $localeservice,
         CategoryService $categoryservice,
         StructureService $structureservice,
         LayoutService $layoutsservice
@@ -41,12 +42,17 @@ class IndexController extends Controller
         $this->stateservice     = $stateservice;
         $this->sectionservice   = $sectionservice;
         $this->pageservice      = $pageservice;
+        $this->localeservice    = $localeservice;
         $this->categoryservice  = $categoryservice;
         $this->structureservice = $structureservice;
         $this->layoutsservice   = $layoutsservice;
     }
     public function index(Request $request, $pagename = null)
     {
+        if(!$pagename){
+            $pagename = 'inicio';
+        }
+
         $cacheon = Config::get('app.default.CONTENT_CACHE');
 
         if($cacheon){
@@ -55,10 +61,8 @@ class IndexController extends Controller
                 return $content;
             }
         }
-        if(!$pagename){
-            $pagename = 'inicio';
-        }
-        
+
+        $locales    = $this->localeservice->index();
         $locale     = Session::get('locale');
         $page       = $this->pageservice->getByName($pagename, $locale);
 
@@ -67,15 +71,20 @@ class IndexController extends Controller
         }
         $sections       = $page->sections()->get();
 
-        $htmlsections   = $this->structureservice->parse($sections);
+        $htmlelements   = $this->structureservice->parse($sections);
 
         $categories     = $this->categoryservice->getParents();
 
+        $activelayout = $this->structureservice->getLayout();
+
         $data = [
-            'categories'    => $categories->toArray(),
-            'sections'      => $htmlsections,
+            'categories'        => $categories->toArray(),
+            'elements'          => $htmlelements,
+            'locales'           => $locales->toArray(),
         ];
-        $view =  view('home', $data);
+        
+        $view =  view("layouts/{$activelayout->name}/home", $data);
+
         $content = $view->render();
 
         if($cacheon){

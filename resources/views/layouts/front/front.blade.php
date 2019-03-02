@@ -1,4 +1,5 @@
-<html>
+<!doctype html>
+<html lang="{{ app()->getLocale() }}>
 
 <head>
     <title>basicsite</title>
@@ -17,12 +18,16 @@
 </div>
     <!-- Scripts -->
 
-    <script src="{{ asset('js/jquery.min.js') }}"></script>
-    <script src="{{ asset('js/jquery.dropotron.min.js') }}"></script>
-    <script src="{{ asset('js/browser.min.js') }}"></script>
-    <script src="{{ asset('js/breakpoints.min.js') }}"></script>
-    <script src="{{ asset('js/util.js') }}"></script>
+    <script src="{{ mix('js/jquery.js') }}"></script>
+    <script src="{{ mix('js/bootstrap.min.js') }}"></script>
     <script src="{{ mix('js/app.js') }}"></script>
+    <script src="{{ mix('js/wow.min.js') }}"></script>
+    <script src="{{ mix('js/jquery.scrollTo.min.js') }}"></script>
+    <script src="{{ mix('js/jquery.nav.js') }}"></script>
+    <script src="{{ mix('js/modernizr.custom.js') }}"></script>
+    <script src="{{ mix('js/grid.js') }}"></script>  
+    <script src="{{ mix('js/stellar.js') }}"></script>
+    <script src="{{ mix('js/custom.js') }}"></script>
 
 </body>
 

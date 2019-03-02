@@ -2,5 +2,5 @@ projectKey=basicsite
 serverUrl=http://127.0.0.1:9002/sonar
 serverVersion=6.7.0.33306
 dashboardUrl=http://127.0.0.1:9002/sonar/dashboard/index/basicsite
-ceTaskId=AWjdTJtwWjy8r-IcLDQJ
-ceTaskUrl=http://127.0.0.1:9002/sonar/api/ce/task?id=AWjdTJtwWjy8r-IcLDQJ
+ceTaskId=AWkua86V5wqppiBVlqz6
+ceTaskUrl=http://127.0.0.1:9002/sonar/api/ce/task?id=AWkua86V5wqppiBVlqz6

@@ -3,7 +3,7 @@
 
 @endphp
 <!-- Nav -->
-<nav id="nav">
+<nav>
     <ul>
             @foreach($categories as $categorie)
             <li>

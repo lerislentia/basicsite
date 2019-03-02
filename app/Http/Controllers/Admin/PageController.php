@@ -95,4 +95,17 @@ class PageController extends Controller
             return view('admin.pages.forms.edit', $data);
         }
     }
+
+    public function delete(Request $request, $id){
+        try {
+
+            $deleted            = $this->pageservice->delete($id);
+            if($deleted){
+                return Redirect::route('admin.pages');
+            }
+
+        } catch (\Throwable $e) {
+            return Redirect::route('admin.pages.edit', ['id' => $id]);
+        }
+    }
 }

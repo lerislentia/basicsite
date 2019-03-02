@@ -144,7 +144,7 @@ class StructureService
         foreach ($entities as $key => $entity) {
             $html[$entity->order] = $this->parseEntity($entity, $data);
         }
-        $caca = 1;
+
         return $html;
     }
 

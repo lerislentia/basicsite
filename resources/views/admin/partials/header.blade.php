@@ -3,7 +3,7 @@
 
 
 {{{ isset(Auth::user()->name) ? Auth::user()->name : Auth::user()->email }}}
-<ul class="nav navbar-nav">
+<ul class="nav">
     @if(Auth::user())
         <li>
             <a href="{!!route('logout')!!}">logout</a>

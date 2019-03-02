@@ -39,4 +39,9 @@ class PageService extends BaseService
     {
         return $this->pagerepository->update($id, $params);
     }
+
+    public function delete($id)
+    {
+        return $this->pagerepository->delete($id);
+    }
 }
