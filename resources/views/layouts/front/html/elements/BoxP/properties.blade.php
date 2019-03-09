@@ -4,7 +4,7 @@
             <label for="background">
                 image
             </label>
-            <input id="IdImage" type="text" name="image" value="{{ isset($element['array_data']['image']) ? $element['array_data']['image'] : old('image') }}">
+            <input id="IdImage" type="text" name="image" value="{{ $image or '' }}">
             <div id="ckfinder-modal" class="btn btn-primary">Browse Server</div>
         </div>
 

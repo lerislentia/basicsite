@@ -48,7 +48,7 @@ class State extends BaseModel
 
     public function textName()
     {
-        return $this->belongsTo(\App\Models\Text::class, 'name');
+        return $this->belongsTo(\App\Models\Text::class, self::NAME);
     }
 
     public function categories()
@@ -79,7 +79,7 @@ class State extends BaseModel
      */
     public function getNameValueAttribute()
     {
-        if (!isset($this->attributes['name'])) {
+        if (!isset($this->attributes[self::NAME])) {
             return null;
         }
         $text 								= $this->textName()->first();

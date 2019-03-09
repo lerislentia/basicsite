@@ -29,6 +29,11 @@ class PageSectionService extends BaseService
         return $this->pagesectionrepository->store($params);
     }
 
+    public function update($id, $params)
+    {
+        return $this->pagesectionrepository->update($id, $params);
+    }
+
     public function delete($id)
     {
         return $this->pagesectionrepository->delete($id);

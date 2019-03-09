@@ -40,7 +40,25 @@ class PageSectionRepository
         }
     }
 
-    public function delete($id){
+    public function update($id, $params)
+    {
+        try {
+            DB::beginTransaction();
+
+            $ps = $this->pagesectionmodel->find($id);
+
+            $ps->fill($params);
+            $ps->save();
+            DB::commit();
+            return $ps;
+        } catch (\Exception $e) {
+            DB::rollback();
+            return $e->getMessage();
+        }
+    }
+
+    public function delete($id)
+    {
         try {
             DB::beginTransaction();
 

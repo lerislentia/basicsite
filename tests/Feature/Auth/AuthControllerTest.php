@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Log;
 use Auth;
 
-
 class AuthControllerTest extends TestCase
 {
     protected $baseservicemock;

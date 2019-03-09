@@ -85,12 +85,12 @@ class PageSectionController extends Controller
 
         if ($request->isMethod('post')) {
             $params     = $request->Only('section_id', 'page_id', 'order');
-            $newent    = $this->pagesectionservice->store($params);
+            $updated    = $this->pagesectionservice->update($id, $params);
             return Redirect::route('admin.sectionpages');
         }
 
         $data = [
-            'currentpagesection'    => $currentpagesection->toArray(), 
+            'currentpagesection'    => $currentpagesection->toArray(),
             'sections'          => $sections->toArray(),
             'pages'             => $pages->toArray(),
             'locales'           => $locales->toArray(),
@@ -99,7 +99,8 @@ class PageSectionController extends Controller
         return view('admin.pagesections.forms.edit', $data);
     }
 
-    public function delete(Request $request, $id){
+    public function delete(Request $request, $id)
+    {
         $this->pagesectionservice->delete($id);
         return Redirect::route('admin.sectionpages');
     }

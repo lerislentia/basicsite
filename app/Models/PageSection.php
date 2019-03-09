@@ -43,7 +43,7 @@ class PageSection extends BaseModel
      */
     public function getPageAttribute()
     {
-        if (!isset($this->attributes['page_id'])) {
+        if (!isset($this->attributes[self::PAGE])) {
             return null;
         }
         $page 								= $this->Page()->first();
@@ -58,7 +58,7 @@ class PageSection extends BaseModel
 
     public function getSectionAttribute()
     {
-        if (!isset($this->attributes['section_id'])) {
+        if (!isset($this->attributes[self::SECTION])) {
             return null;
         }
         $section 							= $this->Section()->first();

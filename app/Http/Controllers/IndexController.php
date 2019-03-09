@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Cache;
 use Session;
 use Config;
 
-
 class IndexController extends Controller
 {
     protected $sectionservice;
@@ -49,47 +48,51 @@ class IndexController extends Controller
     }
     public function index(Request $request, $pagename = null)
     {
-        if(!$pagename){
-            $pagename = 'inicio';
-        }
-
-        $cacheon = Config::get('app.default.CONTENT_CACHE');
-
-        if($cacheon){
-            $content = Cache::get($pagename);
-            if ($content) {
-                return $content;
+        try {
+            if (!$pagename) {
+                $pagename = 'inicio';
             }
-        }
 
-        $locales    = $this->localeservice->index();
-        $locale     = Session::get('locale');
-        $page       = $this->pageservice->getByName($pagename, $locale);
+            $cacheon = Config::get('app.default.CONTENT_CACHE');
 
-        if(!$page){
-            return abort(404);
-        }
-        $sections       = $page->sections()->get();
+            if ($cacheon) {
+                $content = Cache::get($pagename);
+                if ($content) {
+                    return $content;
+                }
+            }
 
-        $htmlelements   = $this->structureservice->parse($sections);
+            $locales    = $this->localeservice->index();
+            $locale     = Session::get('locale');
+            $page       = $this->pageservice->getByName($pagename, $locale);
 
-        $categories     = $this->categoryservice->getParents();
+            if (!$page) {
+                return abort(404);
+            }
+            $sections       = $page->sections()->get();
 
-        $activelayout = $this->structureservice->getLayout();
+            $htmlelements   = $this->structureservice->parse($sections);
 
-        $data = [
+            $categories     = $this->categoryservice->getParents();
+
+            $activelayout = $this->structureservice->getLayout();
+
+            $data = [
             'categories'        => $categories->toArray(),
             'elements'          => $htmlelements,
             'locales'           => $locales->toArray(),
         ];
-        
-        $view =  view("layouts/{$activelayout->name}/home", $data);
 
-        $content = $view->render();
+            $view =  view("layouts/{$activelayout->name}/home", $data);
 
-        if($cacheon){
-            Cache::put($pagename, $content, 1);
+            $content = $view->render();
+
+            if ($cacheon) {
+                Cache::put($pagename, $content, 1);
+            }
+            return $content;
+        } catch (\Exception $e) {
+            $ddd = $e->getMessage();
         }
-        return $content;
     }
 }

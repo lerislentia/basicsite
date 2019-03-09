@@ -76,7 +76,7 @@ class StructureController extends Controller
     {
         $params     = $request->All();
 
-        $locale             = Session::get('locale');
+        $locale     = Session::get('locale');
 
 
         if (isset($params['entity_id'])) {
@@ -112,11 +112,13 @@ class StructureController extends Controller
      * @param  Request $request
      * @return void
      */
-    public function updateproperties(Request $request)
+    public function updateproperties(Request $request, $locale = null)
     {
         $params     = $request->All();
 
-        $locale             = Session::get('locale');
+        if (!$locale) {
+            $locale             = Session::get('locale');
+        }
 
         $entity            = $this->elementsservice->show($params['entity_id']);
 
@@ -126,6 +128,8 @@ class StructureController extends Controller
 
         unset($params['_token']);
         unset($params['entity_id']);
+
+        $params[$locale] = $params;
 
         if ($request->isMethod('post')) {
             $update     = $this->elementsservice->updateProperties($entity->id, $params);

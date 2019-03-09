@@ -37,13 +37,6 @@ Route::any('/admin/logout', 'Auth\AuthController@logout')->name('logout');
 
 Route::get('/admin/reset', 'Auth\AuthController@showReset')->name('password.request');
 
-Route::get('locale', function () {
-    return \App::getLocale();
-});
-
-Route::get('locale/{locale}', function ($locale) {
-    session(['locale' => $locale]);
-});
 
 /**
  * admin

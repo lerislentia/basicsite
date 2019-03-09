@@ -26,12 +26,12 @@
 <div class="container-fluid text-center"> 
 <div class="row content">
 
-    <div class="col-sm-2 sidenav">
+    <div class="col-sm-1 sidenav">
             @include('admin.partials.header')
     </div>
 
     
-    <div class="col-sm-2 text-left">
+    <div class="col-sm-3 text-left">
 
         @if (session('status'))
             <div class="alert alert-success">
@@ -41,8 +41,7 @@
 
         @yield('content')
 
-        <div id="properties">
-        </div>
+        
     </div>
         
 
@@ -51,6 +50,8 @@
           <div class="container">
             <div id="preview">
             </div>
+            <div id="properties">
+        </div>
           </div>
     </div>
           
@@ -66,7 +67,9 @@
     <script src="{{ mix('js/stellar.js') }}"></script>
     <script src="{{ mix('js/custom.js') }}"></script>
 
+    <!-- no mix, only for back -->
     <script src="{{ asset('ckfinder/ckfinder.js') }}"></script><!-- ckfinder.js is required -->
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script><!-- ckeditor.js is required -->
     
 
 

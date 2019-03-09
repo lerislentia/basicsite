@@ -30,12 +30,13 @@ class Page extends BaseModel
     {
         return $this->belongsToMany(\App\Models\Section::class)
                     ->withPivot('id')
-                    ->withTimestamps();
+                    ->withTimestamps()
+                    ->orderBy(\App\Models\Section::ORDER);
     }
 
     public function textName()
     {
-        return $this->belongsTo(\App\Models\Text::class, 'name');
+        return $this->belongsTo(\App\Models\Text::class, self::NAME);
     }
 
     /**
@@ -44,7 +45,7 @@ class Page extends BaseModel
 
     public function getNameValueAttribute()
     {
-        if (!isset($this->attributes['name'])) {
+        if (!isset($this->attributes[self::NAME])) {
             return null;
         }
         $text 								= $this->textName()->first();

@@ -96,14 +96,13 @@ class PageController extends Controller
         }
     }
 
-    public function delete(Request $request, $id){
+    public function delete(Request $request, $id)
+    {
         try {
-
             $deleted            = $this->pageservice->delete($id);
-            if($deleted){
+            if ($deleted) {
                 return Redirect::route('admin.pages');
             }
-
         } catch (\Throwable $e) {
             return Redirect::route('admin.pages.edit', ['id' => $id]);
         }

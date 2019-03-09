@@ -79,12 +79,12 @@ class Section extends BaseModel
 
     public function textDescription()
     {
-        return $this->belongsTo(\App\Models\Text::class, 'description');
+        return $this->belongsTo(\App\Models\Text::class, self::DESCRIPTION);
     }
 
     public function textName()
     {
-        return $this->belongsTo(\App\Models\Text::class, 'name');
+        return $this->belongsTo(\App\Models\Text::class, self::NAME);
     }
 
     public function galleries()
@@ -97,7 +97,7 @@ class Section extends BaseModel
     public function texts()
     {
         return $this->belongsToMany(\App\Models\Text::class)
-                    ->withPivot('id', 'sequence', 'type_id')
+                    ->withPivot('id', 'sequence', self::TYPE)
                     ->withTimestamps();
     }
 
@@ -120,12 +120,12 @@ class Section extends BaseModel
 
     public function childrens()
     {
-        return $this->hasMany(\App\Models\Section::class, 'parent_id', 'id');
+        return $this->hasMany(\App\Models\Section::class, self::FATHER, 'id');
     }
 
     public function parent()
     {
-        return $this->belongsTo(\App\Models\Section::class, 'parent_id');
+        return $this->belongsTo(\App\Models\Section::class, self::FATHER);
     }
 
     /**
@@ -162,7 +162,7 @@ class Section extends BaseModel
 
     public function getDescriptionValueAttribute()
     {
-        if (!isset($this->attributes['description'])) {
+        if (!isset($this->attributes[self::DESCRIPTION])) {
             return null;
         }
         $text 								= $this->textDescription()->first();
@@ -176,7 +176,7 @@ class Section extends BaseModel
 
     public function getStateAttribute()
     {
-        if (!isset($this->attributes['state_id'])) {
+        if (!isset($this->attributes[self::STATE])) {
             return null;
         }
         $state 								= $this->state()->first();
@@ -204,7 +204,7 @@ class Section extends BaseModel
 
     public function getTypeAttribute()
     {
-        if (!isset($this->attributes['type_id'])) {
+        if (!isset($this->attributes[self::TYPE])) {
             return null;
         }
         $type 								= $this->type()->first();

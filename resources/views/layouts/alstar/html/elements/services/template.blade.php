@@ -6,7 +6,7 @@
           <div class="section-heading">
             <h2>{{ __('services.services') }}</h2>
             <div class="heading-line"></div>
-            <p>We’ve been building unique digital products, platforms, and experiences for the past 6 years.</p>
+            <p>{{ $HeadingLine or 'HeadingLine'}}</p>
           </div>
         </div>
       </div>
@@ -20,14 +20,13 @@
                 <div class="row">
                   <div class="col-sm-12 col-md-offset-1 col-md-6">
                     <div class="wow bounceInLeft">
-                      <h4>Website Design</h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna.</p>
+                      <h4>{{ $BounceInLefOneTitle or '' }}</h4>
+                      <p>{!! $BounceInLefOneParagraph or 'BounceInLefOneParagraph' !!}</p>
                     </div>
                   </div>
                   <div class="col-sm-12 col-md-5">
                     <div class="screenshot wow bounceInRight">
-                      <img src="img/screenshots/1.png" class="img-responsive" alt="" />
+                      <img src="{{ $image or '' }}" class="img-responsive" alt="" />
                     </div>
                   </div>
                 </div>
@@ -36,14 +35,13 @@
                 <div class="row">
                   <div class="col-sm-12 col-md-offset-1 col-md-6">
                     <div class="wow bounceInLeft">
-                      <h4>Brand Identity</h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna.</p>
+                      <h4>{{ $BounceInLefTwoTitle or 'BounceInLefTwoTitle' }}</h4>
+                      <p>{!! $BounceInLefTwoParagraph or 'BounceInLefTwoParagraph' !!}</p>
                     </div>
                   </div>
                   <div class="col-sm-12 col-md-5">
                     <div class="screenshot wow bounceInRight">
-                      <img src="img/screenshots/2.png" class="img-responsive" alt="" />
+                      <img src="{{ $imageTwo or '' }}" class="img-responsive" alt="" />
                     </div>
                   </div>
                 </div>
@@ -52,14 +50,13 @@
                 <div class="row">
                   <div class="col-sm-12 col-md-offset-1 col-md-6">
                     <div class="wow bounceInLeft">
-                      <h4>Web & Mobile Apps</h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna.</p>
+                      <h4>{{ $BounceInLefTreeTitle or 'BounceInLefTreeTitle' }}</h4>
+                      <p>{!! $BounceInLefTreeParagraph or 'BounceInLefTreeParagraph' !!}</p>
                     </div>
                   </div>
                   <div class="col-sm-12 col-md-5">
                     <div class="screenshot wow bounceInRight">
-                      <img src="img/screenshots/3.png" class="img-responsive" alt="" />
+                      <img src="{{ $imageTree or '' }}" class="img-responsive" alt="" />
                     </div>
                   </div>
                 </div>

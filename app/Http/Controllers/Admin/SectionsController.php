@@ -94,6 +94,7 @@ class SectionsController extends Controller
             if ($request->isMethod('post')) {
                 $params         = $request->All();
                 $section        = $this->sectionservice->update($id, $params);
+                return Redirect::route('admin.sections');
             }
 
             $data = [

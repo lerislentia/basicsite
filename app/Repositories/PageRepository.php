@@ -42,7 +42,6 @@ class PageRepository extends BaseRepository
             ->where('tr.text', '=', $pagename)
             ->where('tr.locale_id', '=', $locale)
             ->first();
-
     }
 
     public function store($params)
@@ -138,7 +137,4 @@ class PageRepository extends BaseRepository
             return $e->getMessage();
         }
     }
-
-    
-
 }
