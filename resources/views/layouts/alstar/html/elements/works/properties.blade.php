@@ -21,7 +21,15 @@
                     <label for="works[{{$key}}]LargeImage">
                         large image
                     </label>
-                    <input id="IdLargeImage" type="text" name="works[{{$key}}][LargeImage]" onclick="browseServer(this);" value="{{ isset($work['LargeImage']) ? $work['LargeImage'] : old('LargeImage') }}">
+                    <input type="text" name="works[{{$key}}][LargeImage]" onclick="browseServer(this);" value="{{ isset($work['LargeImage']) ? $work['LargeImage'] : old('LargeImage') }}">
+                    
+                </div>
+
+                <div class="form-group">
+                    <label for="works[{{$key}}]ThumbImage">
+                        thumb image
+                    </label>
+                    <input type="text" name="works[{{$key}}][ThumbImage]" onclick="browseServer(this);" value="{{ isset($work['ThumbImage']) ? $work['ThumbImage'] : old('ThumbImage') }}">
                     
                 </div>
 
@@ -29,14 +37,14 @@
                     <label for="works[{{$key}}]Title">
                         title
                     </label>
-                    <input id="IdTitle" type="text" name="works[{{$key}}][Title]" value="{{ isset($work['Title']) ? $work['Title'] : old('Title') }}">
+                    <input type="text" name="works[{{$key}}][Title]" value="{{ isset($work['Title']) ? $work['Title'] : old('Title') }}">
                 </div>
 
                 <div class="form-group">
                     <label for="works[{{$key}}]Description">
                         description
                     </label>
-                    <textarea name="works[{{$key}}][Description]" id="IdDescription" rows="10" cols="80">
+                    <textarea name="works[{{$key}}][Description]" rows="10" cols="80">
                     {{ isset($work['Description']) ? $work['Description'] : old('Description') }}
                     </textarea>
                 </div>
@@ -149,17 +157,31 @@ function LoadPreview(type, entityid = null){
         
         var labelimage    = $("<label></label>");
         labelimage.html("large image");
-        labelimage.attr('for', 'image');
+        labelimage.attr('for', 'works[' + (workquetity) + ']LargeImage');
 
         var inputimage    = $("<input>");
-        inputimage.attr('id', 'IdLargeImage');
+
         inputimage.attr('type', 'text');
-        inputimage.attr('name', 'works['+ (workquetity) +']IdLargeImage');
+        inputimage.attr('name', 'works[' + (workquetity) + ']LargeImage');
         inputimage.attr('onclick', 'browseServer(this);');
 
         divimage.append(labelimage);
         divimage.append(inputimage);
 
+        var divthumb        = $("<div></div>");
+        divthumb.attr('class', 'form-group');
+
+        var labeltimage     = $("<label></label>");
+        labeltimage.html("thumb image");
+        labeltimage.attr('for', 'works[' + (workquetity) + ']ThumbImage');
+
+        var inputthumbimage = $("<input>");
+        inputthumbimage.attr('type', 'text');
+        inputthumbimage.attr('name', 'works[' + (workquetity) + ']ThumbImage');
+        inputthumbimage.attr('onclick', 'browseServer(this);');
+
+        divthumb.append(labeltimage);
+        divthumb.append(inputthumbimage);
 
         var divtitle = $("<div></div>");
         divtitle.attr('class', 'form-group');
@@ -169,7 +191,7 @@ function LoadPreview(type, entityid = null){
         labeltitle.attr('for', 'works['+ (workquetity) +'][Title]');
 
         var inputtitle    = $("<input>");
-        inputtitle.attr('id', 'title');
+
         inputtitle.attr('type', 'text');
         inputtitle.attr('name', 'works['+ (workquetity) +'][Title]');
         divtitle.append(labeltitle);
@@ -195,6 +217,7 @@ function LoadPreview(type, entityid = null){
         inputremove.val("remove work");
 
         fieldset.append(divimage);
+        fieldset.append(divthumb);
         fieldset.append(divtitle);
         fieldset.append(divdescription);
         fieldset.append(inputremove);
@@ -203,9 +226,6 @@ function LoadPreview(type, entityid = null){
         CKEDITOR.replace( 'works['+ (workquetity) +'][Description]' );
 
     }); 
-
-    // var description = CKEDITOR.replace( 'Description' );
-
 
     function browseServer(input){
         CKFinder.modal( {
@@ -226,26 +246,5 @@ function LoadPreview(type, entityid = null){
         workquetity--;
         $('#'+item).remove();
     }
-
-    // var button = document.getElementById( 'ckfinder-modal' );
-
-	// button.onclick = function() {
-	// 	CKFinder.modal( {
-	// 		chooseFiles: true,
-	// 		width: 800,
-	// 		height: 600,
-	// 		onInit: function( finder ) {
-	// 			finder.on( 'files:choose', function( evt ) {
-	// 				var file        = evt.data.files.first();
-	// 				var output      = document.getElementById( 'IdLargeImage' );
-    //                 output.value    = file.getUrl();
-	// 			} );
-	// 		}
-	// 	} );
-    // };
-    
-    // var button = document.getElementById( 'ckfinder-modal-two' );
-
-    // var button = document.getElementById( 'ckfinder-modal-tree' );
 
 </script>

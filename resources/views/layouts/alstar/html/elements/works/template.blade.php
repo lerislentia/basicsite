@@ -6,7 +6,7 @@
           <div class="section-heading">
             <h2>{{ __('works.works') }}</h2>
             <div class="heading-line"></div>
-            <p>{{ $HeadingLine or 'HeadingLine'}}</p>
+            <p>{{ $HeadingLine or 'HeadingLineness'}}</p>
           </div>
         </div>
       </div>
@@ -15,13 +15,13 @@
 
           <ul id="og-grid" class="og-grid">
           @isset($works)
-          @foreach($works as $key => $work)
+          @foreach($works as $work)
             <li>
               <a href="#" 
-                data-largesrc="{{ $work->LargeImage or '' }}" 
-                data-title="{{ $work->Title or 'Title'}}" 
-                data-description="{!! $work->Description or 'Description' !!}">
-                <img src="img/works/thumbs/1.jpg" alt="" />
+                data-largesrc="{{ $work['LargeImage'] or 'LargeImageness' }}" 
+                data-title="{{ $work['Title'] or 'Titleness'}}" 
+                data-description="{!! $work['Description'] or 'Descriptionness' !!}">
+                <img src="{{ $work['ThumbImage'] or 'ThumbImageness' }}" alt="" />
               </a>
             </li>
           @endforeach

@@ -57,7 +57,7 @@ class StructureController extends Controller
 
         if (isset($params['entity_id'])) {
             $entity = $this->elementsservice->show($params['entity_id']);
-            $params = (array) json_decode($entity->data);
+            $params = (array) json_decode($entity->data, true);
         }
 
 

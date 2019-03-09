@@ -6,40 +6,22 @@
           <div class="section-heading">
             <h2>{{ __('team.ourteam') }}</h2>
             <div class="heading-line"></div>
-            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-              laborum</p>
+            <p>{{ $HeadingLine or 'HeadingLineness'}}</p>
           </div>
         </div>
       </div>
       <div class="row">
+        @isset($Partners)
+        @foreach($Partners as $Partner)
         <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
           <div class="box-team wow bounceInUp" data-wow-delay="0.1s">
-            <img src="img/team/1.jpg" alt="" class="img-circle img-responsive" />
-            <h4>Dominique Vroslav</h4>
-            <p>Art Director</p>
+            <img src="{{ $Partner['LargeImage'] or 'LargeImageless' }}" alt="" class="img-circle img-responsive" />
+            <h4>{{ $Partner['Name'] or 'Nameless' }}</h4>
+            <p>{{ $Partner['Charge'] or 'Chargeless' }}</p>
           </div>
         </div>
-        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" data-wow-delay="0.3s">
-          <div class="box-team wow bounceInUp">
-            <img src="img/team/2.jpg" alt="" class="img-circle img-responsive" />
-            <h4>Thomas Jeffersonn</h4>
-            <p>Web Designer</p>
-          </div>
-        </div>
-        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" data-wow-delay="0.5s">
-          <div class="box-team wow bounceInUp">
-            <img src="img/team/3.jpg" alt="" class="img-circle img-responsive" />
-            <h4>Nola Maurin</h4>
-            <p>Illustrator</p>
-          </div>
-        </div>
-        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" data-wow-delay="0.7s">
-          <div class="box-team wow bounceInUp">
-            <img src="img/team/4.jpg" alt="" class="img-circle img-responsive" />
-            <h4>Mira Ladovic</h4>
-            <p>Typographer</p>
-          </div>
-        </div>
+        @endforeach
+        @endisset        
       </div>
     </div>
   </section>
