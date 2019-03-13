@@ -104,4 +104,10 @@ class PageSectionController extends Controller
         $this->pagesectionservice->delete($id);
         return Redirect::route('admin.sectionpages');
     }
+
+    public function order(Request $request)
+    {
+        $params     = $request->All();
+        $this->pagesectionservice->order($params);
+    }
 }

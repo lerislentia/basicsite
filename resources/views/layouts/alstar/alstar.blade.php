@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
 
-   
+    <script src="{{ mix('js/jquery.js') }}"></script>
+    <script src="{{ mix('js/bootstrap.min.js') }}"></script>
     @yield('headscripts')
 </head>
 
@@ -16,12 +17,9 @@
         @yield('content')
     </div>
 
-        @yield('scripts')
-
     <!-- Scripts -->
 
-    <script src="{{ mix('js/jquery.js') }}"></script>
-    <script src="{{ mix('js/bootstrap.min.js') }}"></script>
+    
     <script src="{{ mix('js/app.js') }}"></script>
     <script src="{{ mix('js/wow.min.js') }}"></script>
     <script src="{{ mix('js/jquery.scrollTo.min.js') }}"></script>
@@ -30,6 +28,12 @@
     <script src="{{ mix('js/grid.js') }}"></script>  
     <script src="{{ mix('js/stellar.js') }}"></script>
     <script src="{{ mix('js/custom.js') }}"></script>
+
+        @yield('scripts')
+
+    <!-- end Scripts -->
+
+    
     
     
 

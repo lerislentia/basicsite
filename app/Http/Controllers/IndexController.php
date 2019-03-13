@@ -69,8 +69,13 @@ class IndexController extends Controller
             if (!$page) {
                 return abort(404);
             }
-            $sections       = $page->sections()->get();
+            $pagesections       = $page->pagesections()->get();
+            foreach ($pagesections as $pagesection) {
+                $sections[$pagesection->order] =  $pagesection->section()->first();
+            }
 
+
+            // dd($sections->toArray());
             $htmlelements   = $this->structureservice->parse($sections);
 
             $categories     = $this->categoryservice->getParents();

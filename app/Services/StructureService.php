@@ -142,7 +142,7 @@ class StructureService
         $html= [];
 
         foreach ($entities as $key => $entity) {
-            $html[$entity->order] = $this->parseEntity($entity, $data);
+            $html[] = $this->parseEntity($entity, $data);
         }
 
         return $html;

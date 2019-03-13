@@ -72,4 +72,23 @@ class PageSectionRepository
             return $e->getMessage();
         }
     }
+
+    public function order($params)
+    {
+        try {
+            DB::beginTransaction();
+
+            foreach ($params['order'] as $order => $id) {
+                $ps         = $this->pagesectionmodel->find($id);
+                $ps->order  = $order;
+                $ps->save();
+            }
+
+            DB::commit();
+            return $deleted;
+        } catch (\Exception $e) {
+            DB::rollback();
+            return $e->getMessage();
+        }
+    }
 }

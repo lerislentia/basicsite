@@ -334,6 +334,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         'as'            => 'admin.sectionpages.delete'
     ]);
 
+    Route::post('/pagesections/order', [
+        'uses'          => 'Admin\PageSectionController@order',
+        'roles'         => ['admin'],
+        'as'            => 'admin.sectionpages.order'
+    ]);
+
 
 
     Route::get('resizeImage', 'Admin\ImageController@resizeImage');
@@ -348,6 +354,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 /**
  * end admin
  */
+
+
+Route::post('/sendmessage', 'MessagesController@sendMessage')->name('contact.messages.send');
 
 Route::get('/{pagename?}', 'IndexController@index')->name('home');
 

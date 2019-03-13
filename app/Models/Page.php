@@ -30,8 +30,13 @@ class Page extends BaseModel
     {
         return $this->belongsToMany(\App\Models\Section::class)
                     ->withPivot('id')
-                    ->withTimestamps()
-                    ->orderBy(\App\Models\Section::ORDER);
+                    ->withTimestamps();
+    }
+
+    public function pagesections()
+    {
+        return $this->hasMAny(\App\Models\PageSection::class)
+        ->orderBy(\App\Models\PageSection::ORDER);
     }
 
     public function textName()

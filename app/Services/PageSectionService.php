@@ -38,4 +38,9 @@ class PageSectionService extends BaseService
     {
         return $this->pagesectionrepository->delete($id);
     }
+
+    public function order($params)
+    {
+        return $this->pagesectionrepository->order($params);
+    }
 }

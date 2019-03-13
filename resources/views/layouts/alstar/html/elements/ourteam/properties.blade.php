@@ -143,12 +143,12 @@ function LoadPreview(type, entityid = null){
         
         var labelimage    = $("<label></label>");
         labelimage.html("large image");
-        labelimage.attr('for', 'works[' + (partquetity) + ']LargeImage');
+        labelimage.attr('for', 'Partners[' + (partquetity) + ']LargeImage');
 
         var inputimage    = $("<input>");
 
         inputimage.attr('type', 'text');
-        inputimage.attr('name', 'works[' + (partquetity) + ']LargeImage');
+        inputimage.attr('name', 'Partners[' + (partquetity) + ']LargeImage');
         inputimage.attr('onclick', 'browseServer(this);');
 
         divimage.append(labelimage);

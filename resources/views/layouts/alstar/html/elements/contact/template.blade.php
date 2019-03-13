@@ -6,54 +6,57 @@
           <div class="section-heading">
             <h2>{{ __('contact.contactus') }}</h2>
             <div class="heading-line"></div>
-            <p>If you have any question or just want to say 'hello' to Alstar web studio please fill out form below and
-              we will be get in touch with you within 24 hours. </p>
+            <p>{{ __('contact.intro') }}. </p>
           </div>
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-offset-2 col-md-8">
-          <div id="sendmessage">Your message has been sent. Thank you!</div>
-          <div id="errormessage"></div>
+          <div id="sendmessage">{{ __('contact.sended') }}. {{ __('contact.thankyou') }}!</div>
+          <div id="errormessage">tu mensaje no pudo ser enviado por favor intenta mas tarde</div>
 
-          <form action="" method="post" class="form-horizontal contactForm" role="form">
+          <form id="ContactForm" action="{{ $action or ''}}" method="post" class="form-horizontal contactForm" role="form">
+          {{ csrf_field() }}
             <div class="col-md-offset-2 col-md-8">
               <div class="form-group">
-                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4"
-                  data-msg="Please enter at least 4 chars" />
+                <input type="text" name="name" class="form-control" id="name" placeholder="{{ __('contact.YourName') }}" data-rule="minlen:4"
+                  data-msg="Please enter at least 4 chars" required/>
                 <div class="validation"></div>
               </div>
             </div>
 
             <div class="col-md-offset-2 col-md-8">
               <div class="form-group">
-                <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email"
-                  data-msg="Please enter a valid email" />
+                <input type="email" class="form-control" name="email" id="email" placeholder="{{ __('contact.YourEmail') }}" data-rule="email"
+                  data-msg="Please enter a valid email" required/>
                 <div class="validation"></div>
               </div>
             </div>
 
             <div class="col-md-offset-2 col-md-8">
               <div class="form-group">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4"
-                  data-msg="Please enter at least 8 chars of subject" />
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="{{ __('contact.Subject') }}" data-rule="minlen:4"
+                  data-msg="Please enter at least 8 chars of subject" required/>
                 <div class="validation"></div>
               </div>
             </div>
 
             <div class="col-md-offset-2 col-md-8">
               <div class="form-group">
-                <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us"
-                  placeholder="Message"></textarea>
+                <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="{{ __('contact.Pleasewrite') }}"
+                  placeholder="{{ __('contact.Message') }}" required></textarea>
                 <div class="validation"></div>
               </div>
             </div>
             <div class="form-group">
               <div class="col-md-offset-2 col-md-8">
-                <button type="submit" class="btn btn-theme btn-lg btn-block">{{ __('contact.sendmessage') }}</button>
+                <button type="button" id="IdSaveMessage" class="btn btn-theme btn-lg btn-block">{{ __('contact.sendmessage') }}</button>
               </div>
             </div>
+
+            <input type="hidden" name="locale" value="{{ session('locale') }}">
+
           </form>
 
         </div>
@@ -62,4 +65,28 @@
     </div>
   </section>
 
-   
+
+<script type="text/javascript">
+
+$(document).ready(function () {
+
+  $("#IdSaveMessage").click(function(){
+
+    var data = $('#ContactForm').serialize();
+
+    $.post("{{ route('contact.messages.send') }}",
+    data,
+      function(data, status){
+          if(data.success==true){
+            $("#errormessage").hide();
+            $("#sendmessage").show().delay(3000).fadeOut();;
+          }else{
+            $("#errormessage").show().delay(3000).fadeOut();;
+            $("#sendmessage").hide();                 
+          }
+      });
+  }); 
+
+});
+
+</script>

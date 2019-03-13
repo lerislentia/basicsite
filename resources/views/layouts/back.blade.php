@@ -55,6 +55,8 @@
           </div>
     </div>
           
+    
+    <link rel="stylesheet" href="{{ asset('jquery-ui-1.12.1.custom/jquery-ui.min.css') }}">
 
     <script src="{{ mix('js/jquery.js') }}"></script>
     <script src="{{ mix('js/bootstrap.min.js') }}"></script>
@@ -68,8 +70,11 @@
     <script src="{{ mix('js/custom.js') }}"></script>
 
     <!-- no mix, only for back -->
+    
     <script src="{{ asset('ckfinder/ckfinder.js') }}"></script><!-- ckfinder.js is required -->
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script><!-- ckeditor.js is required -->
+    <script src="{{ asset('jquery-ui-1.12.1.custom/jquery-ui.min.js') }}"></script><!-- ckeditor.js is required -->
+    
     
 
 
