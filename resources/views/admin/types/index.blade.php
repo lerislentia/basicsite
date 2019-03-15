@@ -6,13 +6,14 @@
 @section('content')
 
 
-
-<a href="{!! route('admin.types.new') !!}"> new type</a>
+<div class="btn btn-primary">
+        <a href="{!! route('admin.types.new') !!}"> new type</a>
+</div>
         <ul>
             @foreach($types as $type)
             <li>
-                    @isset($type['name_value']['lang'][$locale])
-                    <a href="{!! route('admin.types.edit', ['id' => $type['id']]) !!}">{{$type['name_value']['lang'][$locale]['text'] or ''}}</a>
+                    @isset($type['name'])
+                    <a href="{!! route('admin.types.edit', ['id' => $type['id']]) !!}">{{$type['name'] or ''}}</a>
                     @else
                     <a href="{!! route('admin.types.edit', ['id' => $type['id']]) !!}">unstranslated</a>
                     @endisset

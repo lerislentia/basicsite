@@ -80,7 +80,7 @@ class IndexController extends Controller
 
             $categories     = $this->categoryservice->getParents();
 
-            $activelayout = $this->structureservice->getLayout();
+            $activelayout   = $this->structureservice->getLayout();
 
             $data = [
             'categories'        => $categories->toArray(),

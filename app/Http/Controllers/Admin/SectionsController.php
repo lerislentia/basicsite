@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Services\SectionService;
 use App\Services\TypeService;
 use App\Services\LocaleService;
-use App\Services\EntityStateService;
+use App\Services\StateService;
 use App\Models\Section;
 use Session;
 use Redirect;
@@ -21,16 +21,16 @@ class SectionsController extends Controller
     protected $sectionservice;
     protected $localeservice;
     protected $typeservice;
-    protected $entitystate;
+    protected $state;
 
     public function __construct(
         SectionService $sectionservice,
-        EntityStateService $entitystate,
+        StateService $state,
         TypeService $typeservice,
         LocaleService $localeservice
             ) {
         $this->sectionservice   = $sectionservice;
-        $this->entitystate      = $entitystate;
+        $this->state            = $state;
         $this->typeservice      = $typeservice;
         $this->localeservice    = $localeservice;
     }
@@ -55,7 +55,7 @@ class SectionsController extends Controller
         try {
             $sections           = $this->sectionservice->getParents();
             $types              = $this->typeservice->index(self::ENTITY);
-            $entitystates       = $this->entitystate->index(self::ENTITY);
+            $states             = $this->state->index(self::ENTITY);
             $locale             = Session::get('locale');
 
             if ($request->isMethod('post')) {
@@ -70,7 +70,7 @@ class SectionsController extends Controller
                 'secti'         => null,
                 'sections'      => $sections->toArray(),
                 'types'         => $types->toArray(),
-                'entitystates'  => $entitystates->toArray(),
+                'states'        => $states->toArray(),
                 'locale'        => Session::get('locale')
             ];
 
@@ -85,10 +85,8 @@ class SectionsController extends Controller
         try {
             $sections           = $this->sectionservice->getParents();
             $section            = $this->sectionservice->show($id);
-            // $elements           = $this->elementservice->index();
             $types              = $this->typeservice->index(self::ENTITY);
-            // $entitytypes        = $this->entitytype->index(self::ENTITY);
-            $entitystates             = $this->entitystate->index(self::ENTITY);
+            $states             = $this->state->index(self::ENTITY);
             $locale             = Session::get('locale');
 
             if ($request->isMethod('post')) {
@@ -101,7 +99,7 @@ class SectionsController extends Controller
             'currentsection'       => $section->toArray(),
             'sections'      => $sections->toArray(),
             'types'         => $types->toArray(),
-            'states'        => $entitystates->toArray(),
+            'states'        => $states->toArray(),
             'locale'        => Session::get('locale')
         ];
 

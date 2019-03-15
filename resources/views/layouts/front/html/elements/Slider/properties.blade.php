@@ -22,5 +22,5 @@
         </div>
 
         <input type="hidden" name="locale" value="{{$locale}}">
-        <input type="submit" value="save">
+        <input type="submit" value="{{ __('back.save') }}">
 </form>

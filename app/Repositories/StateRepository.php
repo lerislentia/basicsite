@@ -40,30 +40,8 @@ class StateRepository extends BaseRepository
 
             $stat =  $this->state->find($id);
 
-            /**
-             * name
-             */
-            $name       = $stat->textName()->first();
-            if (!$name) {
-                $name   = $stat->textName()->create();
-            }
-            $name->save();
-            $nparams = [
-                'text' 		=> $params['name'],
-                'locale_id'	=> $params['locale'],
-                'text_id'	=> $name->id
-            ];
-
-            $translation 						= $name->translations()->where('locale_id', '=', $nparams['locale_id'])->first();
-            if (!$translation) {
-                $translation 					= $name->translations()->create($nparams);
-            } else {
-                $translation->fill($nparams);
-            }
-            $translation->save();
-
             $statparams = [
-                'name'          => $name->id,
+                'name'          => $params['name'],
                 'value'          => $params['value']
             ];
 

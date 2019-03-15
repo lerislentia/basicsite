@@ -46,8 +46,6 @@ class Section extends BaseModel
     protected $table = 'section';
 
     protected $casts = [
-        self::NAME 			=> 'int',
-        self::DESCRIPTION 	=> 'int',
         self::TYPE 			=> 'int',
         self::STATE 		=> 'int',
         self::ORDER 		=> 'int',
@@ -68,7 +66,7 @@ class Section extends BaseModel
     ];
 
     protected $appends = [
-        'childrens', 'name_value', 'type', 'state','description_value', 'locale_value', 'array_data'
+        'childrens', 'locale_value', 'array_data'
     ];
 
 
@@ -145,49 +143,6 @@ class Section extends BaseModel
      * ACCESSORS
      */
 
-    public function getNameValueAttribute()
-    {
-        if (!isset($this->attributes['name'])) {
-            return null;
-        }
-        $text 								= $this->textName()->first();
-
-        $translations 						= $text->translations()->get();
-
-        foreach ($translations as $translation) {
-            $trans[$translation->locale_id] = $translation->toArray();
-        }
-        return ['lang' => $trans];
-    }
-
-    public function getDescriptionValueAttribute()
-    {
-        if (!isset($this->attributes[self::DESCRIPTION])) {
-            return null;
-        }
-        $text 								= $this->textDescription()->first();
-
-        $translations 						= $text->translations()->get();
-        foreach ($translations as $translation) {
-            $trans[$translation->locale_id] = $translation->toArray();
-        }
-        return ['lang' => $trans];
-    }
-
-    public function getStateAttribute()
-    {
-        if (!isset($this->attributes[self::STATE])) {
-            return null;
-        }
-        $state 								= $this->state()->first();
-        $text 								= $state->textName()->first();
-        $translations 						= $text->translations()->get();
-        foreach ($translations as $translation) {
-            $trans[$translation->locale_id] = $translation->toArray();
-        }
-        return ['lang' => $trans];
-    }
-
     public function getParentAttribute()
     {
         return 	$this->parent()->with(['parent' => function ($query) {
@@ -200,20 +155,6 @@ class Section extends BaseModel
         return 	$this->Childrens()->with(['childrens' => function ($query) {
             $query->select('id');
         }])->get();
-    }
-
-    public function getTypeAttribute()
-    {
-        if (!isset($this->attributes[self::TYPE])) {
-            return null;
-        }
-        $type 								= $this->type()->first();
-        $text 								= $type->textName()->first();
-        $translations 						= $text->translations()->get();
-        foreach ($translations as $translation) {
-            $trans[$translation->locale_id] = $translation->toArray();
-        }
-        return ['lang' => $trans];
     }
 
     public function getArrayDataAttribute()

@@ -59,14 +59,14 @@ class EntityType extends BaseModel
         if (!isset($this->attributes['type_id'])) {
             return null;
         }
-        $type 								= $this->Type()->first();
-        $text 								= $type->textName()->first();
+        return  $this->Type()->first();
+        // $text 								= $type->textName()->first();
 
-        $translations 						= $text->translations()->get();
-        foreach ($translations as $translation) {
-            $trans[$translation->locale_id] = $translation->toArray();
-        }
-        return ['lang' => $trans];
+        // $translations 						= $text->translations()->get();
+        // foreach ($translations as $translation) {
+        //     $trans[$translation->locale_id] = $translation->toArray();
+        // }
+        // return ['lang' => $trans];
     }
 
     public function getEntityAttribute()

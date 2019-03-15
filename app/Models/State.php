@@ -33,23 +33,14 @@ class State extends BaseModel
 
     protected $table = 'state';
 
-    protected $casts = [
-        self::NAME => 'int'
-    ];
-
     protected $fillable = [
         self::NAME,
         self::VALUE
     ];
 
     protected $appends = [
-        'name_value', 'locale_value'
+        'locale_value'
     ];
-
-    public function textName()
-    {
-        return $this->belongsTo(\App\Models\Text::class, self::NAME);
-    }
 
     public function categories()
     {
@@ -73,23 +64,4 @@ class State extends BaseModel
         return $this->hasMany(\App\Models\Section::class);
     }
 
-
-    /**
-     * ACCESSORS
-     */
-    public function getNameValueAttribute()
-    {
-        if (!isset($this->attributes[self::NAME])) {
-            return null;
-        }
-        $text 								= $this->textName()->first();
-
-        $translations 						= $text->translations()->get();
-
-        $trans = [];
-        foreach ($translations as $translation) {
-            $trans[$translation->locale_id] = $translation->toArray();
-        }
-        return ['lang' => $trans];
-    }
 }

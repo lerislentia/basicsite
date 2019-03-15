@@ -33,12 +33,8 @@ class Type extends BaseModel
         self::DEFINITION
     ];
 
-    protected $casts = [
-        self::NAME 			=> 'int',
-    ];
-
     protected $appends = [
-        'locale_value', 'name_value'
+        'locale_value'
     ];
 
     public function galleries()
@@ -68,34 +64,4 @@ class Type extends BaseModel
         return $this->hasMany(\App\Models\Section::class);
     }
 
-
-    /**
-     * custom relations
-     *
-     * @return void
-     */
-
-    public function textName()
-    {
-        return $this->belongsTo(\App\Models\Text::class, 'name');
-    }
-
-    /**
-     * ACCESSORS
-     */
-
-    public function getNameValueAttribute()
-    {
-        if (!isset($this->attributes['name'])) {
-            return null;
-        }
-        $name 								= $this->textName()->first();
-
-        $translations 						= $name->translations()->get();
-
-        foreach ($translations as $translation) {
-            $trans[$translation->locale_id] = $translation->toArray();
-        }
-        return ['lang' => $trans];
-    }
 }

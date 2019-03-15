@@ -3,8 +3,9 @@
 
 @section('content')
 
-
-<a href="{!! route('admin.layouts.new') !!}"> new layout</a>
+<div class="btn btn-primary">
+        <a href="{!! route('admin.layouts.new') !!}"> new layout</a>
+</div>
         <ul>
             @foreach($layouts as $layout)
             <li>

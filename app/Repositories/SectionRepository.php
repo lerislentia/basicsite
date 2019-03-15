@@ -59,55 +59,9 @@ class SectionRepository
         try {
             DB::beginTransaction();
 
-            /**
-             * name
-             */
-            $name       = $this->section->textName()->first();
-            if (!$name) {
-                $name   = $this->section->textName()->create();
-            }
-            $name->save();
-            $nparams = [
-                'text' 		=> $params['name'],
-                'locale_id'	=> $params['locale'],
-                'text_id'	=> $name->id
-            ];
-
-            $translation 						= $name->translations()->where('locale_id', '=', $nparams['locale_id'])->first();
-            if (!$translation) {
-                $translation 					= $name->translations()->create($nparams);
-            } else {
-                $translation->fill($nparams);
-            }
-            $translation->save();
-
-
-            /**
-             * description
-             */
-            $description       = $this->section->textDescription()->first();
-            if (!$description) {
-                $description   = $this->section->textDescription()->create();
-            }
-            $description->save();
-            $dparams = [
-                'text' 		        => $params['description'],
-                'locale_id'	        => $params['locale'],
-                'text_id'	        => $description->id
-            ];
-
-            $translation 						= $description->translations()->where('locale_id', '=', $dparams['locale_id'])->first();
-            if (!$translation) {
-                $translation 					= $description->translations()->create($dparams);
-            } else {
-                $translation->fill($dparams);
-            }
-            $translation->save();
-
-
             $secparams = [
-                'name'          => $name->id,
-                'description'   => $description->id,
+                'name'          => $params['name'],
+                'description'   => $params['description'],
                 'url'           => $params['url'],
                 'tags'          => $params['tags'],
                 'state_id'      => $params['state_id'],
@@ -116,6 +70,7 @@ class SectionRepository
                 'order'       => $params['order'],
 
             ];
+
             $sect = $this->section->create($secparams);
 
             $sect->save();
@@ -134,55 +89,9 @@ class SectionRepository
 
             $sec =  $this->section->find($id);
 
-            /**
-             * name
-             */
-            $name       = $sec->textName()->first();
-            if (!$name) {
-                $name   = $sec->textName()->create();
-            }
-            $name->save();
-            $nparams = [
-                'text' 		=> $params['name'],
-                'locale_id'	=> $params['locale'],
-                'text_id'	=> $name->id
-            ];
-
-            $translation 						= $name->translations()->where('locale_id', '=', $nparams['locale_id'])->first();
-            if (!$translation) {
-                $translation 					= $name->translations()->create($nparams);
-            } else {
-                $translation->fill($nparams);
-            }
-            $translation->save();
-
-
-            /**
-             * description
-             */
-            $description       = $sec->textDescription()->first();
-            if (!$description) {
-                $description   = $sec->textDescription()->create();
-            }
-            $description->save();
-            $dparams = [
-                'text' 		        => $params['description'],
-                'locale_id'	        => $params['locale'],
-                'text_id'	        => $description->id
-            ];
-
-            $translation 						= $description->translations()->where('locale_id', '=', $dparams['locale_id'])->first();
-            if (!$translation) {
-                $translation 					= $description->translations()->create($dparams);
-            } else {
-                $translation->fill($dparams);
-            }
-            $translation->save();
-
-
             $secparams = [
-                'name'          => $name->id,
-                'description'   => $description->id,
+                'name'          => $params['name'],
+                'description'   => $params['description'],
                 'url'           => $params['url'],
                 'tags'          => $params['tags'],
                 'state_id'      => $params['state_id'],
@@ -214,31 +123,6 @@ class SectionRepository
                 $this->delete($element);
                 $element->delete();
             }
-
-            /**
-             * name
-             */
-            $name           = $sec->textName()->first();
-
-            $translations   = $name->translations()->get();
-            foreach ($translations as $translation) {
-                $translation->delete();
-            }
-
-
-
-            /**
-             * description
-             */
-            $description    = $sec->textDescription()->first();
-
-            $translations   = $description->translations()->get();
-            foreach ($translations as $translation) {
-                $translation->delete();
-            }
-
-
-
 
             $sec->delete();
             $name->delete();

@@ -13,8 +13,6 @@ class PageSection extends BaseModel
     protected $table = 'page_section';
 
     protected $casts = [
-        self::PAGE 	    => 'int',
-        self::SECTION 	=> 'int',
         self::ORDER 	=> 'int',
     ];
 
@@ -46,14 +44,7 @@ class PageSection extends BaseModel
         if (!isset($this->attributes[self::PAGE])) {
             return null;
         }
-        $page 								= $this->Page()->first();
-        $text 								= $page->textName()->first();
-
-        $translations 						= $text->translations()->get();
-        foreach ($translations as $translation) {
-            $trans[$translation->locale_id] = $translation->toArray();
-        }
-        return ['lang' => $trans];
+        return $this->Page()->first();
     }
 
     public function getSectionAttribute()
@@ -61,13 +52,6 @@ class PageSection extends BaseModel
         if (!isset($this->attributes[self::SECTION])) {
             return null;
         }
-        $section 							= $this->Section()->first();
-        $text 								= $section->textName()->first();
-
-        $translations 						= $text->translations()->get();
-        foreach ($translations as $translation) {
-            $trans[$translation->locale_id] = $translation->toArray();
-        }
-        return ['lang' => $trans];
+        return $this->Section()->first();
     }
 }

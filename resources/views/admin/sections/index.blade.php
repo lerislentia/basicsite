@@ -2,13 +2,17 @@
 
 @section('content')
 
-<a href="{!! route('admin.sections.new') !!}"> new element</a>
+            <div class="btn btn-primary">
+                <a href="{!! route('admin.sections.new') !!}"> new element</a>
+            </div>
+
         <ul>
+            
             @foreach($sections as $section)
             <li>
-                ({{$section['order']}}) - 
-                    @isset($section['name_value']['lang'][$locale])
-                    <a href="{!! route('admin.sections.edit', ['id' => $section['id']]) !!}">{{$section['name_value']['lang'][$locale]['text'] or ''}}</a>
+                
+                    @isset($section['name'])
+                    <a href="{!! route('admin.sections.edit', ['id' => $section['id']]) !!}">{{$section['name'] or ''}}</a>
                     @else
                     <a href="{!! route('admin.sections.edit', ['id' => $section['id']]) !!}">unstranslated</a>
                     @endisset
@@ -19,8 +23,8 @@
                         @foreach($section['childrens'] as $sectionone)
                         <li>
                             ({{$sectionone['order']}}) - 
-                                @isset($sectionone['name_value']['lang'][$locale])
-                                <a href="{!! route('admin.sections.edit', ['id' => $sectionone['id']]) !!}">{{$sectionone['name_value']['lang'][$locale]['text'] or ''}}</a>
+                                @isset($sectionone['name'])
+                                <a href="{!! route('admin.sections.edit', ['id' => $sectionone['id']]) !!}">{{$sectionone['name'] or ''}}</a>
                                 @else
                                 <a href="{!! route('admin.sections.edit', ['id' => $sectionone['id']]) !!}">unstranslated</a>
                                 @endisset

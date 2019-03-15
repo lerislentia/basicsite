@@ -27,4 +27,9 @@ class EntityService
     {
         return $this->entityrepository->store($params);
     }
+
+    public function update($id, $params)
+    {
+        return $this->entityrepository->update($id, $params);
+    }
 }

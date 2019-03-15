@@ -29,4 +29,9 @@ class LocaleService extends BaseService
     {
         return $this->localerepository->store($params);
     }
+
+    public function update($id, $params)
+    {
+        return $this->localerepository->update($id, $params);
+    }
 }

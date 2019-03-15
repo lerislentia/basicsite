@@ -37,31 +37,8 @@ class TypeRepository extends BaseRepository
         try {
             DB::beginTransaction();
 
-            /**
-             * name
-             */
-            $name       = $this->type->textName()->first();
-            if (!$name) {
-                $name   = $this->type->textName()->create();
-            }
-
-            $name->save();
-            $nparams = [
-                'text' 		=> $params['name'],
-                'locale_id'	=> $params['locale'],
-                'text_id'	=> $name->id
-            ];
-
-            $translation 						= $name->translations()->where('locale_id', '=', $nparams['locale_id'])->first();
-            if (!$translation) {
-                $translation 					= $name->translations()->create($nparams);
-            } else {
-                $translation->fill($nparams);
-            }
-            $translation->save();
-
             $typparams = [
-                'name'          => $name->id,
+                'name'          => $params['name'],
                 'definition'    => $params['definition'],
             ];
 
@@ -83,31 +60,8 @@ class TypeRepository extends BaseRepository
 
             $typ =  $this->type->find($id);
 
-            /**
-             * name
-             */
-            $name       = $typ->textName()->first();
-            if (!$name) {
-                $name   = $typ->textName()->create();
-            }
-            $name->save();
-            $nparams = [
-                'text' 		=> $params['name'],
-                'locale_id'	=> $params['locale'],
-                'text_id'	=> $name->id
-            ];
-
-            $translation 						= $name->translations()->where('locale_id', '=', $nparams['locale_id'])->first();
-            if (!$translation) {
-                $translation 					= $name->translations()->create($nparams);
-            } else {
-                $translation->fill($nparams);
-            }
-            $translation->save();
-
-
             $typparams = [
-                'name'          => $name->id,
+                'name'          => $params['name'],
                 'definition'    => isset($params['definition']) ? $params['definition'] : null
             ];
 

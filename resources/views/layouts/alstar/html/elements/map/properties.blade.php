@@ -16,7 +16,7 @@
 
         <input type="hidden" name="locale" value="{{$locale}}">
         <input type="hidden" id="IdEntityId" name="entity_id" value="{{$element['id']}}">
-        <input id="IdSaveProperties" type="button" value="save">
+        <input id="IdSaveProperties" type="button" value="{{ __('back.save') }}">
 </form>
 
 <script type="text/javascript">

@@ -202,13 +202,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         'as'            => 'admin.locales'
     ]);
 
-    Route::get('/locales/new', [
+    Route::any('/locales/new', [
         'uses'          => 'Admin\LocalesController@new',
         'roles'         => ['admin'],
         'as'            => 'admin.locales.new'
     ]);
 
-    Route::get('/locales/edit/{locale}', [
+    Route::any('/locales/edit/{locale}', [
         'uses'          => 'Admin\LocalesController@edit',
         'roles'         => ['admin'],
         'as'            => 'admin.locales.edit'

@@ -6,8 +6,9 @@
 @section('content')
 
 
-
-<a href="{!! route('admin.categories.new') !!}"> new categorie</a>
+<div class="btn btn-primary">
+        <a href="{!! route('admin.categories.new') !!}"> new categorie</a>
+</div>
         <ul>
             @foreach($categories as $categorie)
             <li>

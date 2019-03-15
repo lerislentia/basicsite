@@ -6,9 +6,9 @@
 
     <div class="form-group">
         <label for="name">
-        name
+        {{ __('back.name') }}
     </label>
-        <input type="text" name="name" value="{{ isset($state['name_value']['lang'][$locale]['text']) ? $state['name_value']['lang'][$locale]['text'] : old('name') }}">
+        <input type="text" name="name" value="{{ isset($state['name']) ? $state['name'] : old('name') }}">
     </div>
 
     <div class="form-group">
@@ -20,7 +20,7 @@
 
     <input type="hidden" name="locale" value="{{$locale}}">
     {{ csrf_field() }}
-    <input type="submit" value="save">
+    <input type="submit" value="{{ __('back.save') }}">
 </form>
 
 @endsection

@@ -1,3 +1,4 @@
+<div class="container">
 <form class="form-horizontal" action="" method="POST" id="MyForm">
         {{ csrf_field() }}
         <fieldset>
@@ -29,9 +30,9 @@
 
         <input type="hidden" name="locale" value="{{$locale}}">
         <input type="hidden" id="IdEntityId" name="entity_id" value="{{$element['id']}}">
-        <input id="IdSaveProperties" type="button" value="save">
+        <input id="IdSaveProperties" type="button" value="{{ __('back.save') }}">
 </form>
-
+</div>
 <script type="text/javascript">
 @php
     $data = 0;

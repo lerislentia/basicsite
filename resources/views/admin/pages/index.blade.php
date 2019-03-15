@@ -7,8 +7,8 @@
             @foreach($pages as $page)
             <li>
                 
-                    @isset($page['name_value']['lang'][$locale])
-                    <a href="{!! route('admin.pages.edit', ['id' => $page['id']]) !!}">{{$page['name_value']['lang'][$locale]['text'] or ''}}</a>
+                    @isset($page['name'])
+                    <a href="{!! route('admin.pages.edit', ['id' => $page['id']]) !!}">{{$page['name'] or ''}}</a>
                     @else
                     <a href="{!! route('admin.pages.edit', ['id' => $page['id']]) !!}">unstranslated</a>
                     @endisset

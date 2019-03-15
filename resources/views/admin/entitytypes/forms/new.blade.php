@@ -25,7 +25,7 @@
         <option value="" ></option>
                 @foreach($types as $type)
                     <option value="{{$type['id']}}">
-                        {{$type['name_value']['lang'][$locale]['text']}}
+                        {{$type['name']}}
                     </option>
                 @endforeach
             </select>
@@ -33,7 +33,7 @@
 
     <input type="hidden" name="locale" value="{{$locale}}">
     {{ csrf_field() }}
-    <input type="submit" value="save">
+    <input type="submit" value="{{ __('back.save') }}">
 </form>
 
 @endsection

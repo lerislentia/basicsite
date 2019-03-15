@@ -6,15 +6,15 @@
 
     <div class="form-group">
         <label for="name">
-        name
+        {{ __('back.name') }}
     </label>
-        <input type="text" name="name" value="{{ isset($secti['name_value']['lang'][$locale]['text']) ? $secti['name_value']['lang'][$locale]['text'] : old('name') }}">
+        <input type="text" name="name" value="{{ isset($secti['name']) ? $secti['name'] : old('name') }}">
     </div>
     <div class="form-group">
         <label for="description">
-                description
+        {{ __('back.description') }}
                 </label>
-        <input type="text" name="description" value="{{ isset($secti['description_value']['lang'][$locale]['text']) ? $secti['description_value']['lang'][$locale]['text'] : old('description') }}">
+        <input type="text" name="description" value="{{ isset($secti['description']['name']) ? $secti['description']['name'] : old('description') }}">
     </div>
 
     <div class="form-group">
@@ -35,9 +35,9 @@
         </label>
         <select name="state_id">
         <option value="" {{($secti['state_id'] == null ? 'selected="selected"': '')}}> - </option>
-                @foreach($entitystates as $entitystate)
-                    <option value="{{$entitystate['state_id']}}" {{($secti['state_id'] == $entitystate['state_id']) ? 'selected="selected"': ''}}>
-                        {{$entitystate['state']['lang'][$locale]['text'] or ''}}
+                @foreach($states as $state)
+                    <option value="{{$state['id']}}" {{($secti['state_id'] == $state['id']) ? 'selected="selected"': ''}}>
+                        {{$state['name'] or ''}}
                     </option>
                 @endforeach
             </select>
@@ -50,7 +50,7 @@
         <option value="" {{($secti['parent_id'] == null ? 'selected="selected"': '')}}> - </option>
             @foreach($sections as $section)
                 <option value="{{$section['id']}}" {{($section['id'] == $secti['parent_id']) ? 'selected="selected"': ''}}>
-                    {{$section['name_value']['lang'][$locale]['text']}}
+                    {{$section['name']}}
                 </option>
             @endforeach
         </select>
@@ -63,7 +63,7 @@
         <option value="" {{($secti['type_id'] == null ? 'selected="selected"': '')}}> - </option>
                 @foreach($types as $type)
                     <option value="{{$type['id']}}" {{($type['id'] == $secti['type_id']) ? 'selected="selected"': ''}}>
-                        {{$type['name_value']['lang'][$locale]['text']}}
+                        {{$type['name']}}
                     </option>
                 @endforeach
             </select>
@@ -77,7 +77,7 @@
 
     <input type="hidden" name="locale" value="{{$locale}}">
     {{ csrf_field() }}
-    <input type="submit" value="save">
+    <input type="submit" value="{{ __('back.save') }}">
 </form>
 
 @endsection

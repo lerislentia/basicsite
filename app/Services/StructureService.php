@@ -55,20 +55,6 @@ class StructureService
     /**
      * Undocumented function
      *
-     * @return void
-     */
-    // public function getHtmlForm()
-    // {
-    //     $view = View::make("layouts.front.html.elements.{$definition}Form");
-    //     $contents = (string) $view;
-    //     // or
-    //     $contents = $view->render();
-    //     return $contents;
-    // }
-
-    /**
-     * Undocumented function
-     *
      * @param  Section $element
      * @param  array   $data
      * @return void

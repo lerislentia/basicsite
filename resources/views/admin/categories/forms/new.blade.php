@@ -6,13 +6,13 @@
 
     <div class="form-group">
         <label for="name">
-        name
+        {{ __('back.name') }}
     </label>
         <input type="text" name="name" value="{{ isset($categorie['name_value']['lang'][$locale]['text']) ? $categorie['name_value']['lang'][$locale]['text'] : old('name') }}">
     </div>
     <div class="form-group">
         <label for="description">
-                description
+        {{ __('back.description') }}
                 </label>
         <input type="text" name="description" value="{{ isset($categorie['description_value']['lang'][$locale]['text']) ? $categorie['description_value']['lang'][$locale]['text'] : old('description') }}">
     </div>
@@ -60,7 +60,7 @@
 
     <input type="hidden" name="locale" value="{{$locale}}">
     {{ csrf_field() }}
-    <input type="submit" value="save">
+    <input type="submit" value="{{ __('back.save') }}">
 </form>
 
 @endsection

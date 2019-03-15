@@ -6,7 +6,7 @@
 
     <div class="form-group">
         <label for="name">
-        name
+        {{ __('back.name') }}
     </label>
         <input type="text" name="name" value="{{ isset($layout['name']) ? $layout['name'] : old('name') }}">
     </div>
@@ -18,7 +18,7 @@
         <select name="state_id">
                 @foreach($states as $state)
                     <option value="{{$state['id']}}" {{($state['id'] == old('state_id')) ? 'selected="selected"': ''}}>
-                        {{$state['name_value']['lang'][$locale]['text']}}
+                        {{$state['name']}}
                     </option>
                 @endforeach
             </select>
@@ -26,7 +26,7 @@
 
     <input type="hidden" name="locale" value="{{$locale}}">
     {{ csrf_field() }}
-    <input type="submit" value="save">
+    <input type="submit" value="{{ __('back.save') }}">
 </form>
 
 @endsection

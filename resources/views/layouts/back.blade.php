@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
+    <link rel="stylesheet" href="{{ mix('css/back.css') }}" />
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -26,28 +26,29 @@
 <div class="container-fluid text-center"> 
 <div class="row content">
 
-    <div class="col-sm-1 sidenav">
+    <div class="col-sm-4 col-md-2 sidenav">
             @include('admin.partials.header')
     </div>
 
     
-    <div class="col-sm-3 text-left">
+    <div class="col-sm-6 col-md-3 text-left">
 
+    <div class="container-fluid">
         @if (session('status'))
             <div class="alert alert-success">
                 {{ session('status') }}
             </div>
         @endif
-
+        
         @yield('content')
-
+    </div>
         
     </div>
         
 
-    <div class="col-sm-5 text-left">
+    <div class="col-sm-8 col-md-8 text-left">
           <br>
-          <div class="container">
+          <div class="container-fluid">
             <div id="preview">
             </div>
             <div id="properties">

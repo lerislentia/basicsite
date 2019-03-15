@@ -6,15 +6,15 @@
 
     <div class="form-group">
         <label for="name">
-        name
+        {{ __('back.name') }}
     </label>
-        <input type="text" name="name" value="{{ isset($currentsection['name_value']['lang'][$locale]['text']) ? $currentsection['name_value']['lang'][$locale]['text'] : old('name') }}">
+        <input type="text" name="name" value="{{ isset($currentsection['name']) ? $currentsection['name'] : old('name') }}">
     </div>
     <div class="form-group">
         <label for="description">
-                description
+        {{ __('back.description') }}
                 </label>
-        <input type="text" name="description" value="{{ isset($currentsection['description_value']['lang'][$locale]['text']) ? $currentsection['description_value']['lang'][$locale]['text'] : old('description') }}">
+        <input type="text" name="description" value="{{ isset($currentsection['description']) ? $currentsection['description'] : old('description') }}">
     </div>
 
     <div class="form-group">
@@ -36,8 +36,8 @@
         <select name="state_id">
         <option value="" {{($currentsection['state_id'] == null ? 'selected="selected"': '')}}> - </option>
                 @foreach($states as $state)
-                    <option value="{{$state['state_id']}}" {{($state['state_id'] == $currentsection['state_id']) ? 'selected="selected"': ''}}>
-                        {{$state['state']['lang'][$locale]['text']}}
+                    <option value="{{$state['id']}}" {{($state['id'] == $currentsection['state_id']) ? 'selected="selected"': ''}}>
+                        {{$state['name']}}
                     </option>
                 @endforeach
             </select>
@@ -51,7 +51,7 @@
         <option value="" {{($currentsection['parent_id'] == null ? 'selected="selected"': '')}}> - </option>
             @foreach($sections as $section)
                 <option value="{{$section['id']}}" {{($section['id'] == $currentsection['parent_id']) ? 'selected="selected"': ''}}>
-                    {{$section['name_value']['lang'][$locale]['text']}}
+                    {{$section['name']}}
                 </option>
             @endforeach
         </select>
@@ -64,7 +64,7 @@
         <option value="" {{($currentsection['type_id'] == null ? 'selected="selected"': '')}}> - </option>
                 @foreach($types as $type)
                     <option value="{{$type['id']}}" {{($type['id'] == $currentsection['type_id']) ? 'selected="selected"': ''}}>
-                        {{$type['name_value']['lang'][$locale]['text']}}
+                        {{$type['name']}}
                     </option>
                 @endforeach
             </select>
@@ -79,19 +79,13 @@
     <input type="hidden" name="locale" value="{{$locale}}">
     <input type="hidden" id="IdEntity" value="{{$currentsection['id']}}">
     {{ csrf_field() }}
-    <input type="submit" value="save">
+    <input class="btn" type="submit" value="{{ __('back.save') }}">
 </form>
 
 <form action="{{route('admin.sections.delete', ['id' => $currentsection['id']])}}" method="POST">
 {{ csrf_field() }}
-<input type="submit" value="delete">
+<input class="btn" type="submit" value="delete">
 </form>
-
-<form action="{{route('admin.sections.child.new', ['id' => $currentsection['id']])}}" method="POST">
-{{ csrf_field() }}
-<input type="submit" value="new child">
-</form>
-
 
 
 <!-- <a href="{{route('admin.sections.properties.edit', ['id' => $currentsection['id']])}}">properties</a> -->

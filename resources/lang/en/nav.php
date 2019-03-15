@@ -10,4 +10,5 @@ return [
     'language'   => 'Language',
     'english'   => 'english',
     'spanish'   => 'castellano',
+    'italian'   => 'italian',
     ];

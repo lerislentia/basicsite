@@ -32,15 +32,10 @@ class PageRepository extends BaseRepository
 
     public function getByName($pagename, $locale)
     {
-        // SELECT * FROM basicsite.page
-        // inner join text as t on page.name = t.id
-        // inner join translation as tr on tr.text_id = t.id;
+
         return $this->pagemodel
             ->select('page.*')
-            ->join('text as t', 'page.name', '=', 't.id')
-            ->join('translation as tr', 'tr.text_id', '=', 't.id')
-            ->where('tr.text', '=', $pagename)
-            ->where('tr.locale_id', '=', $locale)
+            ->where('page.name', '=', $pagename)
             ->first();
     }
 
@@ -49,34 +44,8 @@ class PageRepository extends BaseRepository
         try {
             DB::beginTransaction();
 
-            /**
-             * name
-             */
-            $name       = $this->pagemodel->textName()->first();
-            if (!$name) {
-                $name   = $this->pagemodel->textName()->create();
-            }
-
-            $name->save();
-
-            $nparams = [
-                'text' 		=> $params['name'],
-                'locale_id'	=> $params['locale'],
-                'text_id'	=> $name->id
-            ];
-
-            $translation 						= $name->translations()->where('locale_id', '=', $nparams['locale_id'])->first();
-            if (!$translation) {
-                $translation 					= $name->translations()->create($nparams);
-            } else {
-                $translation->fill($nparams);
-            }
-
-            $translation->save();
-
-
             $newparams = [
-                'name'          => $name->id,
+                'name'          => $params['name'],
                 'tags'          => $params['tags'],
                 'state_id'      => $params['state_id'],
             ];

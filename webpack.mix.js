@@ -11,15 +11,6 @@ let mix = require('laravel-mix');
  |
  */
 
-// mix.js('resources/assets/js/app.js', 'public/js')
-//    .sass('resources/assets/sass/app.scss', 'public/css');
-
-// mix.js('resources/assets/sass/front/js/front.js', 'public/js')
-//    .sass('resources/assets/sass/front/front.scss', 'public/css');
-
-// mix.js('resources/assets/sass/adm/js/adm.js', 'public/js')
-//    .sass('resources/assets/sass/adm/adm.scss', 'public/css');
-
 mix
 .copy('resources/assets/js/jquery.js', 'public/js')
 .copy('resources/assets/js/bootstrap.min.js', 'public/js')
@@ -31,7 +22,8 @@ mix
 .copy('resources/assets/js/jquery.scrollTo.min.js', 'public/js')
 .copy('resources/assets/js/modernizr.custom.js', 'public/js')
 .copy('resources/assets/js/stellar.js', 'public/js')
-.sass('resources/assets/sass/app.scss', 'public/css');
+.sass('resources/assets/sass/app.scss', 'public/css')
+.sass('resources/assets/sass/back.scss', 'public/css');
 
    
 mix.options({

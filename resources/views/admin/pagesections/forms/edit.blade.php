@@ -12,7 +12,7 @@
                     <option value="" {{($currentpagesection['page_id'] == null ? 'selected="selected"': '')}}></option>
                 @foreach($pages as $page)
                     <option value="{{$page['id']}}" {{($page['id'] == $currentpagesection['page_id']) ? 'selected="selected"': ''}}>
-                        {{$page['name_value']['lang'][$locale]['text']}}
+                        {{$page['name']}}
                     </option>
                 @endforeach
         </select>
@@ -25,7 +25,7 @@
                     <option value="" {{($currentpagesection['section_id'] == null ? 'selected="selected"': '')}}></option>
                 @foreach($sections as $section)
                     <option value="{{$section['id']}}" {{($section['id'] == $currentpagesection['section_id']) ? 'selected="selected"': ''}}>
-                        {{$section['name_value']['lang'][$locale]['text']}}
+                        {{$section['name']}}
                     </option>
                 @endforeach
         </select>
@@ -40,7 +40,7 @@
 
     <input type="hidden" name="locale" value="{{$locale}}">
     {{ csrf_field() }}
-    <input type="submit" value="save">
+    <input type="submit" value="{{ __('back.save') }}">
 
     
  

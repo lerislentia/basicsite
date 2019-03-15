@@ -6,8 +6,9 @@
 @section('content')
 
 
-
+<div class="btn btn-primary">
 <a href="{!! route('admin.locales.new') !!}"> new locale</a>
+</div>
         <ul>
             @foreach($locales as $locale)
             <li>

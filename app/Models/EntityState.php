@@ -59,14 +59,14 @@ class EntityState extends BaseModel
         if (!isset($this->attributes['state_id'])) {
             return null;
         }
-        $state                              = $this->state()->first();
-        $text 								= $state->textName()->first();
+        return  $this->state()->first();
+        // $text 								= $state->textName()->first();
 
-        $translations 						= $text->translations()->get();
-        foreach ($translations as $translation) {
-            $trans[$translation->locale_id] = $translation->toArray();
-        }
-        return ['lang' => $trans];
+        // $translations 						= $text->translations()->get();
+        // foreach ($translations as $translation) {
+        //     $trans[$translation->locale_id] = $translation->toArray();
+        // }
+        // return ['lang' => $trans];
     }
 
     public function getEntityAttribute()
@@ -74,6 +74,6 @@ class EntityState extends BaseModel
         if (!isset($this->attributes['entity_id'])) {
             return null;
         }
-        return $this->Entity()->first()->name;
+        return $this->entity()->first();
     }
 }

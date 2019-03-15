@@ -12,10 +12,6 @@ class Page extends BaseModel
 
     protected $table    = 'page';
 
-    protected $casts = [
-        self::NAME 			=> 'int'
-    ];
-
     protected $fillable = [
         self::NAME,
         self::TAGS,
@@ -23,7 +19,7 @@ class Page extends BaseModel
     ];
 
     protected $appends = [
-        'locale_value', 'name_value'
+        'locale_value'
     ];
 
     public function sections()
@@ -37,29 +33,5 @@ class Page extends BaseModel
     {
         return $this->hasMAny(\App\Models\PageSection::class)
         ->orderBy(\App\Models\PageSection::ORDER);
-    }
-
-    public function textName()
-    {
-        return $this->belongsTo(\App\Models\Text::class, self::NAME);
-    }
-
-    /**
-     * ACCESSORS
-     */
-
-    public function getNameValueAttribute()
-    {
-        if (!isset($this->attributes[self::NAME])) {
-            return null;
-        }
-        $text 								= $this->textName()->first();
-
-        $translations 						= $text->translations()->get();
-
-        foreach ($translations as $translation) {
-            $trans[$translation->locale_id] = $translation->toArray();
-        }
-        return ['lang' => $trans];
     }
 }

@@ -57,9 +57,15 @@ class EntityController extends Controller
         }
     }
 
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $entity    = $this->entityservice->show($id);
+
+        if ($request->isMethod('post')) {
+            $params                 = $request->All();
+            $currentcategorie       = $this->entityservice->update($id, $params);
+            return Redirect::route('admin.entities');
+        }
 
         $locale     = Session::get('locale');
 
