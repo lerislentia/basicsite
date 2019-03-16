@@ -35,22 +35,76 @@ class StructureService
         $this->setLayout($layout);
     }
 
-    public function getStructureByType($type)
+    /*** backend ***/
+
+    /**
+     * retrieve properties to backend
+     *
+     * @param  [type] $definition
+     * @param  array  $data
+     * @return void
+     */
+    public function getHtmlProperties($definition, $data = [])
     {
-        switch ($type) {
-            case 'Card':
-                return new Card();
-                break;
-            case 'Box':
-                return new Box();
-                break;
-            case 'Carrousel':
-            return new carrousel();
-                break;
-            default:
-                return new Card();
-        }
+        $view = View::make("layouts.{$this->layout->name}.html.elements.{$definition}.properties", $data);
+        // $contents = (string) $view;
+        // or
+        $contents = $view->render();
+        return $contents;
     }
+
+
+    /*** end backend ***/
+
+
+    /*** frontend ***/
+
+    /**
+     * parse from frontend
+     *
+     * @param  [type] $entities
+     * @param  array  $data
+     * @return void
+     */
+    public function parse($entities, $data = [], $locale = null)
+    {
+        $html= [];
+
+        foreach ($entities as $key => $entity) {
+            $html[] = $this->parseEntity($entity, $data, $locale);
+        }
+
+        return $html;
+    }
+
+
+    /**
+     * Undocumented function
+     *
+     * @param  [type] $entity
+     * @param  array  $data
+     * @return void
+     */
+    public function parseEntity($entity, $data = [], $locale = null)
+    {
+        $html       = [];
+
+        $childs = $entity->childrens()->get();
+        if (count($childs)>0) {
+            $data['childs'] = $this->parse($childs, $data, $locale);
+        }
+
+        $entitydata = isset($entity->data) ? json_decode($entity->data, true) : [];
+
+        if (isset($entitydata[$locale])) {
+            $entitydata = $entitydata[$locale];
+        }
+
+        $html = $this->parseHtml($entity, array_merge($entitydata, $data));
+
+        return $html;
+    }
+
 
     /**
      * Undocumented function
@@ -76,6 +130,10 @@ class StructureService
      */
     public function getHtml($definition, $data = [])
     {
+        // if(isset($data[$locale])){
+        //     $data = $data[$locale];
+        // }
+
         $view = View::make("layouts.{$this->layout->name}.html.elements.{$definition}.template", $data);
         $contents = (string) $view;
         // or
@@ -84,55 +142,7 @@ class StructureService
     }
 
 
-
-
-
-
-    public function getHtmlProperties($definition, $data = [])
-    {
-        $view = View::make("layouts.{$this->layout->name}.html.elements.{$definition}.properties", $data);
-        // $contents = (string) $view;
-        // or
-        $contents = $view->render();
-        return $contents;
-    }
-
-
-
-    /**
-     * prueba 
-     * 
-     * 
-     */
-
-
-
-    public function parseEntity($entity, $data = [])
-    {
-        $html       = [];
-
-        $childs = $entity->childrens()->get();
-        if (count($childs)>0) {
-            $data['childs'] = $this->parse($childs, $data);
-        }
-
-        $entitydata = isset($entity->data) ? json_decode($entity->data, true) : [];
-
-        $html = $this->parseHtml($entity, array_merge($entitydata, $data));
-
-        return $html;
-    }
-
-    public function parse($entities, $data = [])
-    {
-        $html= [];
-
-        foreach ($entities as $key => $entity) {
-            $html[] = $this->parseEntity($entity, $data);
-        }
-
-        return $html;
-    }
+    /*** getters and setters ***/
 
     /**
      * Set the value of layout

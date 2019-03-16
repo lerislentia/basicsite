@@ -32,7 +32,6 @@ class PageRepository extends BaseRepository
 
     public function getByName($pagename, $locale)
     {
-
         return $this->pagemodel
             ->select('page.*')
             ->where('page.name', '=', $pagename)

@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Services\TypeService;
 use App\Services\StructureService;
 use App\Services\SectionService;
+use App\Services\LocaleService;
 use Session;
 use Redirect;
 
@@ -16,15 +17,18 @@ class StructureController extends Controller
     protected $typeservice;
     protected $structureservice;
     protected $elementsservice;
+    protected $localeservice;
 
     public function __construct(
         TypeService $typeservice,
         StructureService $structureservice,
-        SectionService $elementsservice
+        SectionService $elementsservice,
+        LocaleService $localeservice
         ) {
         $this->structureservice = $structureservice;
         $this->typeservice      = $typeservice;
         $this->elementsservice      = $elementsservice;
+        $this->localeservice      = $localeservice;
     }
 
     /**
@@ -52,14 +56,22 @@ class StructureController extends Controller
      */
     public function preview(Request $request)
     {
-        $params = $request->All();
+        $params     = $request->All();
         $type       = $this->typeservice->show($params['type']);
+
+        $locale = isset($params['locale']) ? $params['locale'] : null;
+        if (!$locale) {
+            $locale = Session::get('locale');
+        }
 
         if (isset($params['entity_id'])) {
             $entity = $this->elementsservice->show($params['entity_id']);
             $params = (array) json_decode($entity->data, true);
         }
 
+        if (isset($params[$locale])) {
+            $params = $params[$locale];
+        }
 
         $html       = $this->structureservice->getHtml($type['definition'], $params);
         return response($html);
@@ -78,6 +90,7 @@ class StructureController extends Controller
 
         $locale     = Session::get('locale');
 
+        // $locale     = $this->localeservice->index();
 
         if (isset($params['entity_id'])) {
             $entity            = $this->elementsservice->show($params['entity_id']);
@@ -128,11 +141,11 @@ class StructureController extends Controller
 
         unset($params['_token']);
         unset($params['entity_id']);
-
-        $params[$locale] = $params;
+        $propertieparams=[];
+        $propertieparams[$locale] = $params;
 
         if ($request->isMethod('post')) {
-            $update     = $this->elementsservice->updateProperties($entity->id, $params);
+            $update     = $this->elementsservice->updateProperties($entity->id, $propertieparams);
             if ($update) {
                 return response("ok", 200);
             }

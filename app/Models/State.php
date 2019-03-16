@@ -63,5 +63,4 @@ class State extends BaseModel
     {
         return $this->hasMany(\App\Models\Section::class);
     }
-
 }

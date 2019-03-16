@@ -6,41 +6,26 @@
 
         <div class="carousel-inner" role="listbox">
 
-          <!-- Slide 1 -->
-          <div class="item active">
-          <div class="carousel-background"><img src="{{ $image or '' }}" alt=""></div>
-            <div class="carousel-container">
-              <div class="carousel-content">
-                <h2 class="animated fadeInDown">{{ $FadeInDown or 'FadeInDown'}}</h2>
-                <p class="animated fadeInUp">{{ $FadeInUp or 'FadeInUp' }}</p>
-                <a href="#about" class="btn-get-started animated fadeInUp">{{ __('carrousel.readmore') }}</a>
+        @isset($Slides)
+        @foreach($Slides as $key => $Slide)
+            <!-- Slide 1 -->
+            @if($key == 1)
+            <div class="item active">
+            @else
+            <div class="item">
+            @endif
+            
+            <div class="carousel-background"><img src="{{ $Slide['LargeImage'] or 'LargeImageless' }}" alt=""></div>
+              <div class="carousel-container">
+                <div class="carousel-content">
+                  <h2 class="animated fadeInDown">{{ $Slide['FadeInDown'] or 'FadeInDownless'}}</h2>
+                  <p class="animated fadeInUp">{{ $Slide['FadeInUp'] or 'FadeInUpless' }}</p>
+                  <a href="#about" class="btn-get-started animated fadeInUp">{{ __('carrousel.readmore') }}</a>
+                </div>
               </div>
             </div>
-          </div>
-          
-          <!-- Slide 2 -->
-          <div class="item">
-            <div class="carousel-background"><img src="{{ $imageTwo or '' }}" alt=""></div>
-            <div class="carousel-container">
-              <div class="carousel-content">
-                <h2 class="animated fadeInDown">{{ $FadeInDownTwo or 'FadeInDownTwo' }}</span></h2>
-                <p class="animated fadeInUp">{{ $FadeInUpTwo or 'FadeInUpTwo'}}</p>
-                <a href="#about" class="btn-get-started animated fadeInUp">{{ __('carrousel.readmore') }}</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Slide 3 -->
-          <div class="item">
-            <div class="carousel-background"><img src="{{ $imageTree or '' }}" alt=""></div>
-            <div class="carousel-container">
-              <div class="carousel-content">
-                <h2 class="animated fadeInDown">{{ $FadeInDownTree or 'FadeInDownTree' }}</span></h2>
-                <p class="animated fadeInUp">{{ $FadeInUpTree or 'FadeInUpTree' }}</p>
-                <a href="#about" class="btn-get-started animated fadeInUp">{{ __('carrousel.readmore') }}</a>
-              </div>
-            </div>
-          </div>
+          @endforeach
+        @endisset 
 
         </div>
 

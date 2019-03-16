@@ -76,7 +76,7 @@ class IndexController extends Controller
 
 
             // dd($sections->toArray());
-            $htmlelements   = $this->structureservice->parse($sections);
+            $htmlelements   = $this->structureservice->parse($sections, [], $locale);
 
             $categories     = $this->categoryservice->getParents();
 
