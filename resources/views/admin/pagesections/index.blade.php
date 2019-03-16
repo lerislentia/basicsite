@@ -12,6 +12,7 @@
             <a href="{!! route('admin.sectionpages.new') !!}"> new pagesection</a>
         </div>
 
+        <div class="btn">arrastra las secciones para ordenar la forma en que se mostraran en la pagina</div>
         <ul id="sortable">
             @foreach($pagesections as $pagesection)
             <li id="{{ $pagesection['id'] }}">

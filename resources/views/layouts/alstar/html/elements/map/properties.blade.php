@@ -8,7 +8,7 @@
                 <label for="HeadingLine">
                     Link
                 </label>
-                <textarea id="IdLink" rows="10" cols="80" name="Link">
+                <textarea id="IdLink" rows="10" cols="80" name="Link" class="form-control">
                 {!! isset($element['array_data'][$locale]['Link']) ? $element['array_data'][$locale]['Link'] : old('Link') !!}
                 </textarea>
             </div>

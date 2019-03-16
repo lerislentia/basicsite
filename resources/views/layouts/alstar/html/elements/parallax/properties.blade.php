@@ -8,7 +8,7 @@
                 <label for="image">
                     image background
                 </label>
-                <input id="IdImage" type="text" name="image" value="{{ isset($element['array_data'][$locale]['image']) ? $element['array_data'][$locale]['image'] : old('image') }}">
+                <input id="IdImage" type="text" name="image" class="form-control" value="{{ isset($element['array_data'][$locale]['image']) ? $element['array_data'][$locale]['image'] : old('image') }}">
                 <div id="ckfinder-modal" class="btn btn-primary">Browse Server</div>
             </div>
 
@@ -16,14 +16,14 @@
                 <label for="HeadingLine">
                     BounceInDown
                 </label>
-                <input id="IdBounceInDown" type="text" name="BounceInDown" value="{{ isset($element['array_data'][$locale]['BounceInDown']) ? $element['array_data'][$locale]['BounceInDown'] : old('BounceInDown') }}">
+                <input id="IdBounceInDown" type="text" name="BounceInDown" class="form-control" value="{{ isset($element['array_data'][$locale]['BounceInDown']) ? $element['array_data'][$locale]['BounceInDown'] : old('BounceInDown') }}">
             </div>
 
             <div class="form-group">
                 <label for="MainTitle">
                     BounceInUp
                 </label>
-                <input id="IdBounceInUp" type="text" name="BounceInUp" value="{{ isset($element['array_data'][$locale]['BounceInUp']) ? $element['array_data'][$locale]['BounceInUp'] : old('BounceInUp') }}">
+                <input id="IdBounceInUp" type="text" name="BounceInUp" class="form-control" value="{{ isset($element['array_data'][$locale]['BounceInUp']) ? $element['array_data'][$locale]['BounceInUp'] : old('BounceInUp') }}">
             </div>
 
         </fieldset>

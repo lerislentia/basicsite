@@ -1,21 +1,21 @@
 <form class="form-horizontal" action="" method="POST" id="MyForm">
         {{ csrf_field() }}
         <div class="form-group">
-            <label for="order">
+            <label for="background">
                 background
             </label>
             <input id="IdBackground" type="text" name="background" value="{{ isset($entity['array_data']['background']) ? $entity['array_data']['background'] : old('background') }}">
         </div>
 
         <div class="form-group">
-            <label for="order">
+            <label for="header">
                 header
             </label>
             <input id="IdHeader" type="text" name="header" value="{{ isset($entity['array_data']['header']) ? $entity['array_data']['header'] : old('header') }}">
         </div>
 
         <div class="form-group">
-            <label for="order">
+            <label for="paragraph">
                 paragraph
             </label>
             <input id="IdParagraph" type="text" name="paragraph" value="{{ isset($entity['array_data']['paragraph']) ? $entity['array_data']['paragraph'] : old('paragraph') }}">

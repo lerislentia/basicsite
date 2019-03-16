@@ -26,7 +26,7 @@
 <div class="container-fluid text-center"> 
 <div class="row content">
 
-    <div class="col-sm-4 col-md-2 sidenav">
+    <div class="col-sm-4 col-md-2 nav text-left">
             @include('admin.partials.header')
     </div>
 
@@ -46,7 +46,7 @@
     </div>
         
 
-    <div class="col-sm-8 col-md-8 text-left">
+    <div class="col-sm-8 col-md-7 text-left">
           <br>
           <div class="container-fluid">
             <div id="preview">

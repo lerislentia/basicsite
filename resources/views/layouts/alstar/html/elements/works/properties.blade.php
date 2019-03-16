@@ -8,7 +8,7 @@
                 <label for="HeadingLine">
                     HeadingLine
                 </label>
-                <input id="IdHeadingLine" type="text" name="HeadingLine" value="{{ isset($element['array_data'][$locale]['HeadingLine']) ? $element['array_data'][$locale]['HeadingLine'] : old('HeadingLine') }}">
+                <input id="IdHeadingLine" type="text" name="HeadingLine" class="form-control" value="{{ isset($element['array_data'][$locale]['HeadingLine']) ? $element['array_data'][$locale]['HeadingLine'] : old('HeadingLine') }}">
             </div>
         </fieldset>
 
@@ -21,7 +21,7 @@
                     <label for="works[{{$key}}]LargeImage">
                         large image
                     </label>
-                    <input type="text" name="works[{{$key}}][LargeImage]" onclick="browseServer(this);" value="{{ isset($work['LargeImage']) ? $work['LargeImage'] : old('LargeImage') }}">
+                    <input type="text" name="works[{{$key}}][LargeImage]" onclick="browseServer(this);" class="form-control" value="{{ isset($work['LargeImage']) ? $work['LargeImage'] : old('LargeImage') }}">
                     
                 </div>
 
@@ -29,7 +29,7 @@
                     <label for="works[{{$key}}]ThumbImage">
                         thumb image
                     </label>
-                    <input type="text" name="works[{{$key}}][ThumbImage]" onclick="browseServer(this);" value="{{ isset($work['ThumbImage']) ? $work['ThumbImage'] : old('ThumbImage') }}">
+                    <input type="text" name="works[{{$key}}][ThumbImage]" onclick="browseServer(this);" class="form-control" value="{{ isset($work['ThumbImage']) ? $work['ThumbImage'] : old('ThumbImage') }}">
                     
                 </div>
 
@@ -37,7 +37,7 @@
                     <label for="works[{{$key}}]Title">
                         title
                     </label>
-                    <input type="text" name="works[{{$key}}][Title]" value="{{ isset($work['Title']) ? $work['Title'] : old('Title') }}">
+                    <input type="text" name="works[{{$key}}][Title]" class="form-control" value="{{ isset($work['Title']) ? $work['Title'] : old('Title') }}">
                 </div>
 
                 <div class="form-group">

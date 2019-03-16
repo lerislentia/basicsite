@@ -1,34 +1,34 @@
 <form class="form-horizontal" action="" method="POST" id="MyForm">
         {{ csrf_field() }}
 
-        <input id="IdAddSlide" type="button" value="add slide" class="btn btn-primary">
+        <input id="IdAddSlide" type="button" value="add slide" class="btn btn-secondary">
 
         @isset($element['array_data'][$locale]['Slides'])
             @foreach($element['array_data'][$locale]['Slides'] as $key => $Slide)
             
-            <fieldset id="fieldset_{{$key}}">
+            <fieldset id="fieldset_{{$key}}" style="">
 
                 <div class="form-group">
                     <label for="Slides[{{$key}}][LargeImage]">
                         large image
                     </label>
-                    <input type="text" name="Slides[{{$key}}][LargeImage]" onclick="browseServer(this);" value="{{ isset($Slide['LargeImage']) ? $Slide['LargeImage'] : old('LargeImage') }}">
+                    <input type="text" name="Slides[{{$key}}][LargeImage]" class="form-control" onclick="browseServer(this);" value="{{ isset($Slide['LargeImage']) ? $Slide['LargeImage'] : old('LargeImage') }}">
                 </div>
                 <div class="form-group">
                     <label for="Slides[{{$key}}][FadeInDown]">
                         fadeInDown
                     </label>
-                    <input id="IdFadeInDown" type="text" name="Slides[{{$key}}][FadeInDown]" value="{{ isset($Slide['FadeInDown']) ? $Slide['FadeInDown'] : old('FadeInDown') }}">
+                    <input id="IdFadeInDown" type="text" name="Slides[{{$key}}][FadeInDown]" class="form-control" value="{{ isset($Slide['FadeInDown']) ? $Slide['FadeInDown'] : old('FadeInDown') }}">
                 </div>
 
                 <div class="form-group">
                     <label for="Slides[{{$key}}][FadeInUp]">
                         fadeInUp
                     </label>
-                    <input id="IdFadeInUp" type="text" name="Slides[{{$key}}][FadeInUp]" value="{{ isset($Slide['FadeInUp']) ? $Slide['FadeInUp'] : old('FadeInUp') }}">
+                    <input id="IdFadeInUp" type="text" name="Slides[{{$key}}][FadeInUp]" class="form-control" value="{{ isset($Slide['FadeInUp']) ? $Slide['FadeInUp'] : old('FadeInUp') }}">
                 </div>
 
-                <input type="button" value="remove slide" class="btn btn-primary" onclick="remove('fieldset_{{$key}}');">
+                <input type="button" value="remove slide" class="btn btn-secondary" onclick="remove('fieldset_{{$key}}');">
 
             </fieldset>
             @endforeach
@@ -36,7 +36,7 @@
 
         <input type="hidden" name="locale" value="{{$locale}}">
         <input type="hidden" id="IdEntityId" name="entity_id" value="{{$element['id']}}">
-        <input id="IdSaveProperties" type="button" value="{{ __('back.save') }}">
+        <input id="IdSaveProperties" type="button" class="btn btn-primary" value="{{ __('back.save') }}">
 </form>
 
 <script type="text/javascript">
@@ -147,6 +147,7 @@ function LoadPreview(type, entityid = null){
     inputimage.attr('type', 'text');
     inputimage.attr('name', 'Slides[' + (slidesquety) + '][LargeImage]');
     inputimage.attr('onclick', 'browseServer(this);');
+    inputimage.attr('class', 'form-control');
 
     divimage.append(labelimage);
     divimage.append(inputimage);
@@ -165,6 +166,7 @@ function LoadPreview(type, entityid = null){
 
     inputname.attr('type', 'text');
     inputname.attr('name', 'Slides['+ (slidesquety) +'][FadeInDown]');
+    inputname.attr('class', 'form-control');
     divname.append(labelname);
     divname.append(inputname);
 
@@ -180,12 +182,13 @@ function LoadPreview(type, entityid = null){
 
     inputcharge.attr('type', 'text');
     inputcharge.attr('name', 'Slides['+ (slidesquety) +'][FadeInUp]');
+    inputcharge.attr('class', 'form-control');
     divcharge.append(labelcharge);
     divcharge.append(inputcharge);
 
 
     var inputremove = $("<input>");
-    inputremove.attr("class", "btn btn-primary");
+    inputremove.attr("class", "btn btn-secondary");
     inputremove.attr("onclick", "remove('fieldset_"+ slidesquety + "');");
     inputremove.val("remove partner");
 

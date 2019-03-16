@@ -8,7 +8,7 @@
                 <label for="HeadingLine">
                     HeadingLine
                 </label>
-                <input id="IdHeadingLine" type="text" name="HeadingLine" value="{{ isset($element['array_data'][$locale]['HeadingLine']) ? $element['array_data'][$locale]['HeadingLine'] : old('HeadingLine') }}">
+                <input id="IdHeadingLine" type="text" name="HeadingLine" class="form-control" value="{{ isset($element['array_data'][$locale]['HeadingLine']) ? $element['array_data'][$locale]['HeadingLine'] : old('HeadingLine') }}">
             </div>
         </fieldset>
 
@@ -22,7 +22,7 @@
                     <label for="Partners[{{$key}}]LargeImage">
                         large image
                     </label>
-                    <input type="text" name="Partners[{{$key}}][LargeImage]" onclick="browseServer(this);" value="{{ isset($Partner['LargeImage']) ? $Partner['LargeImage'] : old('LargeImage') }}">
+                    <input type="text" name="Partners[{{$key}}][LargeImage]" onclick="browseServer(this);" class="form-control" value="{{ isset($Partner['LargeImage']) ? $Partner['LargeImage'] : old('LargeImage') }}">
                     
                 </div>
 
@@ -30,14 +30,14 @@
                     <label for="Partners[{{$key}}][Name]">
                         name
                     </label>
-                    <input type="text" name="Partners[{{$key}}][Name]" value="{{ isset($Partner['Name']) ? $Partner['Name'] : old('Name') }}">
+                    <input type="text" name="Partners[{{$key}}][Name]" class="form-control" value="{{ isset($Partner['Name']) ? $Partner['Name'] : old('Name') }}">
                 </div>
 
                 <div class="form-group">
                     <label for="Partners[{{$key}}][Charge]">
                         charge
                     </label>
-                    <input type="text" name="Partners[{{$key}}][Charge]" value="{{ isset($Partner['Charge']) ? $Partner['Charge'] : old('Charge') }}">
+                    <input type="text" name="Partners[{{$key}}][Charge]" class="form-control" value="{{ isset($Partner['Charge']) ? $Partner['Charge'] : old('Charge') }}">
                 </div>
 
                 <input type="button" value="remove partner" class="btn btn-primary" onclick="remove('fieldset_{{$key}}');">

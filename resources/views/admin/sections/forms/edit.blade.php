@@ -8,32 +8,32 @@
         <label for="name">
         {{ __('back.name') }}
     </label>
-        <input type="text" name="name" value="{{ isset($currentsection['name']) ? $currentsection['name'] : old('name') }}">
+        <input type="text" name="name" class="form-control" value="{{ isset($currentsection['name']) ? $currentsection['name'] : old('name') }}">
     </div>
     <div class="form-group">
         <label for="description">
         {{ __('back.description') }}
                 </label>
-        <input type="text" name="description" value="{{ isset($currentsection['description']) ? $currentsection['description'] : old('description') }}">
+        <input type="text" name="description" class="form-control" value="{{ isset($currentsection['description']) ? $currentsection['description'] : old('description') }}">
     </div>
 
     <div class="form-group">
         <label for="url">
                 url
                 </label>
-        <input type="text" name="url" value="{{ isset($currentsection['url']) ? $currentsection['url'] : old('url') }}">
+        <input type="text" name="url" class="form-control" value="{{ isset($currentsection['url']) ? $currentsection['url'] : old('url') }}">
     </div>
     <div class="form-group">
         <label for="tags">
                     tags
                 </label>
-        <input type="text" name="tags" value="{{ isset($currentsection['tags']) ? $currentsection['tags'] : old('tags') }}">
+        <input type="text" name="tags" class="form-control" value="{{ isset($currentsection['tags']) ? $currentsection['tags'] : old('tags') }}">
     </div>
     <div class="form-group">
         <label for="state">
             state
         </label>
-        <select name="state_id">
+        <select name="state_id" class="form-control">
         <option value="" {{($currentsection['state_id'] == null ? 'selected="selected"': '')}}> - </option>
                 @foreach($states as $state)
                     <option value="{{$state['id']}}" {{($state['id'] == $currentsection['state_id']) ? 'selected="selected"': ''}}>
@@ -47,7 +47,7 @@
         <label for="parent_id">
                     parent_id
                 </label>
-        <select name="parent_id">
+        <select name="parent_id" class="form-control">
         <option value="" {{($currentsection['parent_id'] == null ? 'selected="selected"': '')}}> - </option>
             @foreach($sections as $section)
                 <option value="{{$section['id']}}" {{($section['id'] == $currentsection['parent_id']) ? 'selected="selected"': ''}}>
@@ -60,7 +60,7 @@
         <label for="type">
             type
         </label>
-        <select name="type_id" id="IdType">
+        <select name="type_id" id="IdType" class="form-control">
         <option value="" {{($currentsection['type_id'] == null ? 'selected="selected"': '')}}> - </option>
                 @foreach($types as $type)
                     <option value="{{$type['id']}}" {{($type['id'] == $currentsection['type_id']) ? 'selected="selected"': ''}}>
@@ -73,7 +73,7 @@
         <label for="order">
             order
                 </label>
-        <input type="text" name="order" value="{{ isset($currentsection['order']) ? $currentsection['order'] : old('order') }}">
+        <input type="text" name="order" class="form-control" value="{{ isset($currentsection['order']) ? $currentsection['order'] : old('order') }}">
     </div>
 
     <input type="hidden" name="locale" value="{{$locale}}">

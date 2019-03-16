@@ -7,14 +7,14 @@
                 <label for="HeadingLine">
                     heading-line
                 </label>
-                <input id="IdHeadingLine" type="text" name="HeadingLine" value="{{ isset($element['array_data'][$locale]['HeadingLine']) ? $element['array_data'][$locale]['HeadingLine'] : old('HeadingLine') }}">
+                <input id="IdHeadingLine" type="text" name="HeadingLine" class="form-control" value="{{ isset($element['array_data'][$locale]['HeadingLine']) ? $element['array_data'][$locale]['HeadingLine'] : old('HeadingLine') }}">
             </div>
 
             <div class="form-group">
                 <label for="image">
                     image fadeinup
                 </label>
-                <input id="IdImage" type="text" name="image" value="{{ isset($element['array_data'][$locale]['image']) ? $element['array_data'][$locale]['image'] : old('image') }}">
+                <input id="IdImage" type="text" name="image" class="form-control" value="{{ isset($element['array_data'][$locale]['image']) ? $element['array_data'][$locale]['image'] : old('image') }}">
                 <div id="ckfinder-modal" class="btn btn-primary">Browse Server</div>
             </div>
 
@@ -22,14 +22,14 @@
                 <label for="MainTitle">
                     content main title
                 </label>
-                <input id="IdMainTitle" type="text" name="MainTitle" value="{{ isset($element['array_data'][$locale]['MainTitle']) ? $element['array_data'][$locale]['MainTitle'] : old('MainTitle') }}">
+                <input id="IdMainTitle" type="text" name="MainTitle" class="form-control" value="{{ isset($element['array_data'][$locale]['MainTitle']) ? $element['array_data'][$locale]['MainTitle'] : old('MainTitle') }}">
             </div>
 
             <div class="form-group">
                 <label for="SubTitle">
                     content sub title
                 </label>
-                <input id="IdSubTitle" type="text" name="SubTitle" value="{{ isset($element['array_data'][$locale]['SubTitle']) ? $element['array_data'][$locale]['SubTitle'] : old('SubTitle') }}">
+                <input id="IdSubTitle" type="text" name="SubTitle" class="form-control" value="{{ isset($element['array_data'][$locale]['SubTitle']) ? $element['array_data'][$locale]['SubTitle'] : old('SubTitle') }}">
             </div>
 
             <textarea name="Paragraph" id="IdParagraph" rows="10" cols="80">

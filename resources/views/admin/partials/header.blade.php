@@ -12,89 +12,89 @@
 {{{ isset(Auth::user()->name) ? Auth::user()->name : Auth::user()->email }}}
 </label>
 <div class="btn">
-    <a href="{!!route('logout')!!}">logout</a>
+    <a href="{!!route('logout')!!}">{{ __('back.logout') }}</a>
 </div>
 @endif
         <li>
             <ul>
-                <label>structure</label>
+                <label>{{ __('back.structure') }}</label>
                 <li>
-                    <a href="{!!route('admin.pages')!!}">pages</a>
+                    <a href="{!!route('admin.pages')!!}">{{ __('back.pages') }}</a>
                 </li>
                 <li>
-                    <a href="{!!route('admin.sectionpages')!!}">sectionpages</a>
+                    <a href="{!!route('admin.sectionpages')!!}">{{ __('back.pagesection') }} ({{ __('back.order') }})</a>
                 </li>
                 <li>
-                    <a href="{!!route('admin.sections')!!}">elements (old sections)</a>
+                    <a href="{!!route('admin.sections')!!}">{{ __('back.elements') }} (old sections)</a>
                 </li>
             </ul>
         </li>
 
         <li>
             <ul>
-                <label>content</label>
+                <label>{{ __('back.content') }}</label>
                 <li>
-                    <a href="{!!route('admin.categories')!!}">categories</a>
+                    <a href="{!!route('admin.categories')!!}">{{ __('back.categories') }}</a>
                 </li>
                 <li>
-                    <a href="{!!route('admin.products')!!}">products</a>
+                    <a href="{!!route('admin.products')!!}">{{ __('back.products') }}</a>
                 </li>
                 <li>
-                    <a href="{!!route('admin.events')!!}">events</a>
+                    <a href="{!!route('admin.events')!!}">{{ __('back.events') }}</a>
                 </li>        
                 <li>
-                    <a href="{!!route('admin.properties')!!}">properties</a>
+                    <a href="{!!route('admin.properties')!!}">{{ __('back.properties') }}</a>
                 </li>
             </ul>
         </li>
         
         <li>
             <ul>
-                <label>internationalization</label>
+                <label>{{ __('back.language') }}</label>
                 <li>
-                    <a href="{!!route('admin.translations')!!}">translations</a>
+                    <a href="{!!route('admin.translations')!!}">{{ __('back.translations') }}</a>
                 </li>
             </ul>
         </li>
         <li>
             <ul>
-                <label>base config</label>
+                <label>{{ __('back.baseconfig') }}</label>
                 <li>
                     <a href="{!!route('admin.locales')!!}">locales</a>
                 </li>
                 <li>
-                    <a href="{!!route('admin.entities')!!}">entities</a>
+                    <a href="{!!route('admin.entities')!!}">{{ __('back.entities') }}</a>
                 </li>
                 <li>
-                    <a href="{!!route('admin.types')!!}">types</a>
+                    <a href="{!!route('admin.types')!!}">{{ __('back.types') }}</a>
                 </li>
                 <li>
-                    <a href="{!!route('admin.entitytypes')!!}">entitietypes</a>
+                    <a href="{!!route('admin.entitytypes')!!}">{{ __('back.entitietypes') }}</a>
                 </li>
                 <li>
-                    <a href="{!!route('admin.states')!!}">states</a>
+                    <a href="{!!route('admin.states')!!}">{{ __('back.states') }}</a>
                 </li>
                 <li>
-                    <a href="{!!route('admin.entitystates')!!}">entitiestates</a>
-                </li>
-            </ul>
-        </li>
-        <li>
-            <ul>
-                <label>aparience</label>
-                <li>
-                    <a href="{!!route('admin.layouts')!!}">layouts</a>
+                    <a href="{!!route('admin.entitystates')!!}">{{ __('back.entitiestates') }}</a>
                 </li>
             </ul>
         </li>
         <li>
             <ul>
-                <label>performance</label>
+                <label>{{ __('back.appearance') }}</label>
                 <li>
-                    <a href="{{ route('clear-views') }}">Clear Views</a>
+                    <a href="{!!route('admin.layouts')!!}">{{ __('back.layouts') }}</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <ul>
+                <label>{{ __('back.performance') }}</label>
+                <li>
+                    <a href="{{ route('clear-views') }}">{{ __('back.clearviews') }}</a>
                 </li>
                 <li>
-                    <a href="{{ route('clear-cache') }}">Clear Cache</a>
+                    <a href="{{ route('clear-cache') }}">{{ __('back.clearcache') }}</a>
                 </li>
             </ul>
         </li>

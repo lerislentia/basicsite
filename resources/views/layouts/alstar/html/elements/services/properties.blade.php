@@ -7,91 +7,47 @@
                 <label for="HeadingLine">
                     HeadingLine
                 </label>
-                <input id="IdHeadingLine" type="text" name="HeadingLine" value="{{ isset($element['array_data'][$locale]['HeadingLine']) ? $element['array_data'][$locale]['HeadingLine'] : old('HeadingLine') }}">
+                <input id="IdHeadingLine" type="text" name="HeadingLine" class="form-control" value="{{ isset($element['array_data'][$locale]['HeadingLine']) ? $element['array_data'][$locale]['HeadingLine'] : old('HeadingLine') }}">
             </div>
         </fieldset>
-        <fieldset>
+
+        <input id="IdAddService" type="button" value="add service" class="btn btn-primary">
+        @isset($element['array_data'][$locale]['Services'])
+            @foreach($element['array_data'][$locale]['Services'] as $key => $Service)
+
+        <fieldset id="fieldset_{{$key}}">
             <legend>bounceInLeft one:</legend>
             <div class="form-group">
-                <label for="image">
+                <label for="Services[{{$key}}][LargeImage]">
                     background one
                 </label>
-                <input id="IdImage" type="text" name="slider[1][image]" value="{{ isset($element['array_data'][$locale]['image']) ? $element['array_data']['image'] : old('image') }}">
-                <div id="ckfinder-modal" class="btn btn-primary">Browse Server</div>
+                <input id="IdLargeImage" type="text" name="Services[{{$key}}][LargeImage]" onclick="browseServer(this);" class="form-control" value="{{ isset($Service['LargeImage']) ? $Service['LargeImage'] : old('LargeImage') }}">
             </div>
 
             <div class="form-group">
-                <label for="order">
+                <label for="Services[{{$key}}][BounceInLefOneTitle]">
                     BounceInLefOneTitle
                 </label>
-                <input id="IdBounceInLefOneTitle" type="text" name="slider[1][BounceInLefOneTitle]" value="{{ isset($element['array_data'][$locale]['BounceInLefOneTitle']) ? $element['array_data'][$locale]['BounceInLefOneTitle'] : old('BounceInLefOneTitle') }}">
+                <input id="IdBounceInLefOneTitle" type="text" name="Services[{{$key}}][BounceInLefOneTitle]" class="form-control" value="{{ isset($Service['BounceInLefOneTitle']) ? $Service['BounceInLefOneTitle'] : old('BounceInLefOneTitle') }}">
             </div>
 
             <div class="form-group">
                 <label for="order">
                     BounceInLefOneParagraph
                 </label>
-                <textarea name="BounceInLefOneParagraph" id="IdBounceInLefOneParagraph" rows="10" cols="80">
-                {{ isset($element['array_data'][$locale]['BounceInLefOneParagraph']) ? $element['array_data'][$locale]['BounceInLefOneParagraph'] : old('BounceInLefOneParagraph') }}
+                <textarea name="Services[{{$key}}][BounceInLefOneParagraph]" rows="10" cols="80">
+                {!! isset($Service['BounceInLefOneParagraph']) ? $Service['BounceInLefOneParagraph'] : old('BounceInLefOneParagraph') !!}
                 </textarea>
             </div>
         </fieldset>
 
-        <fieldset>
-        <legend>BounceInLef two:</legend>
-        <div class="form-group">
-            <label for="imageTwo">
-                background two
-            </label>
-            <input id="IdImageTwo" type="text" name="slider[2][imageTwo]" value="{{ isset($element['array_data'][$locale]['imageTwo']) ? $element['array_data'][$locale]['imageTwo'] : old('imageTwo') }}">
-            <div id="ckfinder-modal-two" class="btn btn-primary">Browse Server</div>
-        </div>
-        <div class="form-group">
-            <label for="order">
-                BounceInLefTwoTitle
-            </label>
-            <input id="IdBounceInLefTwoTitle" type="text" name="slider[2][BounceInLefTwoTitle]" value="{{ isset($element['array_data'][$locale]['BounceInLefTwoTitle']) ? $element['array_data'][$locale]['BounceInLefTwoTitle'] : old('BounceInLefTwoTitle') }}">
-        </div>
+        <input type="button" value="remove Service" class="btn btn-primary" onclick="remove('fieldset_{{$key}}');">
 
-        <div class="form-group">
-            <label for="order">
-                BounceInLefTwoParagraph
-            </label>
-            <textarea name="BounceInLefTwoParagraph" id="IdBounceInLefTwoParagraph" rows="10" cols="80">
-            {{ isset($element['array_data'][$locale]['BounceInLefTwoParagraph']) ? $element['array_data'][$locale]['BounceInLefTwoParagraph'] : old('BounceInLefTwoParagraph') }}
-            </textarea>
-
-        </div>
-        </fieldset>
-        
-        <fieldset>
-        <legend>bounceInLeft tree:</legend>
-        <div class="form-group">
-            <label for="imageTree">
-                background tree
-            </label>
-            <input id="IdImageTree" type="text" name="slider[3][imageTree]" value="{{ isset($element['array_data'][$locale]['imageTree']) ? $element['array_data'][$locale]['imageTree'] : old('imageTree') }}">
-            <div id="ckfinder-modal-tree" class="btn btn-primary">Browse Server</div>
-        </div>
-
-        <div class="form-group">
-            <label for="order">
-                BounceInLefTreeTitle
-            </label>
-            <input id="IdBounceInLefTreeTitle" type="text" name="slider[3][BounceInLefTreeTitle]" value="{{ isset($element['array_data'][$locale]['BounceInLefTreeTitle']) ? $element['array_data'][$locale]['BounceInLefTreeTitle'] : old('BounceInLefTreeTitle') }}">
-        </div>
-
-        <div class="form-group">
-            <label for="order">
-                BounceInLefTreeParagraph
-            </label>
-            <textarea name="BounceInLefTreeParagraph" id="IdBounceInLefTreeParagraph" rows="10" cols="80">
-            {{ isset($element['array_data'][$locale]['BounceInLefTreeParagraph']) ? $element['array_data'][$locale]['BounceInLefTreeParagraph'] : old('BounceInLefTreeParagraph') }}
-            </textarea>
-        </div>
-        </fieldset>
-
-        </fieldset>
+        <script type="text/javascript">
+            CKEDITOR.replace( "Services[{{$key}}][BounceInLefOneParagraph]" );
+        </script>
+        @endforeach
+        @endisset
 
         <input type="hidden" name="locale" value="{{$locale}}">
         <input type="hidden" id="IdEntityId" name="entity_id" value="{{$element['id']}}">
@@ -104,7 +60,17 @@
 if(isset($entity['data'])){
     $data = 1;
 }
+
+if(isset($element['array_data'][$locale]['Services'])){
+    $servicequety = count($element['array_data'][$locale]['Services']);
+}else{
+    $servicequety = 0;
+}
+
 @endphp
+
+var servicequety = "{{$servicequety}}";
+
 $(document).ready(function () {
 
     var type = "{{$element['type_id']}}";
@@ -141,44 +107,26 @@ $(document).ready(function () {
 
 function LoadPreview(type, entityid = null){
     $( "#preview" ).html("");
+
+    for ( instance in CKEDITOR.instances )
+        CKEDITOR.instances[instance].updateElement();
+
+    var data = $('#MyForm').serialize();
     $( "#preview" ).load( 
         "{{route('admin.type.preview.ajax')}}", 
-            { 
-                "type"                      : type , 
-                "entity_id"                 : entityid , 
-                "_token"                    : $('meta[name="csrf-token"]').attr('content'),
-                "HeadingLine"               : $('#IdHeadingLine').val(),
-                "image"                     : $('#IdImage').val(),
-                "BounceInLefOneTitle"       : $('#IdBounceInLefOneTitle').val(),
-                "BounceInLefOneParagraph"   : BounceInLefOneParagraph.getData(),
-                "imageTwo"                  : $('#IdImageTwo').val(),
-                "BounceInLefTwoTitle"       : $('#IdBounceInLefTwoTitle').val(),
-                "BounceInLefTwoParagraph"   : BounceInLefTwoParagraph.getData(),
-                "imageTree"                 : $('#IdImageTree').val(),
-                "BounceInLefTreeTitle"      : $('#IdBounceInLefTreeTitle').val(),
-                "BounceInLefTreeParagraph"  : BounceInLefTreeParagraph.getData(),
-            } 
+        data
         );
     }
 
-
     $("#IdSaveProperties").click(function(){
 
+        for ( instance in CKEDITOR.instances )
+        CKEDITOR.instances[instance].updateElement();
+
+        var data = $('#MyForm').serialize();
+
         $.post("{{route('admin.type.properties.update.ajax')}}",
-        {
-            "_token"                    : $('meta[name="csrf-token"]').attr('content'),
-            "entity_id"                 : $('#IdEntityId').val(),
-            "HeadingLine"               : $('#IdHeadingLine').val(),
-            "image"                     : $('#IdImage').val(),
-            "BounceInLefOneTitle"       : $('#IdBounceInLefOneTitle').val(),
-            "BounceInLefOneParagraph"   : BounceInLefOneParagraph.getData(),
-            "imageTwo"                  : $('#IdImageTwo').val(),
-            "BounceInLefTwoTitle"       : $('#IdBounceInLefTwoTitle').val(),
-            "BounceInLefTwoParagraph"   : BounceInLefTwoParagraph.getData(),
-            "imageTree"                 : $('#IdImageTree').val(),
-            "BounceInLefTreeTitle"      : $('#IdBounceInLefTreeTitle').val(),
-            "BounceInLefTreeParagraph"  : BounceInLefTreeParagraph.getData(),
-        },
+        data,
         function(data, status){
             if(status=='success'){
                 alert("propiedades guardadas exitosamente");
@@ -188,59 +136,100 @@ function LoadPreview(type, entityid = null){
         });
     }); 
 
-    var BounceInLefOneParagraph = CKEDITOR.replace( 'BounceInLefOneParagraph' );
-    var BounceInLefTwoParagraph = CKEDITOR.replace( 'BounceInLefTwoParagraph' );
-    var BounceInLefTreeParagraph = CKEDITOR.replace( 'BounceInLefTreeParagraph' );
+    $("#IdAddService").click(function(){
 
-    var button = document.getElementById( 'ckfinder-modal' );
+        servicequety++;
 
-	button.onclick = function() {
-		CKFinder.modal( {
+        var fieldset = $("<fieldset></fieldset>");
+        fieldset.attr("id","fieldset_" + servicequety);
+
+        var divimage      = $("<div></div>");
+        divimage.attr('class', 'form-group');
+
+        var labelimage    = $("<label></label>");
+        labelimage.html("large image");
+        labelimage.attr('for', 'Services[' + (servicequety) + ']LargeImage');
+
+        var inputimage    = $("<input>");
+
+        inputimage.attr('type', 'text');
+        inputimage.attr('class', 'form-control');
+        inputimage.attr('name', 'Services[' + (servicequety) + ']LargeImage');
+        inputimage.attr('onclick', 'browseServer(this);');
+
+        divimage.append(labelimage);
+        divimage.append(inputimage);
+
+        var fieldset = $("<fieldset></fieldset>");
+        fieldset.attr("id","fieldset_" + servicequety);
+
+        var divname = $("<div></div>");
+        divname.attr('class', 'form-group');
+
+        var labelname    = $("<label></label>");
+        labelname.html("BounceInLefOneTitle");
+        labelname.attr('for', 'Services['+ (servicequety) +'][BounceInLefOneTitle]');
+
+        var inputname    = $("<input>");
+
+        inputname.attr('type', 'text');
+        inputname.attr('class', 'form-control');
+        inputname.attr('name', 'Services['+ (servicequety) +'][BounceInLefOneTitle]');
+        divname.append(labelname);
+        divname.append(inputname);
+
+
+        var divcharge = $("<div></div>");
+        divcharge.attr('class', 'form-group');
+
+        var labelcharge    = $("<label></label>");
+        labelcharge.html("BounceInLefOneParagraph");
+        labelcharge.attr('for', 'Services['+ (servicequety) +'][BounceInLefOneParagraph]');
+
+        var inputcharge    = $("<textarea>");
+
+        
+        inputcharge.attr('name', 'Services['+ (servicequety) +'][BounceInLefOneParagraph]');
+        inputcharge.attr('rows', '10');
+        inputcharge.attr('cols', '80');
+        divcharge.append(labelcharge);
+        divcharge.append(inputcharge);
+
+
+        var inputremove = $("<input>");
+        inputremove.attr("class", "btn btn-primary");
+        inputremove.attr("onclick", "remove('fieldset_"+ servicequety + "');");
+        inputremove.val("remove service");
+
+
+        fieldset.append(divimage);
+        fieldset.append(divname);
+        fieldset.append(divcharge);
+        fieldset.append(inputremove);
+
+        $("#IdSaveProperties").before(fieldset);
+
+        CKEDITOR.replace( 'Services['+ (servicequety) +'][BounceInLefOneParagraph]' );
+    });
+
+    function browseServer(input){
+        CKFinder.modal( {
 			chooseFiles: true,
 			width: 800,
 			height: 600,
 			onInit: function( finder ) {
 				finder.on( 'files:choose', function( evt ) {
 					var file        = evt.data.files.first();
-					var output      = document.getElementById( 'IdImage' );
+					var output      = input;
                     output.value    = file.getUrl();
 				} );
 			}
 		} );
-    };
-    
-    var button = document.getElementById( 'ckfinder-modal-two' );
+    }
 
-	button.onclick = function() {
-		CKFinder.modal( {
-			chooseFiles: true,
-			width: 800,
-			height: 600,
-			onInit: function( finder ) {
-				finder.on( 'files:choose', function( evt ) {
-					var file        = evt.data.files.first();
-					var output      = document.getElementById( 'IdImageTwo' );
-                    output.value    = file.getUrl();
-				} );
-			}
-		} );
-	};
-
-    var button = document.getElementById( 'ckfinder-modal-tree' );
-
-	button.onclick = function() {
-		CKFinder.modal( {
-			chooseFiles: true,
-			width: 800,
-			height: 600,
-			onInit: function( finder ) {
-				finder.on( 'files:choose', function( evt ) {
-					var file        = evt.data.files.first();
-					var output      = document.getElementById( 'IdImageTree' );
-                    output.value    = file.getUrl();
-				} );
-			}
-		} );
-    };
+    function remove(item){
+        servicequety--;
+        $('#'+item).remove();
+    }
 
 </script>
