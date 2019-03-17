@@ -73,163 +73,123 @@ var servicequety = "{{$servicequety}}";
 
 $(document).ready(function () {
 
-    var type = "{{$element['type_id']}}";
-    var data = "{{$data}}";
-
-    if(data==1){
-        LoadPreview(type, entityid);
-    }
-
-    $("#IdImage").change(function() {
-        
-        LoadPreview(type);
-    });
-
-    $("#IdHeader").change(function() {
-        
-        LoadPreview(type);
-    });
-
-    $("#IdParagraph").change(function() {
-        
-        LoadPreview(type);
-    });
-
-    $("#IdActionHref").change(function() {
-        LoadPreview(type);
-    });
-    
-    $("#IdActionText").change(function() {
-        LoadPreview(type);
-    });
-
-});
-
-function LoadPreview(type, entityid = null){
-    $( "#preview" ).html("");
-
-    for ( instance in CKEDITOR.instances )
-        CKEDITOR.instances[instance].updateElement();
-
-    var data = $('#MyForm').serialize();
-    $( "#preview" ).load( 
-        "{{route('admin.type.preview.ajax')}}", 
-        data
-        );
-    }
-
     $("#IdSaveProperties").click(function(){
 
-        for ( instance in CKEDITOR.instances )
-        CKEDITOR.instances[instance].updateElement();
+    for ( instance in CKEDITOR.instances )
+    CKEDITOR.instances[instance].updateElement();
 
-        var data = $('#MyForm').serialize();
+    var data = $('#MyForm').serialize();
 
-        $.post("{{route('admin.type.properties.update.ajax')}}",
-        data,
-        function(data, status){
-            if(status=='success'){
-                alert("propiedades guardadas exitosamente");
-            }else{
-                alert('no se pudo guardar');                    
-            }
-        });
+    $.post("{{route('admin.type.properties.update.ajax')}}",
+    data,
+    function(data, status){
+        if(status=='success'){
+            alert("propiedades guardadas exitosamente");
+        }else{
+            alert('no se pudo guardar');                    
+        }
+    });
     }); 
 
     $("#IdAddService").click(function(){
 
-        servicequety++;
+    servicequety++;
 
-        var fieldset = $("<fieldset></fieldset>");
-        fieldset.attr("id","fieldset_" + servicequety);
+    var fieldset = $("<fieldset></fieldset>");
+    fieldset.attr("id","fieldset_" + servicequety);
 
-        var divimage      = $("<div></div>");
-        divimage.attr('class', 'form-group');
+    var divimage      = $("<div></div>");
+    divimage.attr('class', 'form-group');
 
-        var labelimage    = $("<label></label>");
-        labelimage.html("large image");
-        labelimage.attr('for', 'Services[' + (servicequety) + ']LargeImage');
+    var labelimage    = $("<label></label>");
+    labelimage.html("large image");
+    labelimage.attr('for', 'Services[' + (servicequety) + ']LargeImage');
 
-        var inputimage    = $("<input>");
+    var inputimage    = $("<input>");
 
-        inputimage.attr('type', 'text');
-        inputimage.attr('class', 'form-control');
-        inputimage.attr('name', 'Services[' + (servicequety) + ']LargeImage');
-        inputimage.attr('onclick', 'browseServer(this);');
+    inputimage.attr('type', 'text');
+    inputimage.attr('class', 'form-control');
+    inputimage.attr('name', 'Services[' + (servicequety) + ']LargeImage');
+    inputimage.attr('onclick', 'browseServer(this);');
 
-        divimage.append(labelimage);
-        divimage.append(inputimage);
+    divimage.append(labelimage);
+    divimage.append(inputimage);
 
-        var fieldset = $("<fieldset></fieldset>");
-        fieldset.attr("id","fieldset_" + servicequety);
+    var fieldset = $("<fieldset></fieldset>");
+    fieldset.attr("id","fieldset_" + servicequety);
 
-        var divname = $("<div></div>");
-        divname.attr('class', 'form-group');
+    var divname = $("<div></div>");
+    divname.attr('class', 'form-group');
 
-        var labelname    = $("<label></label>");
-        labelname.html("BounceInLefOneTitle");
-        labelname.attr('for', 'Services['+ (servicequety) +'][BounceInLefOneTitle]');
+    var labelname    = $("<label></label>");
+    labelname.html("BounceInLefOneTitle");
+    labelname.attr('for', 'Services['+ (servicequety) +'][BounceInLefOneTitle]');
 
-        var inputname    = $("<input>");
+    var inputname    = $("<input>");
 
-        inputname.attr('type', 'text');
-        inputname.attr('class', 'form-control');
-        inputname.attr('name', 'Services['+ (servicequety) +'][BounceInLefOneTitle]');
-        divname.append(labelname);
-        divname.append(inputname);
-
-
-        var divcharge = $("<div></div>");
-        divcharge.attr('class', 'form-group');
-
-        var labelcharge    = $("<label></label>");
-        labelcharge.html("BounceInLefOneParagraph");
-        labelcharge.attr('for', 'Services['+ (servicequety) +'][BounceInLefOneParagraph]');
-
-        var inputcharge    = $("<textarea>");
-
-        
-        inputcharge.attr('name', 'Services['+ (servicequety) +'][BounceInLefOneParagraph]');
-        inputcharge.attr('rows', '10');
-        inputcharge.attr('cols', '80');
-        divcharge.append(labelcharge);
-        divcharge.append(inputcharge);
+    inputname.attr('type', 'text');
+    inputname.attr('class', 'form-control');
+    inputname.attr('name', 'Services['+ (servicequety) +'][BounceInLefOneTitle]');
+    divname.append(labelname);
+    divname.append(inputname);
 
 
-        var inputremove = $("<input>");
-        inputremove.attr("class", "btn btn-primary");
-        inputremove.attr("onclick", "remove('fieldset_"+ servicequety + "');");
-        inputremove.val("remove service");
+    var divcharge = $("<div></div>");
+    divcharge.attr('class', 'form-group');
+
+    var labelcharge    = $("<label></label>");
+    labelcharge.html("BounceInLefOneParagraph");
+    labelcharge.attr('for', 'Services['+ (servicequety) +'][BounceInLefOneParagraph]');
+
+    var inputcharge    = $("<textarea>");
 
 
-        fieldset.append(divimage);
-        fieldset.append(divname);
-        fieldset.append(divcharge);
-        fieldset.append(inputremove);
+    inputcharge.attr('name', 'Services['+ (servicequety) +'][BounceInLefOneParagraph]');
+    inputcharge.attr('rows', '10');
+    inputcharge.attr('cols', '80');
+    divcharge.append(labelcharge);
+    divcharge.append(inputcharge);
 
-        $("#IdSaveProperties").before(fieldset);
 
-        CKEDITOR.replace( 'Services['+ (servicequety) +'][BounceInLefOneParagraph]' );
+    var inputremove = $("<input>");
+    inputremove.attr("class", "btn btn-primary");
+    inputremove.attr("onclick", "remove('fieldset_"+ servicequety + "');");
+    inputremove.val("remove service");
+
+
+    fieldset.append(divimage);
+    fieldset.append(divname);
+    fieldset.append(divcharge);
+    fieldset.append(inputremove);
+
+    $("#IdSaveProperties").before(fieldset);
+
+    CKEDITOR.replace( 'Services['+ (servicequety) +'][BounceInLefOneParagraph]' );
     });
 
     function browseServer(input){
-        CKFinder.modal( {
-			chooseFiles: true,
-			width: 800,
-			height: 600,
-			onInit: function( finder ) {
-				finder.on( 'files:choose', function( evt ) {
-					var file        = evt.data.files.first();
-					var output      = input;
-                    output.value    = file.getUrl();
-				} );
-			}
-		} );
+    CKFinder.modal( {
+        chooseFiles: true,
+        width: 800,
+        height: 600,
+        onInit: function( finder ) {
+            finder.on( 'files:choose', function( evt ) {
+                var file        = evt.data.files.first();
+                var output      = input;
+                output.value    = file.getUrl();
+            } );
+        }
+    } );
     }
 
     function remove(item){
-        servicequety--;
-        $('#'+item).remove();
+    servicequety--;
+    $('#'+item).remove();
     }
+
+});
+
+
+    
 
 </script>

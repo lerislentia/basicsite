@@ -36,6 +36,7 @@
 
         <input type="hidden" name="locale" value="{{$locale}}">
         <input type="hidden" id="IdEntityId" name="entity_id" value="{{$element['id']}}">
+        <input type="hidden" id="IdTypeId" name="type" value="{{$element['type_id']}}">
         <input id="IdSaveProperties" type="button" class="btn btn-primary" value="{{ __('back.save') }}">
 </form>
 
@@ -56,62 +57,6 @@ if(isset($element['array_data'][$locale]['Slides'])){
 var slidesquety = "{{$slidesquety}}";
 
 $(document).ready(function () {
-
-    var type = "{{$element['type_id']}}";
-    var data = "{{$data}}";
-
-    if(data==1){
-        LoadPreview(type, entityid);
-    }
-
-    $("#IdImage").change(function() {
-        
-        LoadPreview(type);
-    });
-
-    $("#IdHeader").change(function() {
-        
-        LoadPreview(type);
-    });
-
-    $("#IdParagraph").change(function() {
-        
-        LoadPreview(type);
-    });
-
-    $("#IdActionHref").change(function() {
-        LoadPreview(type);
-    });
-    
-    $("#IdActionText").change(function() {
-        LoadPreview(type);
-    });
-
-});
-
-function LoadPreview(type, entityid = null){
-    $( "#preview" ).html("");
-    $( "#preview" ).load( 
-        "{{route('admin.type.preview.ajax')}}", 
-            { 
-                "type"          : type , 
-                "entity_id"     : entityid , 
-                "_token"        : $('meta[name="csrf-token"]').attr('content'),
-                "image"         : $('#IdImage').val(),
-                "FadeInDown"    : $('#IdFadeInDown').val(),
-                "FadeInUp"      : $('#IdFadeInUp').val(),
-                "imageTwo"      : $('#IdImageTwo').val(),
-                "FadeInDownTwo" : $('#IdFadeInDownTwo').val(),
-                "FadeInUpTwo"   : $('#IdFadeInUpTwo').val(),
-                "imageTree"     : $('#IdImageTree').val(),
-                "FadeInDownTree": $('#IdFadeInDownTree').val(),
-                "FadeInUpTree"  : $('#IdFadeInUpTree').val(),
-                "actionhref"    : $('#IdActionHref').val(),
-                "actiontext"    : $('#IdActionText').val(),
-            } 
-        );
-    }
-
 
     $("#IdSaveProperties").click(function(){
 
@@ -201,7 +146,7 @@ function LoadPreview(type, entityid = null){
     $("#IdSaveProperties").before(fieldset);
 }); 
     
-function browseServer(input){
+    function browseServer(input){
         CKFinder.modal( {
 			chooseFiles: true,
 			width: 800,

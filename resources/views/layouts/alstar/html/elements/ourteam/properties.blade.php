@@ -70,155 +70,114 @@ var partquetity = "{{$partnerquety}}";
 
 $(document).ready(function () {
 
-    
-    var type        = "{{$element['type_id']}}";
-    var data        = "{{$data}}";
-
-    if(data==1){
-        LoadPreview(type, entityid);
-    }
-
-    $("#IdImage").change(function() {
-        
-        LoadPreview(type);
-    });
-
-    $("#IdHeader").change(function() {
-        
-        LoadPreview(type);
-    });
-
-    $("#IdParagraph").change(function() {
-        
-        LoadPreview(type);
-    });
-
-    $("#IdActionHref").change(function() {
-        LoadPreview(type);
-    });
-    
-    $("#IdActionText").change(function() {
-        LoadPreview(type);
-    });
-
-});
-
-function LoadPreview(type, entityid = null){
-    $( "#preview" ).html("");
-    $( "#preview" ).load( 
-        "{{route('admin.type.preview.ajax')}}", 
-            { 
-                "type"                      : type , 
-                "entity_id"                 : entityid , 
-                "_token"                    : $('meta[name="csrf-token"]').attr('content'),
-            } 
-        );
-    }
-
-
     $("#IdSaveProperties").click(function(){
 
-        var data = $('#MyForm').serialize();
+    var data = $('#MyForm').serialize();
 
-        $.post("{{route('admin.type.properties.update.ajax')}}",
-        data,
-        function(data, status){
-            if(status=='success'){
-                alert("propiedades guardadas exitosamente");
-            }else{
-                alert('no se pudo guardar');                    
-            }
-        });
+    $.post("{{route('admin.type.properties.update.ajax')}}",
+    data,
+    function(data, status){
+        if(status=='success'){
+            alert("propiedades guardadas exitosamente");
+        }else{
+            alert('no se pudo guardar');                    
+        }
+    });
     }); 
 
     $("#IdAddPartner").click(function(){
 
-        partquetity++;
+    partquetity++;
 
-        var fieldset = $("<fieldset></fieldset>");
-        fieldset.attr("id","fieldset_" + partquetity);
-        
-        var divimage      = $("<div></div>");
-        divimage.attr('class', 'form-group');
-        
-        var labelimage    = $("<label></label>");
-        labelimage.html("large image");
-        labelimage.attr('for', 'Partners[' + (partquetity) + ']LargeImage');
+    var fieldset = $("<fieldset></fieldset>");
+    fieldset.attr("id","fieldset_" + partquetity);
 
-        var inputimage    = $("<input>");
+    var divimage      = $("<div></div>");
+    divimage.attr('class', 'form-group');
 
-        inputimage.attr('type', 'text');
-        inputimage.attr('name', 'Partners[' + (partquetity) + ']LargeImage');
-        inputimage.attr('onclick', 'browseServer(this);');
+    var labelimage    = $("<label></label>");
+    labelimage.html("large image");
+    labelimage.attr('for', 'Partners[' + (partquetity) + ']LargeImage');
 
-        divimage.append(labelimage);
-        divimage.append(inputimage);
+    var inputimage    = $("<input>");
 
-        var fieldset = $("<fieldset></fieldset>");
-        fieldset.attr("id","fieldset_" + partquetity);
-        
-        var divname = $("<div></div>");
-        divname.attr('class', 'form-group');
+    inputimage.attr('type', 'text');
+    inputimage.attr('name', 'Partners[' + (partquetity) + ']LargeImage');
+    inputimage.attr('onclick', 'browseServer(this);');
 
-        var labelname    = $("<label></label>");
-        labelname.html("Name");
-        labelname.attr('for', 'Partners['+ (partquetity) +'][Name]');
+    divimage.append(labelimage);
+    divimage.append(inputimage);
 
-        var inputname    = $("<input>");
+    var fieldset = $("<fieldset></fieldset>");
+    fieldset.attr("id","fieldset_" + partquetity);
 
-        inputname.attr('type', 'text');
-        inputname.attr('name', 'Partners['+ (partquetity) +'][Name]');
-        divname.append(labelname);
-        divname.append(inputname);
+    var divname = $("<div></div>");
+    divname.attr('class', 'form-group');
 
+    var labelname    = $("<label></label>");
+    labelname.html("Name");
+    labelname.attr('for', 'Partners['+ (partquetity) +'][Name]');
 
-        var divcharge = $("<div></div>");
-        divcharge.attr('class', 'form-group');
+    var inputname    = $("<input>");
 
-        var labelcharge    = $("<label></label>");
-        labelcharge.html("Charge");
-        labelcharge.attr('for', 'Partners['+ (partquetity) +'][Charge]');
-
-        var inputcharge    = $("<input>");
-
-        inputcharge.attr('type', 'text');
-        inputcharge.attr('name', 'Partners['+ (partquetity) +'][Charge]');
-        divcharge.append(labelcharge);
-        divcharge.append(inputcharge);
+    inputname.attr('type', 'text');
+    inputname.attr('name', 'Partners['+ (partquetity) +'][Name]');
+    divname.append(labelname);
+    divname.append(inputname);
 
 
-        var inputremove = $("<input>");
-        inputremove.attr("class", "btn btn-primary");
-        inputremove.attr("onclick", "remove('fieldset_"+ partquetity + "');");
-        inputremove.val("remove partner");
+    var divcharge = $("<div></div>");
+    divcharge.attr('class', 'form-group');
+
+    var labelcharge    = $("<label></label>");
+    labelcharge.html("Charge");
+    labelcharge.attr('for', 'Partners['+ (partquetity) +'][Charge]');
+
+    var inputcharge    = $("<input>");
+
+    inputcharge.attr('type', 'text');
+    inputcharge.attr('name', 'Partners['+ (partquetity) +'][Charge]');
+    divcharge.append(labelcharge);
+    divcharge.append(inputcharge);
 
 
-        fieldset.append(divimage);
-        fieldset.append(divname);
-        fieldset.append(divcharge);
-        fieldset.append(inputremove);
+    var inputremove = $("<input>");
+    inputremove.attr("class", "btn btn-primary");
+    inputremove.attr("onclick", "remove('fieldset_"+ partquetity + "');");
+    inputremove.val("remove partner");
 
-        $("#IdSaveProperties").before(fieldset);
+
+    fieldset.append(divimage);
+    fieldset.append(divname);
+    fieldset.append(divcharge);
+    fieldset.append(inputremove);
+
+    $("#IdSaveProperties").before(fieldset);
     }); 
 
     function browseServer(input){
-        CKFinder.modal( {
-			chooseFiles: true,
-			width: 800,
-			height: 600,
-			onInit: function( finder ) {
-				finder.on( 'files:choose', function( evt ) {
-					var file        = evt.data.files.first();
-					var output      = input;
-                    output.value    = file.getUrl();
-				} );
-			}
-		} );
+    CKFinder.modal( {
+        chooseFiles: true,
+        width: 800,
+        height: 600,
+        onInit: function( finder ) {
+            finder.on( 'files:choose', function( evt ) {
+                var file        = evt.data.files.first();
+                var output      = input;
+                output.value    = file.getUrl();
+            } );
+        }
+    } );
     }
 
     function remove(item){
-        partquetity--;
-        $('#'+item).remove();
+    partquetity--;
+    $('#'+item).remove();
     }
+
+});
+
+
+    
 
 </script>

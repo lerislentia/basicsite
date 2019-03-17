@@ -16,12 +16,19 @@
 
             <!-- slides -->
             <div class="carousel-inner">
-              <div class="item active">
+            @isset($Services)
+            @foreach($Services as $key => $Service)
+                
+                @if($key == 1)
+                <div class="item active">
+                @else
+                <div class="item">
+                @endif
                 <div class="row">
                   <div class="col-sm-12 col-md-offset-1 col-md-6">
                     <div class="wow bounceInLeft">
-                      <h4>{{ $BounceInLefOneTitle or '' }}</h4>
-                      <p>{!! $BounceInLefOneParagraph or 'BounceInLefOneParagraph' !!}</p>
+                      <h4>{{ $Service['BounceInLefOneTitle'] or 'BounceInLefOneTitleless' }}</h4>
+                      <p>{!! $Service['BounceInLefOneParagraph'] or 'BounceInLefOneParagraphless' !!}</p>
                     </div>
                   </div>
                   <div class="col-sm-12 col-md-5">
@@ -31,43 +38,20 @@
                   </div>
                 </div>
               </div>
-              <div class="item">
-                <div class="row">
-                  <div class="col-sm-12 col-md-offset-1 col-md-6">
-                    <div class="wow bounceInLeft">
-                      <h4>{{ $BounceInLefTwoTitle or 'BounceInLefTwoTitle' }}</h4>
-                      <p>{!! $BounceInLefTwoParagraph or 'BounceInLefTwoParagraph' !!}</p>
-                    </div>
-                  </div>
-                  <div class="col-sm-12 col-md-5">
-                    <div class="screenshot wow bounceInRight">
-                      <img src="{{ $imageTwo or '' }}" class="img-responsive" alt="" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="row">
-                  <div class="col-sm-12 col-md-offset-1 col-md-6">
-                    <div class="wow bounceInLeft">
-                      <h4>{{ $BounceInLefTreeTitle or 'BounceInLefTreeTitle' }}</h4>
-                      <p>{!! $BounceInLefTreeParagraph or 'BounceInLefTreeParagraph' !!}</p>
-                    </div>
-                  </div>
-                  <div class="col-sm-12 col-md-5">
-                    <div class="screenshot wow bounceInRight">
-                      <img src="{{ $imageTree or '' }}" class="img-responsive" alt="" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            @endforeach
+            @endisset
 
             <!-- Indicators -->
             <ol class="carousel-indicators">
-              <li data-target="#carousel-service" data-slide-to="0" class="active"></li>
-              <li data-target="#carousel-service" data-slide-to="1"></li>
-              <li data-target="#carousel-service" data-slide-to="2"></li>
+              @isset($Services)
+              @foreach($Services as $key => $Service)
+              @if($key == 1)
+              <li data-target="#carousel-service" data-slide-to="{{$key-1}}" class="active"></li>
+                @else
+                <li data-target="#carousel-service" data-slide-to="{{$key-1}}"></li>
+                @endif
+              @endforeach
+              @endisset
             </ol>
           </div>
         </div>

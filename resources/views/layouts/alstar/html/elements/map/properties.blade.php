@@ -29,66 +29,23 @@ if(isset($entity['data'])){
 @endphp
 
 $(document).ready(function () {
-
     
-    var type        = "{{$element['type_id']}}";
-    var data        = "{{$data}}";
-
-    if(data==1){
-        LoadPreview(type, entityid);
-    }
-
-    $("#IdImage").change(function() {
-        
-        LoadPreview(type);
-    });
-
-    $("#IdHeader").change(function() {
-        
-        LoadPreview(type);
-    });
-
-    $("#IdParagraph").change(function() {
-        
-        LoadPreview(type);
-    });
-
-    $("#IdActionHref").change(function() {
-        LoadPreview(type);
-    });
-    
-    $("#IdActionText").change(function() {
-        LoadPreview(type);
-    });
-
-});
-
-function LoadPreview(type, entityid = null){
-    $( "#preview" ).html("");
-    $( "#preview" ).load( 
-        "{{route('admin.type.preview.ajax')}}", 
-            { 
-                "type"                      : type , 
-                "entity_id"                 : entityid , 
-                "_token"                    : $('meta[name="csrf-token"]').attr('content'),
-            } 
-        );
-    }
-
-
     $("#IdSaveProperties").click(function(){
 
-        var data = $('#MyForm').serialize();
+    var data = $('#MyForm').serialize();
 
-        $.post("{{route('admin.type.properties.update.ajax')}}",
-        data,
-        function(data, status){
-            if(status=='success'){
-                alert("propiedades guardadas exitosamente");
-            }else{
-                alert('no se pudo guardar');                    
-            }
-        });
-    }); 
+    $.post("{{route('admin.type.properties.update.ajax')}}",
+    data,
+    function(data, status){
+        if(status=='success'){
+            alert("propiedades guardadas exitosamente");
+        }else{
+            alert('no se pudo guardar');                    
+        }
+    });
+    });
+
+
+});
 
 </script>
