@@ -51,12 +51,71 @@
           <div class="container-fluid">
             <div id="preview">
             </div>
-            <div id="properties">
-        </div>
+            <div class="tab">
+                @foreach($locales as $key => $local)
+                @if($local['id'] == $locale)
+                <button class="tablinks active" onclick="openTab(event, '{{$local['id']}}')">{{$local['description']}}</button>
+                @else
+                <button class="tablinks" onclick="openTab(event, '{{$local['id']}}')">{{$local['description']}}</button>
+                @endif
+                @endforeach
+
+                @foreach($locales as $key => $local)
+                @if($local['id'] == $locale)
+                <div id="{{$local['id']}}" class="tabcontent" style="display: block;">
+                    <div id="properties"></div>
+                @else
+                    <div id="{{$local['id']}}" class="tabcontent" style="display: none;">
+                @endif
+                </div>                
+                @endforeach
+            </div>
           </div>
     </div>
           
-    
+    <script>
+
+
+        function openTab(evt, key) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display     = "none";
+                tabcontent[i].innerHTML    = "";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(key).style.display = "block";
+            var tab         = document.getElementById(key);
+            var node        = document.createElement("div");
+            var new_attr    = document.createAttribute("id");
+            new_attr.value  = "properties"; 
+            node.setAttributeNode(new_attr); 
+            tab.appendChild(node);
+            evt.currentTarget.className += " active";
+            LoadProperties(key);
+            Loadpreview(key);
+        }
+
+        function browseServer(input){
+        CKFinder.modal( {
+			chooseFiles: true,
+			width: 800,
+			height: 600,
+			onInit: function( finder ) {
+				finder.on( 'files:choose', function( evt ) {
+					var file        = evt.data.files.first();
+					var output      = input;
+                    output.value    = file.getUrl();
+				} );
+			}
+		} );
+    }
+
+    </script>
+
     <link rel="stylesheet" href="{{ asset('jquery-ui-1.12.1.custom/jquery-ui.min.css') }}">
 
     <script src="{{ mix('js/jquery.js') }}"></script>

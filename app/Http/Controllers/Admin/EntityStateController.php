@@ -31,9 +31,11 @@ class EntityStateController extends Controller
     {
         $entitystates   = $this->entitystateservice->index();
         $locale         = Session::get('locale');
+        $locales    = $this->localeservice->index();
         $data = [
             'entitystates'  => $entitystates->toArray(),
             'locale'        => $locale,
+            'locales'   => $locales->toArray()
             ];
         return view('admin.entitystates.index', $data);
     }

@@ -14,8 +14,7 @@
                 <label for="image">
                     image fadeinup
                 </label>
-                <input id="IdImage" type="text" name="image" class="form-control" value="{{ isset($element['array_data'][$locale]['image']) ? $element['array_data'][$locale]['image'] : old('image') }}">
-                <div id="ckfinder-modal" class="btn btn-primary">Browse Server</div>
+                <input id="IdImage" type="text" name="image" class="form-control" onclick="browseServer(this);"  value="{{ isset($element['array_data'][$locale]['image']) ? $element['array_data'][$locale]['image'] : old('image') }}">
             </div>
 
             <div class="form-group">
@@ -42,7 +41,7 @@
 
         <input type="hidden" name="locale" value="{{$locale}}">
         <input type="hidden" id="IdEntityId" name="entity_id" value="{{$element['id']}}">
-        <input id="IdSaveProperties" type="button" value="save">
+        <input id="IdSaveProperties" type="button" class="btn btn-primary" value="{{ __('back.save') }}">
 </form>
 
 <script type="text/javascript">
@@ -52,6 +51,7 @@ if(isset($entity['data'])){
     $data = 1;
 }
 @endphp
+
 $(document).ready(function () {
 
     var type = "{{$element['type_id']}}";
@@ -61,32 +61,7 @@ $(document).ready(function () {
         LoadPreview(type, entityid);
     }
 
-    $("#IdImage").change(function() {
-        
-        LoadPreview(type);
-    });
-
-    $("#IdHeader").change(function() {
-        
-        LoadPreview(type);
-    });
-
-    $("#IdParagraph").change(function() {
-        
-        LoadPreview(type);
-    });
-
-    $("#IdActionHref").change(function() {
-        LoadPreview(type);
-    });
-    
-    $("#IdActionText").change(function() {
-        LoadPreview(type);
-    });
-
-});
-
-function LoadPreview(type, entityid = null){
+    function LoadPreview(type, entityid = null){
     $( "#preview" ).html("");
     $( "#preview" ).load( 
         "{{route('admin.type.preview.ajax')}}", 
@@ -106,16 +81,13 @@ function LoadPreview(type, entityid = null){
 
     $("#IdSaveProperties").click(function(){
 
-        $.post("{{route('admin.type.properties.update.ajax')}}",
-        {
-            "_token"        : $('meta[name="csrf-token"]').attr('content'),
-            "entity_id"     : $('#IdEntityId').val(),
-            "image"         : $('#IdImage').val(),
-            "HeadingLine"    : $('#IdHeadingLine').val(),
-            "MainTitle"      : $('#IdMainTitle').val(),
-            "SubTitle"      : $('#IdSubTitle').val(),
-            "Paragraph"      : $('#IdParagraph').val(),
-        },
+    for ( instance in CKEDITOR.instances )
+    CKEDITOR.instances[instance].updateElement();
+
+    var data = $('#MyForm').serialize();
+
+    $.post("{{route('admin.type.properties.update.ajax')}}",
+        data,
         function(data, status){
             if(status=='success'){
                 alert("propiedades guardadas exitosamente");
@@ -127,21 +99,6 @@ function LoadPreview(type, entityid = null){
 
     CKEDITOR.replace( 'Paragraph' );
 
-    var button = document.getElementById( 'ckfinder-modal' );
-
-	button.onclick = function() {
-		CKFinder.modal( {
-			chooseFiles: true,
-			width: 800,
-			height: 600,
-			onInit: function( finder ) {
-				finder.on( 'files:choose', function( evt ) {
-					var file        = evt.data.files.first();
-					var output      = document.getElementById( 'IdImage' );
-                    output.value    = file.getUrl();
-				} );
-			}
-		} );
-    };
+});
 
 </script>

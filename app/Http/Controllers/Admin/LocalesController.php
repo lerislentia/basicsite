@@ -31,6 +31,7 @@ class LocalesController extends Controller
     public function edit(Request $request, $id)
     {
         $locale    = $this->localeservice->show($id);
+        $locales    = $this->localeservice->index();
 
         if ($request->isMethod('post')) {
             $params     = $request->All();
@@ -40,6 +41,7 @@ class LocalesController extends Controller
 
         $data = [
             'locale'   => $locale->toArray(),
+            'locales'   => $locales->toArray()
             ];
         return view('admin.locales.forms.edit', $data);
     }

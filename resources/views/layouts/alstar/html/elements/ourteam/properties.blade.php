@@ -40,7 +40,7 @@
                     <input type="text" name="Partners[{{$key}}][Charge]" class="form-control" value="{{ isset($Partner['Charge']) ? $Partner['Charge'] : old('Charge') }}">
                 </div>
 
-                <input type="button" value="remove partner" class="btn btn-primary" onclick="remove('fieldset_{{$key}}');">
+                <input type="button" value="remove partner" class="btn btn-primary" onclick="$('#fieldset_{{$key}}').remove();">
 
             </fieldset>
             @endforeach
@@ -75,14 +75,14 @@ $(document).ready(function () {
     var data = $('#MyForm').serialize();
 
     $.post("{{route('admin.type.properties.update.ajax')}}",
-    data,
-    function(data, status){
-        if(status=='success'){
-            alert("propiedades guardadas exitosamente");
-        }else{
-            alert('no se pudo guardar');                    
-        }
-    });
+        data,
+        function(data, status){
+            if(status=='success'){
+                alert("propiedades guardadas exitosamente");
+            }else{
+                alert('no se pudo guardar');                    
+            }
+        });
     }); 
 
     $("#IdAddPartner").click(function(){
@@ -104,6 +104,7 @@ $(document).ready(function () {
     inputimage.attr('type', 'text');
     inputimage.attr('name', 'Partners[' + (partquetity) + ']LargeImage');
     inputimage.attr('onclick', 'browseServer(this);');
+    inputimage.attr('class', 'form-control');
 
     divimage.append(labelimage);
     divimage.append(inputimage);
@@ -122,9 +123,9 @@ $(document).ready(function () {
 
     inputname.attr('type', 'text');
     inputname.attr('name', 'Partners['+ (partquetity) +'][Name]');
+    inputname.attr('class', 'form-control');
     divname.append(labelname);
     divname.append(inputname);
-
 
     var divcharge = $("<div></div>");
     divcharge.attr('class', 'form-group');
@@ -137,15 +138,14 @@ $(document).ready(function () {
 
     inputcharge.attr('type', 'text');
     inputcharge.attr('name', 'Partners['+ (partquetity) +'][Charge]');
+    inputcharge.attr('class', 'form-control');
     divcharge.append(labelcharge);
     divcharge.append(inputcharge);
 
-
     var inputremove = $("<input>");
     inputremove.attr("class", "btn btn-primary");
-    inputremove.attr("onclick", "remove('fieldset_"+ partquetity + "');");
+    inputremove.attr("onclick", "$('#fieldset_"+ partquetity + "').remove();");
     inputremove.val("remove partner");
-
 
     fieldset.append(divimage);
     fieldset.append(divname);
@@ -154,26 +154,6 @@ $(document).ready(function () {
 
     $("#IdSaveProperties").before(fieldset);
     }); 
-
-    function browseServer(input){
-    CKFinder.modal( {
-        chooseFiles: true,
-        width: 800,
-        height: 600,
-        onInit: function( finder ) {
-            finder.on( 'files:choose', function( evt ) {
-                var file        = evt.data.files.first();
-                var output      = input;
-                output.value    = file.getUrl();
-            } );
-        }
-    } );
-    }
-
-    function remove(item){
-    partquetity--;
-    $('#'+item).remove();
-    }
 
 });
 

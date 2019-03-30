@@ -76,7 +76,7 @@
         <input type="text" name="order" class="form-control" value="{{ isset($currentsection['order']) ? $currentsection['order'] : old('order') }}">
     </div>
 
-    <input type="hidden" name="locale" value="{{$locale}}">
+    <input type="hidden" id="IdLocale" name="locale" value="{{$locale}}">
     <input type="hidden" id="IdEntity" value="{{$currentsection['id']}}">
     {{ csrf_field() }}
     <input class="btn" type="submit" value="{{ __('back.save') }}">
@@ -103,7 +103,6 @@ $(document).ready(function () {
     $("#IdType").change(function() {
         LoadAll();
     });
-});
 
 function LoadAll(){
 
@@ -112,47 +111,53 @@ function LoadAll(){
     
 }
 
-function Loadpreview(){
 
-    var type    = $("#IdType").val();
-    var entity  = $("#IdEntity").val();
+});
 
-    if(type==''){
-        return false;
+
+function Loadpreview (locale = null){
+
+var type    = $("#IdType").val();
+var entity  = $("#IdEntity").val();
+
+if(type==''){
+    return false;
+}
+
+$( "#preview" ).html("");
+
+$( "#preview" ).load(
+            "{{route('admin.type.preview.ajax')}}",
+            {
+            "type"      : type ,
+            "entity_id" : entity ,
+            "locale"    : locale ,
+            "_token"    : $('meta[name="csrf-token"]').attr('content')
+            }
+        );
+}
+
+function LoadProperties(locale = null){
+
+var type    = $("#IdType").val();
+var entity  = $("#IdEntity").val();
+
+if(type==null || entity==null){
+    return false;
+}
+
+$( "#properties" ).html("");
+
+$( "#properties" ).load(
+    "{{route('admin.type.properties.ajax')}}",
+    {
+    "type"      : type ,
+    "entity_id" : entity ,
+    "locale"    : locale ,
+    "_token"    : $('meta[name="csrf-token"]').attr('content'),
+    "entity_id" : entity,
     }
-
-    $( "#preview" ).html("");
-
-    $( "#preview" ).load(
-                "{{route('admin.type.preview.ajax')}}",
-                {
-                "type"      : type ,
-                "entity_id" : entity ,
-                "_token"    : $('meta[name="csrf-token"]').attr('content')
-                }
-            );
-    }
-
-function LoadProperties(){
-
-    var type    = $("#IdType").val();
-    var entity  = $("#IdEntity").val();
-
-    if(type==null || entity==null){
-        return false;
-    }
-
-    $( "#properties" ).html("");
-
-    $( "#properties" ).load(
-        "{{route('admin.type.properties.ajax')}}",
-        {
-        "type"      : type ,
-        "entity_id" : entity ,
-        "_token"    : $('meta[name="csrf-token"]').attr('content'),
-        "entity_id" : entity,
-        }
-    );
+);
 }
 
 </script>

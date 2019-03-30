@@ -33,7 +33,7 @@
                   </div>
                   <div class="col-sm-12 col-md-5">
                     <div class="screenshot wow bounceInRight">
-                      <img src="{{ $image or '' }}" class="img-responsive" alt="" />
+                      <img src="{{ $Service['LargeImage'] or '' }}" class="img-responsive" alt="" />
                     </div>
                   </div>
                 </div>

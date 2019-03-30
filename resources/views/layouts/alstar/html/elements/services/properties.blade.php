@@ -41,7 +41,7 @@
             </div>
         </fieldset>
 
-        <input type="button" value="remove Service" class="btn btn-primary" onclick="remove('fieldset_{{$key}}');">
+        <input type="button" value="remove Service" class="btn btn-primary" onclick="$('#fieldset_{{$key}}').remove();">
 
         <script type="text/javascript">
             CKEDITOR.replace( "Services[{{$key}}][BounceInLefOneParagraph]" );
@@ -153,7 +153,7 @@ $(document).ready(function () {
 
     var inputremove = $("<input>");
     inputremove.attr("class", "btn btn-primary");
-    inputremove.attr("onclick", "remove('fieldset_"+ servicequety + "');");
+    inputremove.attr("onclick", "$('#fieldset_"+ servicequety + "').remove();");
     inputremove.val("remove service");
 
 
@@ -166,26 +166,6 @@ $(document).ready(function () {
 
     CKEDITOR.replace( 'Services['+ (servicequety) +'][BounceInLefOneParagraph]' );
     });
-
-    function browseServer(input){
-    CKFinder.modal( {
-        chooseFiles: true,
-        width: 800,
-        height: 600,
-        onInit: function( finder ) {
-            finder.on( 'files:choose', function( evt ) {
-                var file        = evt.data.files.first();
-                var output      = input;
-                output.value    = file.getUrl();
-            } );
-        }
-    } );
-    }
-
-    function remove(item){
-    servicequety--;
-    $('#'+item).remove();
-    }
 
 });
 

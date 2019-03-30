@@ -34,25 +34,25 @@
         <div class="col-md-12">
           <h5>{{ __('widget.weareinsocial') }}</h5>
           <ul class="social-network">
-            <li><a href="{{ $Facebook or 'facebookless' }}">
+            <li><a href="{{ $Facebook or 'facebookless' }}" target="_blank">
                 <span class="fa-stack fa-2x">
                   <i class="fa fa-circle fa-stack-2x"></i>
                   <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
                 </span></a>
             </li>
-            <li><a href="{{ $Instagram or 'Instagramless' }}">
+            <li><a href="{{ $Instagram or 'Instagramless' }}" target="_blank">
                 <span class="fa-stack fa-2x">
                   <i class="fa fa-circle fa-stack-2x"></i>
                   <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
                 </span></a>
             </li>
-            <li><a href="{{ $Twitter or 'twitterless' }}">
+            <li><a href="{{ $Twitter or 'twitterless' }}" target="_blank">
                 <span class="fa-stack fa-2x">
                   <i class="fa fa-circle fa-stack-2x"></i>
                   <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
                 </span></a>
             </li>
-            <li><a href="{{ $Pinterest or 'pinterestless' }}">
+            <li><a href="{{ $Pinterest or 'pinterestless' }}" target="_blank">
                 <span class="fa-stack fa-2x">
                   <i class="fa fa-circle fa-stack-2x"></i>
                   <i class="fa fa-pinterest fa-stack-1x fa-inverse"></i>

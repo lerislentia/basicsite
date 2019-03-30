@@ -87,6 +87,7 @@ class SectionsController extends Controller
             $section            = $this->sectionservice->show($id);
             $types              = $this->typeservice->index(self::ENTITY);
             $states             = $this->state->index(self::ENTITY);
+            $locales            = $this->localeservice->index();
             $locale             = Session::get('locale');
 
             if ($request->isMethod('post')) {
@@ -96,11 +97,12 @@ class SectionsController extends Controller
             }
 
             $data = [
-            'currentsection'       => $section->toArray(),
-            'sections'      => $sections->toArray(),
-            'types'         => $types->toArray(),
-            'states'        => $states->toArray(),
-            'locale'        => Session::get('locale')
+            'currentsection'    => $section->toArray(),
+            'sections'          => $sections->toArray(),
+            'types'             => $types->toArray(),
+            'states'            => $states->toArray(),
+            'locales'           => $locales->toArray(),
+            'locale'            => Session::get('locale')
         ];
 
             return view('admin.sections.forms.edit', $data);

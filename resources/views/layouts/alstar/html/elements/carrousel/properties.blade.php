@@ -28,7 +28,7 @@
                     <input id="IdFadeInUp" type="text" name="Slides[{{$key}}][FadeInUp]" class="form-control" value="{{ isset($Slide['FadeInUp']) ? $Slide['FadeInUp'] : old('FadeInUp') }}">
                 </div>
 
-                <input type="button" value="remove slide" class="btn btn-secondary" onclick="remove('fieldset_{{$key}}');">
+                <input type="button" value="remove slide" class="btn btn-secondary" onclick="$('#fieldset_{{$key}}').remove();">
 
             </fieldset>
             @endforeach
@@ -37,7 +37,7 @@
         <input type="hidden" name="locale" value="{{$locale}}">
         <input type="hidden" id="IdEntityId" name="entity_id" value="{{$element['id']}}">
         <input type="hidden" id="IdTypeId" name="type" value="{{$element['type_id']}}">
-        <input id="IdSaveProperties" type="button" class="btn btn-primary" value="{{ __('back.save') }}">
+        <input id="IdSaveProperties_{{$locale}}" type="button" class="btn btn-primary" value="{{ __('back.save') }}">
 </form>
 
 <script type="text/javascript">
@@ -58,7 +58,8 @@ var slidesquety = "{{$slidesquety}}";
 
 $(document).ready(function () {
 
-    $("#IdSaveProperties").click(function(){
+
+    $("#IdSaveProperties_{{$locale}}").click(function(){
 
         var data = $('#MyForm').serialize();
 
@@ -75,96 +76,77 @@ $(document).ready(function () {
 
     $("#IdAddSlide").click(function(){
 
-    slidesquety++;
+        slidesquety++;
 
-    var fieldset = $("<fieldset></fieldset>");
-    fieldset.attr("id","fieldset_" + slidesquety);
+        var fieldset = $("<fieldset></fieldset>");
+        fieldset.attr("id","fieldset_" + slidesquety);
 
-    var divimage      = $("<div></div>");
-    divimage.attr('class', 'form-group');
+        var divimage      = $("<div></div>");
+        divimage.attr('class', 'form-group');
 
-    var labelimage    = $("<label></label>");
-    labelimage.html("large image");
-    labelimage.attr('for', 'Slides[' + (slidesquety) + '][LargeImage]');
+        var labelimage    = $("<label></label>");
+        labelimage.html("large image");
+        labelimage.attr('for', 'Slides[' + (slidesquety) + '][LargeImage]');
 
-    var inputimage    = $("<input>");
+        var inputimage    = $("<input>");
 
-    inputimage.attr('type', 'text');
-    inputimage.attr('name', 'Slides[' + (slidesquety) + '][LargeImage]');
-    inputimage.attr('onclick', 'browseServer(this);');
-    inputimage.attr('class', 'form-control');
+        inputimage.attr('type', 'text');
+        inputimage.attr('name', 'Slides[' + (slidesquety) + '][LargeImage]');
+        inputimage.attr('onclick', 'browseServer(this);');
+        inputimage.attr('class', 'form-control');
 
-    divimage.append(labelimage);
-    divimage.append(inputimage);
+        divimage.append(labelimage);
+        divimage.append(inputimage);
 
-    var fieldset = $("<fieldset></fieldset>");
-    fieldset.attr("id","fieldset_" + slidesquety);
+        var fieldset = $("<fieldset></fieldset>");
+        fieldset.attr("id","fieldset_" + slidesquety);
 
-    var divname = $("<div></div>");
-    divname.attr('class', 'form-group');
+        var divname = $("<div></div>");
+        divname.attr('class', 'form-group');
 
-    var labelname    = $("<label></label>");
-    labelname.html("fadeInDown");
-    labelname.attr('for', 'Slides['+ (slidesquety) +'][FadeInDown]');
+        var labelname    = $("<label></label>");
+        labelname.html("fadeInDown");
+        labelname.attr('for', 'Slides['+ (slidesquety) +'][FadeInDown]');
 
-    var inputname    = $("<input>");
+        var inputname    = $("<input>");
 
-    inputname.attr('type', 'text');
-    inputname.attr('name', 'Slides['+ (slidesquety) +'][FadeInDown]');
-    inputname.attr('class', 'form-control');
-    divname.append(labelname);
-    divname.append(inputname);
-
-
-    var divcharge = $("<div></div>");
-    divcharge.attr('class', 'form-group');
-
-    var labelcharge    = $("<label></label>");
-    labelcharge.html("fadeInUp");
-    labelcharge.attr('for', 'Slides['+ (slidesquety) +'][FadeInUp]');
-
-    var inputcharge    = $("<input>");
-
-    inputcharge.attr('type', 'text');
-    inputcharge.attr('name', 'Slides['+ (slidesquety) +'][FadeInUp]');
-    inputcharge.attr('class', 'form-control');
-    divcharge.append(labelcharge);
-    divcharge.append(inputcharge);
+        inputname.attr('type', 'text');
+        inputname.attr('name', 'Slides['+ (slidesquety) +'][FadeInDown]');
+        inputname.attr('class', 'form-control');
+        divname.append(labelname);
+        divname.append(inputname);
 
 
-    var inputremove = $("<input>");
-    inputremove.attr("class", "btn btn-secondary");
-    inputremove.attr("onclick", "remove('fieldset_"+ slidesquety + "');");
-    inputremove.val("remove partner");
+        var divcharge = $("<div></div>");
+        divcharge.attr('class', 'form-group');
+
+        var labelcharge    = $("<label></label>");
+        labelcharge.html("fadeInUp");
+        labelcharge.attr('for', 'Slides['+ (slidesquety) +'][FadeInUp]');
+
+        var inputcharge    = $("<input>");
+
+        inputcharge.attr('type', 'text');
+        inputcharge.attr('name', 'Slides['+ (slidesquety) +'][FadeInUp]');
+        inputcharge.attr('class', 'form-control');
+        divcharge.append(labelcharge);
+        divcharge.append(inputcharge);
 
 
-    fieldset.append(divimage);
-    fieldset.append(divname);
-    fieldset.append(divcharge);
-    fieldset.append(inputremove);
+        var inputremove = $("<input>");
+        inputremove.attr("class", "btn btn-secondary");
+        inputremove.attr("onclick", "$('#fieldset_"+ slidesquety + "').remove();");
+        inputremove.val("remove partner");
 
-    $("#IdSaveProperties").before(fieldset);
-}); 
-    
-    function browseServer(input){
-        CKFinder.modal( {
-			chooseFiles: true,
-			width: 800,
-			height: 600,
-			onInit: function( finder ) {
-				finder.on( 'files:choose', function( evt ) {
-					var file        = evt.data.files.first();
-					var output      = input;
-                    output.value    = file.getUrl();
-				} );
-			}
-		} );
-    }
 
-    function remove(item){
-        slidesquety--;
-        $('#'+item).remove();
-    }
+        fieldset.append(divimage);
+        fieldset.append(divname);
+        fieldset.append(divcharge);
+        fieldset.append(inputremove);
 
+        $("#IdSaveProperties_{{$locale}}").before(fieldset);
+    }); 
+
+});
 
 </script>

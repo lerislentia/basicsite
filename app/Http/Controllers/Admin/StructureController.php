@@ -25,10 +25,10 @@ class StructureController extends Controller
         SectionService $elementsservice,
         LocaleService $localeservice
         ) {
-        $this->structureservice = $structureservice;
-        $this->typeservice      = $typeservice;
+        $this->structureservice     = $structureservice;
+        $this->typeservice          = $typeservice;
         $this->elementsservice      = $elementsservice;
-        $this->localeservice      = $localeservice;
+        $this->localeservice        = $localeservice;
     }
 
     /**
@@ -88,7 +88,8 @@ class StructureController extends Controller
     {
         $params     = $request->All();
 
-        $locale     = Session::get('locale');
+        $locale = isset($params['locale']) ? $params['locale'] : Session::get('locale');
+        // $locale     = Session::get('locale');
 
         // $locale     = $this->localeservice->index();
 
@@ -110,7 +111,7 @@ class StructureController extends Controller
 
         $data = [
             'element'       => $entity->toArray(),
-            'locale'        => Session::get('locale')
+            'locale'        => $locale
         ];
 
         $html       = $this->structureservice->getHtmlProperties($definition, $data);
@@ -129,9 +130,7 @@ class StructureController extends Controller
     {
         $params     = $request->All();
 
-        if (!$locale) {
-            $locale             = Session::get('locale');
-        }
+        $locale     = isset($params['locale']) ? $params['locale'] : Session::get('locale');
 
         $entity            = $this->elementsservice->show($params['entity_id']);
 
@@ -144,8 +143,13 @@ class StructureController extends Controller
         $propertieparams=[];
         $propertieparams[$locale] = $params;
 
+        $entitydata             = $entity->array_data;
+        $entitydata[$locale]    = $params;
+        // $propertieparams = array_merge($propertieparams, $entity->array_data);
+        // $aentity = $entity->array_data;
+
         if ($request->isMethod('post')) {
-            $update     = $this->elementsservice->updateProperties($entity->id, $propertieparams);
+            $update     = $this->elementsservice->updateProperties($entity->id, $entitydata);
             if ($update) {
                 return response("ok", 200);
             }

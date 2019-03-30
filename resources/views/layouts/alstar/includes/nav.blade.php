@@ -18,7 +18,7 @@
           <li class="current"><a href="#intro">{{ __('nav.home') }}</a></li>
           <li><a href="#about">{{ __('nav.about') }}</a></li>
           <li><a href="#services">{{ __('nav.service') }}</a></li>
-          <li><a href="#portfolio">{{ __('nav.works') }}</a></li>
+          <!-- <li><a href="#portfolio">{{ __('nav.works') }}</a></li> -->
           <li><a href="#team">{{ __('nav.team') }}</a></li>
           <li><a href="#contact">{{ __('nav.contact') }}</a></li>
           <li>

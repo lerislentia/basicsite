@@ -49,7 +49,7 @@
                     </textarea>
                 </div>
 
-                <input type="button" value="remove work" class="btn btn-primary" onclick="remove('fieldset_{{$key}}');">
+                <input type="button" value="remove work" class="btn btn-primary" onclick="$('#fieldset_{{$key}}').remove();">
             </fieldset>
             <script type="text/javascript">
                 CKEDITOR.replace( "works[{{$key}}][Description]" );
@@ -167,7 +167,7 @@ $(document).ready(function () {
 
         var inputremove = $("<input>");
         inputremove.attr("class", "btn btn-primary");
-        inputremove.attr("onclick", "remove('fieldset_"+ workquetity + "');");
+        inputremove.attr("onclick", "$('#fieldset_"+ workquetity + "').remove();");
         inputremove.val("remove work");
 
         fieldset.append(divimage);
@@ -180,21 +180,6 @@ $(document).ready(function () {
         CKEDITOR.replace( 'works['+ (workquetity) +'][Description]' );
 
     }); 
-
-    function browseServer(input){
-        CKFinder.modal( {
-			chooseFiles: true,
-			width: 800,
-			height: 600,
-			onInit: function( finder ) {
-				finder.on( 'files:choose', function( evt ) {
-					var file        = evt.data.files.first();
-					var output      = input;
-                    output.value    = file.getUrl();
-				} );
-			}
-		} );
-    }
 
     function remove(item){
         workquetity--;

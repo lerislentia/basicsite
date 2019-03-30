@@ -31,9 +31,11 @@ class EntityTypeController extends Controller
     {
         $entitytypes   = $this->entitytypeservice->index();
         $locale         = Session::get('locale');
+        $locales    = $this->localeservice->index();
         $data = [
             'entitytypes'  => $entitytypes->toArray(),
             'locale'        => $locale,
+            'locales'   => $locales->toArray()
             ];
         return view('admin.entitytypes.index', $data);
     }

@@ -48,6 +48,7 @@ class PageController extends Controller
         try {
             $states       = $this->stateservice->index(self::ENTITY);
             $locale             = Session::get('locale');
+            $locales    = $this->localeservice->index();
 
             if ($request->isMethod('post')) {
                 $params         = $request->All();
@@ -60,7 +61,8 @@ class PageController extends Controller
             $data = [
                 'page'          => null,
                 'states'        => $states->toArray(),
-                'locale'        => Session::get('locale')
+                'locale'        => Session::get('locale'),
+                'locales'       => $locales->toArray()
             ];
 
             return view('admin.pages.forms.new', $data);
@@ -77,6 +79,7 @@ class PageController extends Controller
 
             $stateservices             = $this->stateservice->index(self::ENTITY);
             $locale             = Session::get('locale');
+            $locales    = $this->localeservice->index();
 
             if ($request->isMethod('post')) {
                 $params         = $request->All();
@@ -87,7 +90,8 @@ class PageController extends Controller
             'currentpage'   => $page->toArray(),
             // 'sections'      => $sections->toArray(),
             'states'        => $stateservices->toArray(),
-            'locale'        => Session::get('locale')
+            'locale'        => Session::get('locale'),
+            'locales'       => $locales->toArray()
         ];
 
             return view('admin.pages.forms.edit', $data);
