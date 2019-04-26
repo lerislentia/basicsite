@@ -13,6 +13,7 @@ use App\Models\Section;
 use Session;
 use Redirect;
 use DB;
+use App;
 
 class SectionsController extends Controller
 {
@@ -57,6 +58,7 @@ class SectionsController extends Controller
             $types              = $this->typeservice->index(self::ENTITY);
             $states             = $this->state->index(self::ENTITY);
             $locale             = Session::get('locale');
+            $locales            = $this->localeservice->index();
 
             if ($request->isMethod('post')) {
                 $params         = $request->All();
@@ -71,7 +73,8 @@ class SectionsController extends Controller
                 'sections'      => $sections->toArray(),
                 'types'         => $types->toArray(),
                 'states'        => $states->toArray(),
-                'locale'        => Session::get('locale')
+                'locale'        => Session::get('locale'),
+                'locales'       => $locales->toArray()
             ];
 
             return view('admin.sections.forms.new', $data);
@@ -88,7 +91,8 @@ class SectionsController extends Controller
             $types              = $this->typeservice->index(self::ENTITY);
             $states             = $this->state->index(self::ENTITY);
             $locales            = $this->localeservice->index();
-            $locale             = Session::get('locale');
+            // $locale             = Session::get('locale');
+            $locale             = App::getLocale();
 
             if ($request->isMethod('post')) {
                 $params         = $request->All();
@@ -102,7 +106,7 @@ class SectionsController extends Controller
             'types'             => $types->toArray(),
             'states'            => $states->toArray(),
             'locales'           => $locales->toArray(),
-            'locale'            => Session::get('locale')
+            'locale'            => $locale
         ];
 
             return view('admin.sections.forms.edit', $data);

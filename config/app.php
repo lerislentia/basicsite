@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'https://basicsite'),
 
     /*
     |--------------------------------------------------------------------------
@@ -237,7 +237,9 @@ return [
 
     'default' => [
         'DB_STATE_ACTIVE'   => env('DB_STATE_ACTIVE', 'ACTIVE'),
-        'CONTENT_CACHE'     => (int)env('CONTENT_CACHE', 0)
+        'CONTENT_CACHE'     => (int)env('CONTENT_CACHE', 0),
+        'GENERATE_HTML'     => (int)env('GENERATE_HTML', 0),
+        'GENERATE_BASEURL'  => (string)env('GENERATE_BASEURL', 'APP_URL'),
     ]
 
 ];

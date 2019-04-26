@@ -69,6 +69,7 @@ $config['backends'][] = array(
     'adapter'      => 'local',
     'baseUrl'      => (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http') . '://' .  $_SERVER['SERVER_NAME'] . '/',
     // 'baseUrl'      => $_SERVER["DOCUMENT_ROOT"],
+    // 'baseUrl'      => '/',
 //  'root'         => '', // Can be used to explicitly set the CKFinder user files directory.
     'chmodFiles'   => 0777,
     'chmodFolders' => 0755,

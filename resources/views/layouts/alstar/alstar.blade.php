@@ -1,13 +1,13 @@
-<html>
+<html lang="{{ app()->getLocale() }}">
 
 <head>
-    <title>basicsite</title>
+    <title>{{ config('app.default.GENERATE_BASEURL', 'Laravel') }} | ({{ strtoupper(app()->getLocale()) }})</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
+    <link rel="stylesheet" href="{{ URL::asset('css/app.css') }}" />
 
-    <script src="{{ mix('js/jquery.js') }}"></script>
-    <script src="{{ mix('js/bootstrap.min.js') }}"></script>
+    <script src="{{ URL::asset('js/jquery.js') }}"></script>
+    <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
     @yield('headscripts')
 </head>
 
@@ -20,14 +20,14 @@
     <!-- Scripts -->
 
     
-    <script src="{{ mix('js/app.js') }}"></script>
-    <script src="{{ mix('js/wow.min.js') }}"></script>
-    <script src="{{ mix('js/jquery.scrollTo.min.js') }}"></script>
-    <script src="{{ mix('js/jquery.nav.js') }}"></script>
-    <script src="{{ mix('js/modernizr.custom.js') }}"></script>
-    <script src="{{ mix('js/grid.js') }}"></script>  
-    <script src="{{ mix('js/stellar.js') }}"></script>
-    <script src="{{ mix('js/custom.js') }}"></script>
+    <script src="{{ URL::asset('js/app.js') }}"></script>
+    <script src="{{ URL::asset('js/wow.min.js') }}"></script>
+    <script src="{{ URL::asset('js/jquery.scrollTo.min.js') }}"></script>
+    <script src="{{ URL::asset('js/jquery.nav.js') }}"></script>
+    <script src="{{ URL::asset('js/modernizr.custom.js') }}"></script>
+    <script src="{{ URL::asset('js/grid.js') }}"></script>  
+    <script src="{{ URL::asset('js/stellar.js') }}"></script>
+    <script src="{{ URL::asset('js/custom.js') }}"></script>
 
         @yield('scripts')
 

@@ -42,9 +42,6 @@
                 <li>
                     <a href="{!!route('admin.events')!!}">{{ __('back.events') }}</a>
                 </li>        
-                <li>
-                    <a href="{!!route('admin.properties')!!}">{{ __('back.properties') }}</a>
-                </li>
             </ul>
         </li>
         

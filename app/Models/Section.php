@@ -126,6 +126,13 @@ class Section extends BaseModel
         return $this->belongsTo(\App\Models\Section::class, self::FATHER);
     }
 
+    public function pages()
+	{
+		return $this->belongsToMany(\App\Models\Page::class)
+					->withPivot('id', 'order')
+					->withTimestamps();
+	}
+
     /**
      * custom relations
      * 

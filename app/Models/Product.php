@@ -28,7 +28,7 @@ use App\Models\BaseModel;
 class Product extends BaseModel
 {
     const NAME 			= 'name';
-    const DESCRIPTION 	= 'descipriton';
+    const DESCRIPTION 	= 'description';
     const URL 			= 'url';
 
     protected $table = 'product';
@@ -44,7 +44,7 @@ class Product extends BaseModel
         self::URL
     ];
     protected $appends = [
-        'locale_value'
+        'locale_value', 'name_value', 'description_value'
     ];
     public function text()
     {
@@ -58,17 +58,61 @@ class Product extends BaseModel
                     ->withTimestamps();
     }
 
-    public function galleries()
+    public function textDescription()
     {
-        return $this->belongsToMany(\App\Models\Gallery::class)
-                    ->withPivot('id')
-                    ->withTimestamps();
+        return $this->belongsTo(\App\Models\Text::class, 'description');
     }
 
-    public function properties()
+    public function textName()
     {
-        return $this->belongsToMany(\App\Models\Propertie::class, 'propertie_product')
-                    ->withPivot('value')
-                    ->withTimestamps();
+        return $this->belongsTo(\App\Models\Text::class, 'name');
     }
+
+
+    /**
+     * ACCESSORS
+     */
+
+    public function getNameValueAttribute()
+    {
+        if (!isset($this->attributes['name'])) {
+            return null;
+        }
+        $text 								= $this->textName()->first();
+
+        $translations 						= $text->translations()->get();
+
+        foreach ($translations as $translation) {
+            $trans[$translation->locale_id] = $translation->toArray();
+        }
+        return ['lang' => $trans];
+    }
+
+    public function getDescriptionValueAttribute()
+    {
+        if (!isset($this->attributes['description'])) {
+            return null;
+        }
+        $text 								= $this->textDescription()->first();
+
+        $translations 						= $text->translations()->get();
+        foreach ($translations as $translation) {
+            $trans[$translation->locale_id] = $translation->toArray();
+        }
+        return ['lang' => $trans];
+    }
+
+    // public function getStateAttribute()
+    // {
+    //     if (!isset($this->attributes['state_id'])) {
+    //         return null;
+    //     }
+    //     $text 								= $this->textState()->first();
+
+    //     $translations 						= $text->translations()->get();
+    //     foreach ($translations as $translation) {
+    //         $trans[$translation->locale_id] = $translation->toArray();
+    //     }
+    //     return ['lang' => $trans];
+    // }
 }

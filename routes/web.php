@@ -220,6 +220,42 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         'as'            => 'admin.products'
     ]);
 
+    Route::any('/products/new', [
+        'uses'          => 'Admin\ProductsController@new',
+        'roles'         => ['admin'],
+        'as'            => 'admin.products.new'
+    ]);
+
+    Route::any('/products/edit/{product}', [
+        'uses'          => 'Admin\ProductsController@edit',
+        'roles'         => ['admin'],
+        'as'            => 'admin.products.edit'
+    ]);
+
+    Route::post('/products/delete/{product}', [
+        'uses'          => 'Admin\ProductsController@delete',
+        'roles'         => ['admin'],
+        'as'            => 'admin.products.delete'
+    ]);
+
+    Route::any('/products/properties/edit/{section}/', [
+        'uses'          => 'Admin\ProductsController@editProperties',
+        'roles'         => ['admin'],
+        'as'            => 'admin.products.properties.edit'
+    ]);
+
+    Route::any('/products/preview', [
+        'uses'          => 'Admin\ProductsController@preview',
+        'roles'         => ['admin'],
+        'as'            => 'admin.products.preview.ajax'
+    ]);
+
+    Route::any('/products/properties', [
+        'uses'          => 'Admin\ProductsController@properties',
+        'roles'         => ['admin'],
+        'as'            => 'admin.products.properties.ajax'
+    ]);
+
     Route::get('/events', [
         'uses'          => 'Admin\EventsController@index',
         'roles'         => ['admin'],
@@ -356,9 +392,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
  */
 
 
-Route::post('/sendmessage', 'MessagesController@sendMessage')->name('contact.messages.send');
+Route::post('/sendmessage.php', 'MessagesController@sendMessage')->name('contact.messages.send');
 
-Route::get('/{pagename?}', 'IndexController@index')->name('home');
+Route::get('/{locale?}/{pagename?}', 'IndexController@index')->name('home');
 
 // Route::group(['middleware' => 'auth'], function () {
 //     Route::get('/laravel-filemanager', '\UniSharp\LaravelFilemanager\Controllers\LfmController@show');

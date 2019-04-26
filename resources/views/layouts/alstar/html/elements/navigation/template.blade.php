@@ -19,9 +19,10 @@
           <li><a href="#about">{{ __('nav.about') }}</a></li>
           <li><a href="#services">{{ __('nav.service') }}</a></li>
           <!-- <li><a href="#portfolio">{{ __('nav.works') }}</a></li> -->
-          <!-- <li><a href="#team">{{ __('nav.team') }}</a></li> -->
+          <li><a href="#team">{{ __('nav.team') }}</a></li>
           <li><a href="#contact">{{ __('nav.contact') }}</a></li>
           <li>
+            @isset($locales)
             @foreach($locales as $locale)
             <li>
               @if(app()->getLocale() != $locale['id'])
@@ -29,11 +30,12 @@
                   $loc = 'nav.'.$locale['description'];
                   $href = '/'.$locale['id'];
                 @endphp
-                <a href="{{URL::to('/')}}{{$href}}">{{ __($loc) }}</a>
+                <a href="{{$href}}">{{ __($loc) }}</a>
               @endif
               
             </li>
             @endforeach
+            @endisset
         </li>
         </ul>
       </div>

@@ -92,6 +92,10 @@
 
 @endsection
 
+@section('options')
+@include('admin.partials.locales')
+@endsection
+
 @section('scripts')
 
 <script type="text/javascript">
@@ -119,6 +123,10 @@ function Loadpreview (locale = null){
 
 var type    = $("#IdType").val();
 var entity  = $("#IdEntity").val();
+if(locale == null){
+    locale  = $("#IdLocale").val();
+}
+
 
 if(type==''){
     return false;

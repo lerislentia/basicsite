@@ -13,8 +13,8 @@
 
       <div class="row">
         <div class="col-md-offset-2 col-md-8">
-          <div id="sendmessage">{{ __('contact.sended') }}. {{ __('contact.thankyou') }}!</div>
-          <div id="errormessage">tu mensaje no pudo ser enviado por favor intenta mas tarde</div>
+          <div id="sendmessage" style="display:none">{{ __('contact.sended') }}. {{ __('contact.thankyou') }}!</div>
+          <div id="errormessage" style="display:none">>tu mensaje no pudo ser enviado por favor intenta mas tarde</div>
 
           <form id="ContactForm" action="{{ $action or ''}}" method="post" class="form-horizontal contactForm" role="form">
           {{ csrf_field() }}
@@ -44,7 +44,7 @@
 
             <div class="col-md-offset-2 col-md-8">
               <div class="form-group">
-                <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="{{ __('contact.Pleasewrite') }}"
+                <textarea class="form-control" name="message" id="message" rows="5" data-rule="required" data-msg="{{ __('contact.Pleasewrite') }}"
                   placeholder="{{ __('contact.Message') }}" required></textarea>
                 <div class="validation"></div>
               </div>
@@ -74,15 +74,23 @@ $(document).ready(function () {
 
     var data = $('#ContactForm').serialize();
 
-    $.post("{{ route('contact.messages.send') }}",
-    data,
-      function(data, status){
-          if(data.success==true){
-            $("#errormessage").hide();
-            $("#sendmessage").show().delay(3000).fadeOut();;
-          }else{
-            $("#errormessage").show().delay(3000).fadeOut();;
-            $("#sendmessage").hide();                 
+    $.ajax({
+          url: "{{ route('contact.messages.send') }}",
+          type: "POST",
+          data: data,
+          async: false,
+          success: function () {
+             $("#errormessage").hide();
+             $("#sendmessage").show().delay(3000).fadeOut();
+             $("#name").val('');
+             $("#email").val('');
+             $("#subject").val('');
+             $("#message").val('');
+          },
+          error: function () {
+              console.log("[ERROR] Method: sendmessage");
+              $("#errormessage").show().delay(3000).fadeOut();
+              $("#sendmessage").hide(); 
           }
       });
   }); 

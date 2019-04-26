@@ -18,6 +18,9 @@ use App\Models\Categorie;
 use Illuminate\Support\Facades\Cache;
 use Session;
 use Config;
+use Storage;
+use App;
+use Redirect;
 
 class IndexController extends Controller
 {
@@ -46,11 +49,11 @@ class IndexController extends Controller
         $this->structureservice = $structureservice;
         $this->layoutsservice   = $layoutsservice;
     }
-    public function index(Request $request, $pagename = null)
+    public function index(Request $request, $locale = null, $pagename = null)
     {
         try {
             if (!$pagename) {
-                $pagename = 'inicio';
+                $pagename = 'index';
             }
 
             $cacheon = Config::get('app.default.CONTENT_CACHE');
@@ -63,13 +66,21 @@ class IndexController extends Controller
             }
 
             $locales    = $this->localeservice->index();
-            $locale     = Session::get('locale');
+            if($locale){
+                // $locale     = Session::get('locale');
+                \App::setlocale($locale);
+                Session(['locale' => $locale]);
+            }else{
+                $locale = \App::getlocale();
+                return Redirect()->route('home', ['locale' => $locale, 'pagename' => $pagename]);
+            }
             $page       = $this->pageservice->getByName($pagename, $locale);
 
             if (!$page) {
                 return abort(404);
             }
             $pagesections       = $page->pagesections()->get();
+            $sections           = [];
             foreach ($pagesections as $pagesection) {
                 $sections[$pagesection->order] =  $pagesection->section()->first();
             }
@@ -86,11 +97,23 @@ class IndexController extends Controller
             'categories'        => $categories->toArray(),
             'elements'          => $htmlelements,
             'locales'           => $locales->toArray(),
+            'locale'            => $locale
         ];
 
             $view =  view("layouts/{$activelayout->name}/home", $data);
 
             $content = $view->render();
+
+            $generateon = Config::get('app.default.GENERATE_HTML');
+            $replaceurl = Config::get('app.default.GENERATE_BASEURL');
+            $baseurl = Config::get('app.url');
+            if($generateon){
+                $savecontent = str_replace($baseurl, $replaceurl, $content );
+                if($locale == App::getlocale()){
+                    Storage::put($pagename.".html", $savecontent);
+                }
+                Storage::put("{$locale}/".$pagename.".html", $savecontent);
+            }
 
             if ($cacheon) {
                 Cache::put($pagename, $content, 1);
