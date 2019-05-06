@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Services\LocaleService;
 use App\Services\StateService;
 use App\Services\PageService;
+use App\Services\SitesService;
 use Session;
 use Redirect;
 
@@ -16,15 +17,18 @@ class PageController extends Controller
 
     protected $localeservice;
     protected $pageservice;
+    protected $sitesservice;
 
     public function __construct(
         LocaleService $localeservice,
         StateService $stateservice,
-        PageService $pageservice
+        PageService $pageservice,
+        SitesService $sitesservice
             ) {
         $this->localeservice    = $localeservice;
         $this->stateservice      = $stateservice;
         $this->pageservice      = $pageservice;
+        $this->sitesservice      = $sitesservice;
     }
 
     public function index()
@@ -49,6 +53,7 @@ class PageController extends Controller
             $states       = $this->stateservice->index(self::ENTITY);
             $locale             = Session::get('locale');
             $locales    = $this->localeservice->index();
+            $sites    = $this->sitesservice->index();
 
             if ($request->isMethod('post')) {
                 $params         = $request->All();
@@ -61,6 +66,7 @@ class PageController extends Controller
             $data = [
                 'page'          => null,
                 'states'        => $states->toArray(),
+                'sites'        => $sites->toArray(),
                 'locale'        => Session::get('locale'),
                 'locales'       => $locales->toArray()
             ];
@@ -80,6 +86,7 @@ class PageController extends Controller
             $stateservices             = $this->stateservice->index(self::ENTITY);
             $locale             = Session::get('locale');
             $locales    = $this->localeservice->index();
+            $sites    = $this->sitesservice->index();
 
             if ($request->isMethod('post')) {
                 $params         = $request->All();
@@ -90,6 +97,7 @@ class PageController extends Controller
             'currentpage'   => $page->toArray(),
             // 'sections'      => $sections->toArray(),
             'states'        => $stateservices->toArray(),
+            'sites'        => $sites->toArray(),
             'locale'        => Session::get('locale'),
             'locales'       => $locales->toArray()
         ];

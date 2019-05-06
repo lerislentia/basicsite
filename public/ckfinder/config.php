@@ -54,7 +54,11 @@ $config['images'] = array(
     'maxHeight' => 1200,
     'quality'   => 80,
     'sizes' => array(
-        'customsmall'  => array('width' => 250, 'height' => 250, 'quality' => 80),
+        'nosotros_800x500'  => array('width' => 800, 'height' => 500, 'quality' => 80),
+        'servicios_757x525'  => array('width' => 757, 'height' => 525, 'quality' => 80),
+        'equipo_500x500'  => array('width' => 500, 'height' => 500, 'quality' => 80),
+        'trabajos_500x500'  => array('width' => 500, 'height' => 500, 'quality' => 80),
+        'mtrabajos_250x250'  => array('width' => 250, 'height' => 250, 'quality' => 80),
         'small'  => array('width' => 480, 'height' => 320, 'quality' => 80),
         'medium' => array('width' => 600, 'height' => 480, 'quality' => 80),
         'large'  => array('width' => 800, 'height' => 600, 'quality' => 80)

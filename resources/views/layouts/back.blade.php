@@ -102,6 +102,8 @@
     <script src="{{ mix('js/modernizr.custom.js') }}"></script>
     <script src="{{ mix('js/grid.js') }}"></script>  
     <script src="{{ mix('js/stellar.js') }}"></script>
+    <script src="{{ URL::asset('js/jquery.fancybox.js') }}"></script>
+    <script src="{{ URL::asset('js/jquery.fancybox.pack.js') }}"></script>
     <script src="{{ mix('js/custom.js') }}"></script>
 
     <!-- no mix, only for back -->

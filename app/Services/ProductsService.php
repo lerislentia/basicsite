@@ -6,18 +6,21 @@ use App\Services\BaseService;
 use Illuminate\Http\Request;
 use App\Repositories\ProductsRepository;
 
-class ProductsService extends BaseService{
-
+class ProductsService extends BaseService
+{
     protected $productsrepository;
-    public function __construct(ProductsRepository $productsrepository){
+    public function __construct(ProductsRepository $productsrepository)
+    {
         $this->productsrepository = $productsrepository;
     }
 
-    public function index(){
+    public function index()
+    {
         return $this->productsrepository->index();
     }
 
-    public function show($id){
+    public function show($id)
+    {
         return $this->productsrepository->show($id);
     }
 

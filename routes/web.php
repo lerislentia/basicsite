@@ -48,6 +48,25 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         'as'            => 'admin.index'
     ]);
 
+    Route::get('/sites', [
+        'uses'          => 'Admin\SitesController@index',
+        'roles'         => ['admin'],
+        'as'            => 'admin.sites'
+    ]);
+
+    Route::any('/sites/new', [
+        'uses'          => 'Admin\SitesController@new',
+        'roles'         => ['admin'],
+        'as'            => 'admin.sites.new'
+    ]);
+
+    Route::any('/sites/edit/{layout}', [
+        'uses'          => 'Admin\SitesController@edit',
+        'roles'         => ['admin'],
+        'as'            => 'admin.sites.edit'
+    ]);
+
+
     Route::get('/layouts', [
         'uses'          => 'Admin\LayoutsController@index',
         'roles'         => ['admin'],
@@ -254,6 +273,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         'uses'          => 'Admin\ProductsController@properties',
         'roles'         => ['admin'],
         'as'            => 'admin.products.properties.ajax'
+    ]);
+
+    Route::post('/products/properties/update', [
+        'uses'          => 'Admin\ProductsController@updateproperties',
+        'roles'         => ['admin'],
+        'as'            => 'admin.products.properties.update.ajax'
     ]);
 
     Route::get('/events', [

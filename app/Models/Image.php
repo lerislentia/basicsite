@@ -28,37 +28,22 @@ use App\Models\BaseModel;
  */
 class Image extends BaseModel
 {
-    const NAME 			= 'name';
-    const PATH 			= 'path';
-    const CAPTION 		= 'caption';
-    const DESCRIPTION 	= 'desciprtion';
-    const HREF 			= 'href';
-    const WIDTH 		= 'width';
-    const HEIGHT 		= 'height';
+    const ID 			    = 'id';
+    const FILENAME 			= 'filename';
+    const THUMB 			= 'thumb';
 
     protected $table = 'image';
 
-    protected $casts = [
-        self::WIDTH 	=> 'float',
-        self::WIDTH 	=> 'float'
-    ];
-
     protected $fillable = [
-        self::NAME,
-        self::PATH,
-        self::CAPTION,
-        self::DESCRIPTION,
-        self::WIDTH,
-        self::WIDTH,
-        self::HREF
+        self::FILENAME,
+        self::THUMB
     ];
     protected $appends = [
         'locale_value'
     ];
 
-    public function elements()
-    {
-        return $this->belongsToMany(\App\Models\Element::class)
-                    ->withPivot('id');
-    }
+    public function products()
+	{
+		return $this->belongsToMany(\App\Models\Product::class, 'product_image');
+	}
 }

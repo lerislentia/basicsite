@@ -12,6 +12,7 @@ use App\Services\LocaleService;
 use App\Services\CategoryService;
 use App\Services\StructureService;
 use App\Services\LayoutService;
+use App\Services\SitesService;
 
 use App\Models\Section;
 use App\Models\Categorie;
@@ -31,6 +32,7 @@ class IndexController extends Controller
     protected $categoryservice;
     protected $structureservice;
     protected $layoutsservice;
+    protected $sitesservice;
 
     public function __construct(
         StateService $stateservice,
@@ -39,7 +41,8 @@ class IndexController extends Controller
         LocaleService $localeservice,
         CategoryService $categoryservice,
         StructureService $structureservice,
-        LayoutService $layoutsservice
+        LayoutService $layoutsservice,
+        SitesService $sitesservice
         ) {
         $this->stateservice     = $stateservice;
         $this->sectionservice   = $sectionservice;
@@ -48,6 +51,7 @@ class IndexController extends Controller
         $this->categoryservice  = $categoryservice;
         $this->structureservice = $structureservice;
         $this->layoutsservice   = $layoutsservice;
+        $this->sitesservice     = $sitesservice;
     }
     public function index(Request $request, $locale = null, $pagename = null)
     {
@@ -66,15 +70,30 @@ class IndexController extends Controller
             }
 
             $locales    = $this->localeservice->index();
-            if($locale){
+            if ($locale) {
                 // $locale     = Session::get('locale');
                 \App::setlocale($locale);
                 Session(['locale' => $locale]);
-            }else{
+            } else {
                 $locale = \App::getlocale();
                 return Redirect()->route('home', ['locale' => $locale, 'pagename' => $pagename]);
             }
-            $page       = $this->pageservice->getByName($pagename, $locale);
+
+            $site       = $this->sitesservice->getActiveSite();
+
+            if (!$site) {
+                throw new \Exception('no sites active available');
+            }
+
+            $pages      = $site->pages()->get();
+
+            foreach ($pages as $pagefor) {
+                if ($pagefor[$pagefor::NAME] == $pagename) {
+                    $page = $pagefor;
+                }
+            }
+
+            // $page       = $this->pageservice->getByName($pagename, $locale);
 
             if (!$page) {
                 return abort(404);
@@ -82,7 +101,7 @@ class IndexController extends Controller
             $pagesections       = $page->pagesections()->get();
             $sections           = [];
             foreach ($pagesections as $pagesection) {
-                $sections[$pagesection->order] =  $pagesection->section()->first();
+                $sections[$pagesection[$pagesection::ORDER]] =  $pagesection->section()->first();
             }
 
 
@@ -105,11 +124,12 @@ class IndexController extends Controller
             $content = $view->render();
 
             $generateon = Config::get('app.default.GENERATE_HTML');
-            $replaceurl = Config::get('app.default.GENERATE_BASEURL');
+            // $replaceurl = Config::get('app.default.GENERATE_BASEURL');
+            // $replaceurl = Config::get('app.default.GENERATE_BASEURL');
             $baseurl = Config::get('app.url');
-            if($generateon){
-                $savecontent = str_replace($baseurl, $replaceurl, $content );
-                if($locale == App::getlocale()){
+            if ($generateon) {
+                $savecontent = str_replace($baseurl, $site[$site::URL], $content);
+                if ($locale == App::getlocale()) {
                     Storage::put($pagename.".html", $savecontent);
                 }
                 Storage::put("{$locale}/".$pagename.".html", $savecontent);

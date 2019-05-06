@@ -10,12 +10,16 @@
     </label>
         <input type="text" name="name" class="form-control" value="{{ isset($currentsection['name']) ? $currentsection['name'] : old('name') }}">
     </div>
+
     <div class="form-group">
         <label for="description">
         {{ __('back.description') }}
                 </label>
-        <input type="text" name="description" class="form-control" value="{{ isset($currentsection['description']) ? $currentsection['description'] : old('description') }}">
+        <textarea name="description" id="IdDescription" rows="10" cols="60">
+        {{ isset($currentsection['description']) ? $currentsection['description'] : old('description') }}
+        </textarea>
     </div>
+
 
     <div class="form-group">
         <label for="url">
@@ -103,6 +107,8 @@
 $(document).ready(function () {
 
     LoadAll();
+
+    CKEDITOR.replace( 'description' );
 
     $("#IdType").change(function() {
         LoadAll();

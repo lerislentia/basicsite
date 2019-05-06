@@ -18,7 +18,7 @@ class PageService extends BaseService
 
     public function index()
     {
-        return $this->pagerepository->index();
+        return $this->pagerepository->index()->get();
     }
 
     public function getByName($pagename, $locale)

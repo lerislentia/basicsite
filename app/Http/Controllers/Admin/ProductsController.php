@@ -8,10 +8,12 @@ use App\Services\ProductsService;
 use App\Services\LocaleService;
 use App\Services\EntityStateService;
 use App\Services\StructureService;
+use App\Services\SitesService;
+use Storage;
 use Redirect;
+use Config;
 use Session;
 use App;
-
 
 class ProductsController extends Controller
 {
@@ -21,26 +23,42 @@ class ProductsController extends Controller
     protected $localeservice;
     protected $entityservice;
     protected $structureservice;
+    protected $sitesservice;
 
     public function __construct(
-        ProductsService $productsservice, 
+        ProductsService $productsservice,
         LocaleService $localeservice,
         EntityStateService $entityservice,
-        StructureService $structureservice
-        )
-    {
+        StructureService $structureservice,
+        SitesService $sitesservice
+        ) {
         $this->productsservice = $productsservice;
         $this->localeservice = $localeservice;
         $this->entityservice = $entityservice;
         $this->structureservice = $structureservice;
+        $this->sitesservice = $sitesservice;
     }
 
     public function index(Request $request)
     {
-        $products = $this->productsservice->index();
+        $site       = $this->sitesservice->getActiveSite();
+
+        if (!$site) {
+            throw new \Exception('no sites active available');
+        }
+
+
+        $products = $site->products()->show()->get();
         $locales = $this->localeservice->index();
-        // $locale             = Session::get('locale');
+        // $locale             = App::getLocale();
         $locale             = App::getLocale();
+
+        $arrayproducts  = $products->toArray();
+        $jsonproducts = json_encode($arrayproducts);
+        $baseurl = Config::get('app.url');
+        $savecontent = str_replace($baseurl, $site[$site::URL], $jsonproducts);
+        Storage::disk('public')->put("products.json", $savecontent);
+        // public_path("products.json", $savecontent);
 
         $data = [
             'products'      => $products->toArray(),
@@ -57,7 +75,8 @@ class ProductsController extends Controller
             $products           = $this->productsservice->index();
             $locales            = $this->localeservice->index();
             $states             = $this->entityservice->index(self::ENTITY);
-            // $locale             = Session::get('locale');
+            $sites              = $this->sitesservice->index();
+            // $locale             = App::getLocale();
             $locale             = App::getLocale();
 
             $data = [
@@ -65,6 +84,7 @@ class ProductsController extends Controller
                 'products'      => $products->toArray(),
                 'states'        => $states->toArray(),
                 'locales'       => $locales->toArray(),
+                'sites'         => $sites->toArray(),
                 'locale'        => $locale
             ];
 
@@ -86,10 +106,10 @@ class ProductsController extends Controller
     public function edit(Request $request, $id)
     {
         try {
-            $currentproduct          = $this->productsservice->show($id);
-
+            $currentproduct     = $this->productsservice->show($id);
             $products           = $this->productsservice->index();
-            // $locale             = Session::get('locale');
+            $sites              = $this->sitesservice->index();
+            // $locale             = App::getLocale();
             $locales            = $this->localeservice->index();
             $locale             = App::getLocale();
 
@@ -103,6 +123,7 @@ class ProductsController extends Controller
             'currentproduct'    => $currentproduct->toArray(),
             'products'          => $products->toArray(),
             'locales'           => $locales->toArray(),
+            'sites'             => $sites->toArray(),
             'locale'            => $locale
         ];
 
@@ -112,7 +133,8 @@ class ProductsController extends Controller
         }
     }
 
-    public function delete(Request $request, $id){
+    public function delete(Request $request, $id)
+    {
         try {
             $currentproduct          = $this->productsservice->delete($id);
             return Redirect::route('admin.products');
@@ -127,25 +149,68 @@ class ProductsController extends Controller
 
         $locale = isset($params['locale']) ? $params['locale'] : null;
         if (!$locale) {
-            $locale = Session::get('locale');
+            $locale = App::getLocale();
         }
 
         if (isset($params['entity_id'])) {
             $product    = $this->productsservice->show($params['entity_id']);
             // $params     = (array) json_decode($product->data, true);
-            $params     = $product->toArray();
+            $data     = $product->toArray();
         }
 
-        if (isset($params[$locale])) {
-            $params = $params[$locale];
-        }
+        $data['locale'] = $locale;
+        // if (isset($params[$locale])) {
+        //     $locale = $params[$locale];
+        // }
 
-        $html       = $this->structureservice->getHtml(self::ENTITY, $params);
+        $html       = $this->structureservice->getHtml(self::ENTITY, $data);
         return response($html);
     }
 
-    public function properties(){
+    public function properties(Request $request)
+    {
+        $params     = $request->All();
+        $locale = isset($params['locale']) ? $params['locale'] : App::getLocale();
+        if (isset($params['entity_id'])) {
+            $entity            = $this->productsservice->show($params['entity_id']);
 
+            if (!$entity) {
+                throw new \Exception("no se encontro el elemento en la base de datos");
+            }
+
+            $definition = 'product';
+
+            if (!$definition) {
+                throw new \Exception("error en getproperties, el campo 'definition' no esta informado");
+            }
+    
+            $data = [
+                'element'       => $entity->toArray(),
+                'locale'        => $locale
+            ];
+    
+            $html       = $this->structureservice->getHtmlProperties($definition, $data);
+            return response($html);
+        } 
+
+    }
+
+
+    public function updateproperties(Request $request)
+    {
+        $params     = $request->All();
+        $locale = isset($params['locale']) ? $params['locale'] : App::getLocale();
+        if (isset($params['entity_id'])) {
+
+            if ($request->isMethod('post')) {
+                $params                 = $request->All();
+                $updated         = $this->productsservice->update($params['entity_id'], $params);
+
+                if ($updated) {
+                    return response("ok", 200);
+                }
+            }
+        } 
     }
 
     

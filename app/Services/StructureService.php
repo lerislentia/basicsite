@@ -99,7 +99,7 @@ class StructureService
         if (isset($entitydata[$locale])) {
             $entitydata = $entitydata[$locale];
         }
-
+        $data['locale'] = $locale;
         $html = $this->parseHtml($entity, array_merge($entitydata, $data));
 
         return $html;

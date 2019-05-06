@@ -12,8 +12,8 @@
         <ul>
             @foreach($categories as $categorie)
             <li>
-                    @isset($categorie['name_value']['lang'][session('locale')])
-                    <a href="{!! route('admin.categories.edit', ['id' => $categorie['id']]) !!}">{{$categorie['name_value']['lang'][session('locale')]['text'] or ''}}</a>
+                    @isset($categorie['name_value']['lang'][$locale])
+                    <a href="{!! route('admin.categories.edit', ['id' => $categorie['id']]) !!}">{{$categorie['name_value']['lang'][$locale]['text'] or ''}}</a>
                     @else
                     <a href="{!! route('admin.categories.edit', ['id' => $categorie['id']]) !!}">unstranslated</a>
                     @endisset

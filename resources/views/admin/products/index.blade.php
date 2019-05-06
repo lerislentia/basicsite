@@ -1,7 +1,7 @@
 @extends('layouts.back')
 
 @section('content')
-
+<script src="{{ URL::asset('storage/products.json') }}"></script>
         <div class="btn btn-primary">
             <a href="{!! route('admin.products.new') !!}"> new product</a>
         </div>
@@ -19,3 +19,7 @@
         </ul>
 
 @endsection
+
+@section('options')
+
+

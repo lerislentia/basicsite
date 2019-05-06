@@ -9,6 +9,7 @@ use App\Services\SectionService;
 use App\Services\TypeService;
 use App\Services\LocaleService;
 use App\Services\StateService;
+use App\Services\SitesService;
 use App\Models\Section;
 use Session;
 use Redirect;
@@ -22,23 +23,47 @@ class SectionsController extends Controller
     protected $sectionservice;
     protected $localeservice;
     protected $typeservice;
+    protected $sitesservice;
     protected $state;
 
     public function __construct(
         SectionService $sectionservice,
         StateService $state,
         TypeService $typeservice,
-        LocaleService $localeservice
+        LocaleService $localeservice,
+        SitesService $sitesservice
             ) {
         $this->sectionservice   = $sectionservice;
         $this->state            = $state;
         $this->typeservice      = $typeservice;
         $this->localeservice    = $localeservice;
+        $this->sitesservice     = $sitesservice;
     }
 
     public function index()
     {
-        $sections   = $this->sectionservice->getParentsWithChildrensTree();
+        $siteactive         = $this->sitesservice->getActiveSite();
+        $pages              = $siteactive->pages()->get();
+        $sections           = collect();
+        $pagesections       = collect();
+        foreach($pages as $pagefor){
+            $sectionsfor = $pagefor->sections()->with('childrens')->get();
+            foreach($sectionsfor as $sectionfor){
+                if($sectionfor[$sectionfor::FATHER]  == null){
+                    $sections->push($sectionfor);
+                }
+            }
+        }
+
+        // foreach($sections as $section){
+        //     $pagesectionsfor = $section->pagesections()->get();
+        //     foreach($pagesectionsfor as $pagesectionfor){
+        //         $pagesections->push($pagesectionfor);
+        //     }
+            
+        // }
+
+        // $sections   = $this->sectionservice->getParentsWithChildrensTree();
 
         $locales    = $this->localeservice->index();
         $locale     = Session::get('locale');

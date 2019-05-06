@@ -27,6 +27,8 @@
     <script src="{{ URL::asset('js/modernizr.custom.js') }}"></script>
     <script src="{{ URL::asset('js/grid.js') }}"></script>  
     <script src="{{ URL::asset('js/stellar.js') }}"></script>
+    <script src="{{ URL::asset('js/jquery.fancybox.js') }}"></script>
+    <script src="{{ URL::asset('js/jquery.fancybox.pack.js') }}"></script>
     <script src="{{ URL::asset('js/custom.js') }}"></script>
 
         @yield('scripts')

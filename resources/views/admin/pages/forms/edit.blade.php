@@ -19,6 +19,20 @@
     </div>
 
     <div class="form-group">
+        <label for="site_id">
+            site
+        </label>
+        <select name="site_id">
+        <option value="" {{($currentpage['site_id'] == null ? 'selected="selected"': '')}}> - </option>
+                @foreach($sites as $site)
+                    <option value="{{$site['id']}}" {{($site['id'] == $currentpage['site_id']) ? 'selected="selected"': ''}}>
+                        {{$site['name']}}
+                    </option>
+                @endforeach
+            </select>
+    </div>
+
+    <div class="form-group">
         <label for="state">
             state
         </label>

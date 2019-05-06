@@ -127,11 +127,17 @@ class Section extends BaseModel
     }
 
     public function pages()
-	{
-		return $this->belongsToMany(\App\Models\Page::class)
-					->withPivot('id', 'order')
-					->withTimestamps();
-	}
+    {
+        return $this->belongsToMany(\App\Models\Page::class)
+                    ->withPivot('id', 'order')
+                    ->withTimestamps();
+    }
+
+    public function pagesections()
+    {
+        return $this->hasMAny(\App\Models\PageSection::class)
+        ->orderBy(\App\Models\PageSection::ORDER);
+    }
 
     /**
      * custom relations

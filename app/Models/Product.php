@@ -29,23 +29,30 @@ class Product extends BaseModel
 {
     const NAME 			= 'name';
     const DESCRIPTION 	= 'description';
-    const URL 			= 'url';
+    const SITE 			= 'site_id';
 
     protected $table = 'product';
 
     protected $casts = [
         self::NAME 			=> 'int',
-        self::DESCRIPTION 	=> 'int'
+        self::DESCRIPTION 	=> 'int',
+        self::SITE 	        => 'int',
     ];
 
     protected $fillable = [
         self::NAME,
         self::DESCRIPTION,
-        self::URL
+        self::SITE
     ];
     protected $appends = [
         'locale_value', 'name_value', 'description_value'
     ];
+
+    public function site()
+	{
+		return $this->belongsTo(\App\Models\Site::class);
+    }
+
     public function text()
     {
         return $this->belongsTo(\App\Models\Text::class, 'description');
@@ -68,6 +75,23 @@ class Product extends BaseModel
         return $this->belongsTo(\App\Models\Text::class, 'name');
     }
 
+    public function offers()
+	{
+		return $this->hasMany(\App\Models\Offer::class);
+	}
+
+	public function images()
+	{
+		return $this->belongsToMany(\App\Models\Image::class, 'product_image')
+					->withPivot('product_id');
+	}
+
+	public function reviews()
+	{
+		return $this->hasMany(\App\Models\Review::class);
+	}
+
+    
 
     /**
      * ACCESSORS
@@ -100,6 +124,10 @@ class Product extends BaseModel
             $trans[$translation->locale_id] = $translation->toArray();
         }
         return ['lang' => $trans];
+    }
+
+    public function scopeShow(){
+        return $this->with('images');
     }
 
     // public function getStateAttribute()

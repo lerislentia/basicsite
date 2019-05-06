@@ -22,6 +22,11 @@ class Page extends BaseModel
         'locale_value'
     ];
 
+    public function site()
+    {
+        return $this->belongsTo(\App\Models\Site::class);
+    }
+
     public function sections()
     {
         return $this->belongsToMany(\App\Models\Section::class)

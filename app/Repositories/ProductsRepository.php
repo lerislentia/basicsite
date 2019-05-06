@@ -15,17 +15,20 @@ class ProductsRepository
         $this->product = $product;
     }
 
-    public function index(){
-        return $this->product->All();
+    public function index()
+    {
+        return $this->product->show()->get();
     }
 
-    public function show($id){
-        return $this->product->find($id)->first();
+    public function show($id)
+    {
+        return $this->product->show()
+            ->find($id);
     }
 
     public function findBy($params)
     {
-        $query = $this->product->select('*');
+        $query = $this->product->show();
         foreach ($params as $key => $value) {
             $query->where($key, '=', $value);
         }
@@ -86,7 +89,7 @@ class ProductsRepository
             $prodparams = [
                 'name'          => $name->id,
                 'description'   => $description->id,
-                'url'           => $params['url'],
+                'site_id'       => $params['site_id'],
             ];
             $prod = $this->product->create($prodparams);
 
@@ -106,60 +109,83 @@ class ProductsRepository
 
             $prod =  $this->product->find($id);
 
+            $prodparams = [];
+
             /**
              * name
              */
-            $name       = $prod->textName()->first();
-            if (!$name) {
-                $name   = $prod->textName()->create();
+            if(isset($params['name'])){
+                $name       = $prod->textName()->first();
+                if (!$name) {
+                    $name   = $prod->textName()->create();
+                }
+                $name->save();
+                $nparams = [
+                    'text' 		=> $params['name'],
+                    'locale_id'	=> $params['locale'],
+                    'text_id'	=> $name->id
+                ];
+    
+                $translation 						= $name->translations()->where('locale_id', '=', $nparams['locale_id'])->first();
+                if (!$translation) {
+                    $translation 					= $name->translations()->create($nparams);
+                } else {
+                    $translation->fill($nparams);
+                }
+                $translation->save();
+                $prodparams['name'] = $name->id;
             }
-            $name->save();
-            $nparams = [
-                'text' 		=> $params['name'],
-                'locale_id'	=> $params['locale'],
-                'text_id'	=> $name->id
-            ];
-
-            $translation 						= $name->translations()->where('locale_id', '=', $nparams['locale_id'])->first();
-            if (!$translation) {
-                $translation 					= $name->translations()->create($nparams);
-            } else {
-                $translation->fill($nparams);
-            }
-            $translation->save();
-
-
+            
             /**
              * description
              */
-            $description       = $prod->textDescription()->first();
-            if (!$description) {
-                $description   = $prod->textDescription()->create();
+            if(isset($params['description'])){
+                $description       = $prod->textDescription()->first();
+                if (!$description) {
+                    $description   = $prod->textDescription()->create();
+                }
+                $description->save();
+                $dparams = [
+                    'text' 		        => $params['description'],
+                    'locale_id'	        => $params['locale'],
+                    'text_id'	        => $description->id
+                ];
+    
+                $translation 						= $description->translations()->where('locale_id', '=', $dparams['locale_id'])->first();
+                if (!$translation) {
+                    $translation 					= $description->translations()->create($dparams);
+                } else {
+                    $translation->fill($dparams);
+                }
+                $translation->save();
+                $prodparams['description'] = $description->id;
             }
-            $description->save();
-            $dparams = [
-                'text' 		        => $params['description'],
-                'locale_id'	        => $params['locale'],
-                'text_id'	        => $description->id
-            ];
 
-            $translation 						= $description->translations()->where('locale_id', '=', $dparams['locale_id'])->first();
-            if (!$translation) {
-                $translation 					= $description->translations()->create($dparams);
-            } else {
-                $translation->fill($dparams);
+            if(isset($params['site_id'])){
+                $prodparams['site_id'] = $params['site_id'];
             }
-            $translation->save();
-
-
-            $prodparams = [
-                'name'          => $name->id,
-                'description'   => $description->id,
-                'url'           => $params['url'],
-            ];
 
             $prod->fill($prodparams);
             $prod->save();
+
+            if(isset($params['filename']) || isset($params['thumb'])){
+
+                $pimage = [
+                    'filename'  => isset($params['filename'])   ? $params['filename']   : null,
+                    'thumb'     => isset($params['thumb'])      ? $params['thumb']      : null,
+                ];
+
+                $image = $prod->images()->first();
+
+                if(!$image){
+                    $image = $prod->images()->create($pimage);
+                }else{
+                    $image->fill($pimage);
+                }
+                $image->save();
+                
+            }
+
             DB::commit();
             return $prod;
         } catch (\Exception $e) {

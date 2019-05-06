@@ -65,13 +65,5 @@
 </form>
 
 
-<div>
-<ul>
-@foreach($sections as $sectionn)
-<li>
-{{ $sectionn['name_value']['lang'][$locale]['text'] }}
-</li>
-@endforeach
-</ul>
-</div>
+
 @endsection

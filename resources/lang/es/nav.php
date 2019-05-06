@@ -7,6 +7,7 @@ return [
     'works'     => 'Trabajos',
     'team'      => 'Equipo',
     'contact'   => 'Contacto',
+    'products'   => 'Productos',
     'language'   => 'Idioma',
     'english'   => 'english',
     'spanish'   => 'castellano',

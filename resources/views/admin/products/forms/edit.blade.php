@@ -7,24 +7,46 @@
 <form action="" method="POST">
 
     <div class="form-group">
-        <label for="name">
-        {{ __('back.name') }}
-    </label>
-        <input type="text" name="name" class="form-control" value="{{ isset($currentproduct['name_value']['lang'][$locale]['text']) ? $currentproduct['name_value']['lang'][$locale]['text'] : old('name') }}">
+        <label for="site_id">
+            site
+        </label>
+        <select name="site_id" class="form-control">
+        <option value="" {{($currentproduct['site_id'] == null ? 'selected="selected"': '')}}> - </option>
+                @foreach($sites as $site)
+                    <option value="{{$site['id']}}" {{($site['id'] == $currentproduct['site_id']) ? 'selected="selected"': ''}}>
+                        {{$site['name']}}
+                    </option>
+                @endforeach
+            </select>
     </div>
-    <div class="form-group">
-        <label for="description">
-        {{ __('back.description') }}
-                </label>
-        <input type="text" name="description" class="form-control" value="{{ isset($currentproduct['description_value']['lang'][$locale]['text']) ? $currentproduct['description_value']['lang'][$locale]['text'] : old('description') }}">
+
+     <div class="form-group">
+        <label for="filename">
+            large image
+        </label>
+        <input 
+            id="IdLargeImage" 
+            type="text" 
+            name="filename" 
+            class="form-control" 
+            onclick="browseServer(this);"  
+            value="{{ isset($currentproduct['images'][0]['filename']) ? $currentproduct['images'][0]['filename'] : old('filename') }}">
     </div>
 
     <div class="form-group">
-        <label for="url">
-                url
-                </label>
-        <input type="text" name="url" class="form-control" value="{{ isset($currentproduct['url']) ? $currentproduct['url'] : old('url') }}">
+        <label for="filename">
+            thumb image
+        </label>
+        <input 
+            id="IdThumbImage" 
+            type="text" 
+            name="thumb" 
+            class="form-control" 
+            onclick="browseServer(this);"  
+            value="{{ isset($currentproduct['images'][0]['thumb']) ? $currentproduct['images'][0]['thumb'] : old('thumb') }}">
     </div>
+
+
     <input type="hidden" id="IdLocale" name="locale" value="{{$locale}}">
     <input type="hidden" id="IdEntity" value="{{$currentproduct['id']}}">
     {{ csrf_field() }}
@@ -41,11 +63,18 @@
 
 @endsection
 
+@section('options')
+@include('admin.partials.locales')
+@endsection
+
 @section('scripts')
 
 <script type="text/javascript">
 
 $(document).ready(function () {
+
+    for ( instance in CKEDITOR.instances )
+    CKEDITOR.instances[instance].updateElement();
 
     LoadAll();
 
@@ -72,11 +101,6 @@ if(locale == null){
     locale  = $("#IdLocale").val();
 }
 
-
-if(type==''){
-    return false;
-}
-
 $( "#preview" ).html("");
 
 $( "#preview" ).load(
@@ -91,10 +115,9 @@ $( "#preview" ).load(
 
 function LoadProperties(locale = null){
 
-var type    = $("#IdType").val();
 var entity  = $("#IdEntity").val();
 
-if(type==null || entity==null){
+if(entity==null){
     return false;
 }
 
@@ -106,14 +129,9 @@ $( "#properties" ).load(
     "entity_id" : entity ,
     "locale"    : locale ,
     "_token"    : $('meta[name="csrf-token"]').attr('content'),
-    "entity_id" : entity,
     }
 );
 }
 
 </script>
-@endsection
-
-@section('options')
-@include('admin.partials.locales')
 @endsection

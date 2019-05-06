@@ -9,6 +9,7 @@ use App\Services\StateService;
 use App\Services\PageService;
 use App\Services\SectionService;
 use App\Services\PageSectionService;
+use App\Services\SitesService;
 use Session;
 use Redirect;
 
@@ -20,6 +21,7 @@ class PageSectionController extends Controller
     protected $pageservice;
     protected $sectionservice;
     protected $pagesectionservice;
+    protected $sitesservice;
 
 
 
@@ -27,19 +29,41 @@ class PageSectionController extends Controller
         LocaleService $localeservice,
         PageService $pageservice,
         SectionService $sectionservice,
-        PageSectionService $pagesectionservice
+        PageSectionService $pagesectionservice,
+        SitesService $sitesservice
         ) {
         $this->localeservice        = $localeservice;
         $this->pageservice          = $pageservice;
         $this->sectionservice       = $sectionservice;
         $this->pagesectionservice   = $pagesectionservice;
+        $this->sitesservice         = $sitesservice;
     }
 
     public function index()
     {
-        $sections           = $this->sectionservice->getParents();
-        $pages              = $this->pageservice->index();
-        $pagesections   = $this->pagesectionservice->index();
+        $siteactive         = $this->sitesservice->getActiveSite();
+        $pages              = $siteactive->pages()->get();
+        $sections           = collect();
+        $pagesections       = collect();
+        foreach($pages as $pagefor){
+            $sectionsfor = $pagefor->sections()->get();
+            foreach($sectionsfor as $sectionfor){
+                if($sectionfor[$sectionfor::FATHER]  == null){
+                    $sections->push($sectionfor);
+                }
+            }
+        }
+
+        foreach($sections as $section){
+            $pagesectionsfor = $section->pagesections()->get();
+            foreach($pagesectionsfor as $pagesectionfor){
+                $pagesections->push($pagesectionfor);
+            }
+            
+        }
+
+        // $pages              = $this->pageservice->index();
+        // $pagesections   = $this->pagesectionservice->index();
         $locales        = $this->localeservice->index();
         $locale     = Session::get('locale');
 

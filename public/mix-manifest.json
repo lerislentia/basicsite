@@ -10,5 +10,7 @@
     "/js/jquery.nav.js": "/js/jquery.nav.js",
     "/js/jquery.scrollTo.min.js": "/js/jquery.scrollTo.min.js",
     "/js/modernizr.custom.js": "/js/modernizr.custom.js",
-    "/js/stellar.js": "/js/stellar.js"
+    "/js/stellar.js": "/js/stellar.js",
+    "/js/jquery.fancybox.js": "/js/jquery.fancybox.js",
+    "/js/jquery.fancybox.pack.js": "/js/jquery.fancybox.pack.js"
 }

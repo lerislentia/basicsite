@@ -10,7 +10,7 @@ use App\Services\CategoryService;
 use App\Services\EntityStateService;
 use App\Services\LocaleService;
 use App\Services\SectionService;
-
+use App;
 use Redirect;
 use Throwable;
 use Session;
@@ -41,7 +41,8 @@ class CategorieController extends Controller
         $categories = $this->categorie->index();
 
         $locales = $this->localeservice->index();
-        $locale             = Session::get('locale');
+        // $locale             = Session::get('locale');
+        $locale             = App::getLocale();
 
         $data = [
             'categories'    => $categories->toArray(),
@@ -89,7 +90,8 @@ class CategorieController extends Controller
             $categories         = $this->categorie->getParents();
             $sections           = $this->sectionservice->index();
             $states             = $this->entitystate->index(self::ENTITY);
-            $locale             = Session::get('locale');
+            // $locale             = Session::get('locale');
+            $locale             = App::getLocale();
 
             if ($request->isMethod('post')) {
                 $params                 = $request->All();
@@ -102,7 +104,7 @@ class CategorieController extends Controller
             'categories'        => $categories->toArray(),
             'sections'          => $sections->toArray(),
             'states'            => $states->toArray(),
-            'locale'            => Session::get('locale')
+            'locale'            => $locale
         ];
 
             return view('admin.categories.forms.edit', $data);

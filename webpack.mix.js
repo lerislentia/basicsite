@@ -22,6 +22,8 @@ mix
 .copy('resources/assets/js/jquery.scrollTo.min.js', 'public/js')
 .copy('resources/assets/js/modernizr.custom.js', 'public/js')
 .copy('resources/assets/js/stellar.js', 'public/js')
+.copy('resources/assets/js/jquery.fancybox.js', 'public/js')
+.copy('resources/assets/js/jquery.fancybox.pack.js', 'public/js')
 .sass('resources/assets/sass/app.scss', 'public/css')
 .sass('resources/assets/sass/back.scss', 'public/css');
 

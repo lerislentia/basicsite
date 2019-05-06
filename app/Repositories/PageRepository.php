@@ -19,7 +19,7 @@ class PageRepository extends BaseRepository
 
     public function index()
     {
-        return $this->pagemodel->All();
+        return $this->pagemodel->with('site');
     }
 
     public function show($id)

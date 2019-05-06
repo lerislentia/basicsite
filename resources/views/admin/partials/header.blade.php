@@ -19,6 +19,9 @@
             <ul>
                 <label>{{ __('back.structure') }}</label>
                 <li>
+                    <a href="{!!route('admin.sites')!!}">{{ __('back.sites') }}</a>
+                </li>
+                <li>
                     <a href="{!!route('admin.pages')!!}">{{ __('back.pages') }}</a>
                 </li>
                 <li>

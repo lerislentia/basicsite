@@ -3,7 +3,7 @@
           <div class="container-fluid">
             <div id="preview">
             </div>
-            <div class="tab">
+            <div class="tab" style="clear: both;">
                 @foreach($locales as $key => $local)
                 @if($local['id'] == $locale)
                 <button class="tablinks active" onclick="openTab(event, '{{$local['id']}}')">{{$local['description']}}</button>

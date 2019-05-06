@@ -11,6 +11,7 @@ use App\Services\SectionService;
 use App\Services\LocaleService;
 use Session;
 use Redirect;
+use App;
 
 class StructureController extends Controller
 {
@@ -61,7 +62,7 @@ class StructureController extends Controller
 
         $locale = isset($params['locale']) ? $params['locale'] : null;
         if (!$locale) {
-            $locale = Session::get('locale');
+            $locale = App::getLocale();
         }
 
         if (isset($params['entity_id'])) {
@@ -88,8 +89,8 @@ class StructureController extends Controller
     {
         $params     = $request->All();
 
-        $locale = isset($params['locale']) ? $params['locale'] : Session::get('locale');
-        // $locale     = Session::get('locale');
+        $locale = isset($params['locale']) ? $params['locale'] : App::getLocale();
+        // $locale     = App::getLocale();
 
         // $locale     = $this->localeservice->index();
 
@@ -130,7 +131,7 @@ class StructureController extends Controller
     {
         $params     = $request->All();
 
-        $locale     = isset($params['locale']) ? $params['locale'] : Session::get('locale');
+        $locale     = isset($params['locale']) ? $params['locale'] : App::getLocale();
 
         $entity            = $this->elementsservice->show($params['entity_id']);
 

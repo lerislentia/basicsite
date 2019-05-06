@@ -8,7 +8,7 @@
             <li>
                 
                     @isset($page['name'])
-                    <a href="{!! route('admin.pages.edit', ['id' => $page['id']]) !!}">{{$page['name'] or ''}}</a>
+                    <a href="{!! route('admin.pages.edit', ['id' => $page['id']]) !!}">{{$page['site']['name'] or ''}}   {{$page['name'] or ''}}</a>
                     @else
                     <a href="{!! route('admin.pages.edit', ['id' => $page['id']]) !!}">unstranslated</a>
                     @endisset
